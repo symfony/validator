@@ -222,6 +222,18 @@
                 <source>Unsupported card type or invalid card number.</source>
                 <target>Неподдерживаемый тип или неверный номер карты.</target>
             </trans-unit>
+            <trans-unit id="59">
+                <source>This value should be a valid date.</source>
+                <target>Значение должно быть датой.</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>This date should be {{ limit }} or earlier.</source>
+                <target>Дата должна быть {{ limit }} или ранее.</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>This value should be {{ limit }} or later.</source>
+                <target>Дата должна быть {{ limit }} или позднее.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
