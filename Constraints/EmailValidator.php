@@ -113,7 +113,7 @@ class EmailValidator extends ConstraintValidator
      */
     private function checkMX($host)
     {
-        return checkdnsrr($host, 'MX');
+        return checkdnsrr(idn_to_ascii($host), 'MX');
     }
 
     /**
@@ -125,6 +125,7 @@ class EmailValidator extends ConstraintValidator
      */
     private function checkHost($host)
     {
+        $host = idn_to_ascii($host);
         return $this->checkMX($host) || (checkdnsrr($host, "A") || checkdnsrr($host, "AAAA"));
     }
 }
