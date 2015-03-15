@@ -65,6 +65,7 @@ class EmailValidatorTest extends AbstractConstraintValidatorTest
             array('fabien@symfony.com'),
             array('example@example.co.uk'),
             array('fabien_potencier@example.fr'),
+            array('test@ñandu.cl'),
         );
     }
 
