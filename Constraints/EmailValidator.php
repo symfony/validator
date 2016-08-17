@@ -24,6 +24,13 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class EmailValidator extends ConstraintValidator
 {
     /**
+     * Pattern used for non-strict validation.
+     *
+     * By exposing it as a constant, it can be re-used in front-end validation for example.
+     */
+    const PATTERN = '/^.+\@\S+\.\S+$/';
+
+    /**
      * @var bool
      */
     private $isStrict;
@@ -78,7 +85,7 @@ class EmailValidator extends ConstraintValidator
 
                 return;
             }
-        } elseif (!preg_match('/^.+\@\S+\.\S+$/', $value)) {
+        } elseif (!preg_match(self::PATTERN, $value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(Email::INVALID_FORMAT_ERROR)
