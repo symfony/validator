@@ -34,7 +34,7 @@ class CollectionValidator extends ConstraintValidator
         }
 
         if (!\is_array($value) && !($value instanceof \Traversable && $value instanceof \ArrayAccess)) {
-            throw new UnexpectedTypeException($value, 'array or Traversable and ArrayAccess');
+            throw new UnexpectedTypeException($value, 'array, Traversable or ArrayAccess');
         }
 
         // We need to keep the initialized context when CollectionValidator
