@@ -35,8 +35,8 @@ class ChoiceValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\Choice');
         }
 
-        if (!\is_array($constraint->choices) && !$constraint->callback) {
-            throw new ConstraintDefinitionException('Either "choices" or "callback" must be specified on constraint Choice');
+        if (!\is_array($constraint->choices) && !$constraint->callback && !$constraint->choicesAsConstant) {
+            throw new ConstraintDefinitionException('Either "choices", "callback" or "choicesAsConstant" must be specified on constraint Choice');
         }
 
         if (null === $value) {
@@ -47,7 +47,23 @@ class ChoiceValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'array');
         }
 
-        if ($constraint->callback) {
+        if ($constraint->choicesAsConstant) {
+            if (!defined($constraint->choicesAsConstant)) {
+                throw new ConstraintDefinitionException(sprintf('"%s" is not a valid constant', $constraint->choicesAsConstant));
+            }
+
+            if (!\is_array(constant($constraint->choicesAsConstant))) {
+                throw new ConstraintDefinitionException(
+                    sprintf(
+                        'Constant "%s" should be an array "%s" given',
+                        $constraint->choicesAsConstant,
+                        get_class(constant($constraint->choicesAsConstant))
+                    )
+                );
+            }
+
+            $choices = constant($constraint->choicesAsConstant);
+        } elseif ($constraint->callback) {
             if (!\is_callable($choices = array($this->context->getObject(), $constraint->callback))
                 && !\is_callable($choices = array($this->context->getClassName(), $constraint->callback))
                 && !\is_callable($choices = $constraint->callback)
@@ -100,6 +116,7 @@ class ChoiceValidator extends ConstraintValidator
         } elseif (!\in_array($value, $choices, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
+                ->setParameter('{{ choices }}', implode(', ', $choices))
                 ->setCode(Choice::NO_SUCH_CHOICE_ERROR)
                 ->addViolation();
         }
