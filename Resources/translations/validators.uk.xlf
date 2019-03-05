@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="10">
                 <source>This field is missing.</source>
-                <target>Це поле не вистачає.</target>
+                <target>Це поле відсутнє.</target>
             </trans-unit>
             <trans-unit id="11">
                 <source>This value is not a valid date.</source>
@@ -52,7 +52,7 @@
             </trans-unit>
             <trans-unit id="13">
                 <source>This value is not a valid email address.</source>
-                <target>Значення адреси электронної пошти недопустиме.</target>
+                <target>Значення адреси електронної пошти недопустиме.</target>
             </trans-unit>
             <trans-unit id="14">
                 <source>The file could not be found.</source>
@@ -112,7 +112,7 @@
             </trans-unit>
             <trans-unit id="31">
                 <source>The two values should be equal.</source>
-                <target>Обидва занчення повинні бути одинаковими.</target>
+                <target>Обидва значення повинні бути однаковими.</target>
             </trans-unit>
             <trans-unit id="32">
                 <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
@@ -180,7 +180,7 @@
             </trans-unit>
             <trans-unit id="48">
                 <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-                <target>Значення повиино бути рівним {{ limit }} символу.|Значення повиино бути рівним {{ limit }} символам.|Значення повиино бути рівним {{ limit }} символам.</target>
+                <target>Значення повинно бути рівним {{ limit }} символу.|Значення повинно бути рівним {{ limit }} символам.|Значення повинно бути рівним {{ limit }} символам.</target>
             </trans-unit>
             <trans-unit id="49">
                 <source>The file was only partially uploaded.</source>
@@ -284,7 +284,7 @@
             </trans-unit>
             <trans-unit id="74">
                 <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-                <target>Співвідношення сторін зображення занадто мало ({{ ratio }}). Мінімальне співвідношення сторін {{ min_ratio }}.</target>
+                <target>Співвідношення сторін зображення занадто мале ({{ ratio }}). Мінімальне співвідношення сторін {{ min_ratio }}.</target>
             </trans-unit>
             <trans-unit id="75">
                 <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
