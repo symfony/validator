@@ -84,7 +84,10 @@ class PropertyMetadata extends MemberMetadata
                 throw new ValidatorException(sprintf('Property "%s" does not exist in class "%s".', $this->getName(), $originalClass));
             }
         }
+        
+        $member = new \ReflectionProperty($objectOrClassName, $this->getName());
+        $member->setAccessible(true);
 
-        return new \ReflectionProperty($objectOrClassName, $this->getName());
+        return $member;
     }
 }
