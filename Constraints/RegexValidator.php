@@ -33,7 +33,7 @@ class RegexValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Regex::class);
         }
 
-        if (null === $value || '' === $value) {
+        if (null === $value) {
             return;
         }
 
