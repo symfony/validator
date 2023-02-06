@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\Required;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-abstract class CollectionValidatorTest extends ConstraintValidatorTestCase
+abstract class CollectionValidatorTestCase extends ConstraintValidatorTestCase
 {
     protected function createValidator(): CollectionValidator
     {

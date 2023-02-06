@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class CountValidatorTest extends ConstraintValidatorTestCase
+abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
 {
     protected function createValidator(): CountValidator
     {
