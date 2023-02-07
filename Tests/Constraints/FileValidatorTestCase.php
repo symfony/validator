@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-abstract class FileValidatorTest extends ConstraintValidatorTestCase
+abstract class FileValidatorTestCase extends ConstraintValidatorTestCase
 {
     protected $path;
 
