@@ -126,8 +126,10 @@ interface ExecutionContextInterface
      *
      * @internal Used by the validator engine. Should not be called by user
      *           code.
+     *
+     * @return void
      */
-    public function setNode(mixed $value, ?object $object, MetadataInterface $metadata = null, string $propertyPath): void;
+    public function setNode(mixed $value, ?object $object, MetadataInterface $metadata = null, string $propertyPath);
 
     /**
      * Sets the currently validated group.
@@ -136,16 +138,20 @@ interface ExecutionContextInterface
      *
      * @internal Used by the validator engine. Should not be called by user
      *           code.
+     *
+     * @return void
      */
-    public function setGroup(?string $group): void;
+    public function setGroup(?string $group);
 
     /**
      * Sets the currently validated constraint.
      *
      * @internal Used by the validator engine. Should not be called by user
      *           code.
+     *
+     * @return void
      */
-    public function setConstraint(Constraint $constraint): void;
+    public function setConstraint(Constraint $constraint);
 
     /**
      * Marks an object as validated in a specific validation group.
@@ -156,8 +162,10 @@ interface ExecutionContextInterface
      *
      * @internal Used by the validator engine. Should not be called by user
      *           code.
+     *
+     * @return void
      */
-    public function markGroupAsValidated(string $cacheKey, string $groupHash): void;
+    public function markGroupAsValidated(string $cacheKey, string $groupHash);
 
     /**
      * Returns whether an object was validated in a specific validation group.
@@ -178,8 +186,10 @@ interface ExecutionContextInterface
      *
      * @internal Used by the validator engine. Should not be called by user
      *           code.
+     *
+     * @return void
      */
-    public function markConstraintAsValidated(string $cacheKey, string $constraintHash): void;
+    public function markConstraintAsValidated(string $cacheKey, string $constraintHash);
 
     /**
      * Returns whether a constraint was validated for an object.
