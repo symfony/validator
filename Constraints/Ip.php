@@ -46,6 +46,16 @@ class Ip extends Constraint
     public const V6_ONLY_PUBLIC = '6_public';
     public const ALL_ONLY_PUBLIC = 'all_public';
 
+    // adds inverse FILTER_FLAG_NO_PRIV_RANGE
+    public const V4_ONLY_PRIV = '4_priv';
+    public const V6_ONLY_PRIV = '6_priv';
+    public const ALL_ONLY_PRIV = 'all_priv';
+
+    // adds inverse FILTER_FLAG_NO_RES_RANGE
+    public const V4_ONLY_RES = '4_res';
+    public const V6_ONLY_RES = '6_res';
+    public const ALL_ONLY_RES = 'all_res';
+
     public const INVALID_IP_ERROR = 'b1b427ae-9f6f-41b0-aa9b-84511fbb3c5b';
 
     protected const VERSIONS = [
@@ -64,6 +74,14 @@ class Ip extends Constraint
         self::V4_ONLY_PUBLIC,
         self::V6_ONLY_PUBLIC,
         self::ALL_ONLY_PUBLIC,
+
+        self::V4_ONLY_PRIV,
+        self::V6_ONLY_PRIV,
+        self::ALL_ONLY_PRIV,
+
+        self::V4_ONLY_RES,
+        self::V6_ONLY_RES,
+        self::ALL_ONLY_RES,
     ];
 
     protected const ERROR_NAMES = [
