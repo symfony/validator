@@ -276,7 +276,9 @@ abstract class ConstraintValidatorTestCase extends TestCase
 
     protected function assertNoViolation()
     {
-        $this->assertSame(0, $violationsCount = \count($this->context->getViolations()), sprintf('0 violation expected. Got %u.', $violationsCount));
+        $violations = $this->context->getViolations();
+        
+        $this->assertSame(0, $violationsCount = \count($violations), sprintf('0 violation expected. Got %u. Violations: %s', $violationsCount, $violations));
     }
 
     protected function buildViolation(string|\Stringable $message): ConstraintViolationAssertion
