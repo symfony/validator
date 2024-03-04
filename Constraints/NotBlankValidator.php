@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @author Kévin Dunglas <dunglas@gmail.com>
+ * @author Lionel Kimb's <lionelkimbs@gmail.com>
  */
 class NotBlankValidator extends ConstraintValidator
 {
@@ -35,6 +36,8 @@ class NotBlankValidator extends ConstraintValidator
             $value = ($constraint->normalizer)($value);
         }
 
+        $value = is_string($value) ? trim($value) : $value;
+        
         if (false === $value || (empty($value) && '0' != $value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))

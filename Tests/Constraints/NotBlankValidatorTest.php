@@ -71,6 +71,20 @@ class NotBlankValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
+    public function testBlankTextIsInvalid()
+    {
+        $constraint = new NotBlank([
+            'message' => 'myMessage',
+        ]);
+
+        $this->validator->validate('              ', $constraint);
+
+        $this->buildViolation('myMessage')
+            ->setParameter('{{ value }}', '""')
+            ->setCode(NotBlank::IS_BLANK_ERROR)
+            ->assertRaised();
+    }
+
     public function testFalseIsInvalid()
     {
         $constraint = new NotBlank([
