@@ -69,8 +69,7 @@ class UniqueValidator extends ConstraintValidator
                     $output[$field] = $element[$field];
                 }
             } else if (is_object($element)) {
-                $accessor = PropertyAccess
-                    ::createPropertyAccessor();
+                $accessor = PropertyAccess::createPropertyAccessor();
                 if ($accessor->isReadable($element, $field)) {
                     $output[$field] = $accessor->getValue($element, $field);
                 }
