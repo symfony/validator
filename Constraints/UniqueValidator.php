@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * @author Yevgeniy Zholkevskiy <zhenya.zholkevskiy@gmail.com>
@@ -68,24 +67,15 @@ class UniqueValidator extends ConstraintValidator
         return $unique->normalizer;
     }
 
-    private function reduceElementKeys(array $fields, array|object $element): array
+    private function reduceElementKeys(array $fields, array $element): array
     {
         $output = [];
         foreach ($fields as $field) {
             if (!\is_string($field)) {
                 throw new UnexpectedTypeException($field, 'string');
             }
-
-            if (is_array($element)) {
-                if (\array_key_exists($field, $element)) {
-                    $output[$field] = $element[$field];
-                }
-            } else if (is_object($element)) {
-                $accessor = PropertyAccess
-                    ::createPropertyAccessor();
-                if ($accessor->isReadable($element, $field)) {
-                    $output[$field] = $accessor->getValue($element, $field);
-                }
+            if (\array_key_exists($field, $element)) {
+                $output[$field] = $element[$field];
             }
         }
 
