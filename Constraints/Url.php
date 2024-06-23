@@ -44,6 +44,7 @@ class Url extends Constraint
      * @param bool|null                $relativeProtocol Whether to accept URL without the protocol (i.e. //example.com) (defaults to false)
      * @param string[]|null            $groups
      * @param bool|null                $requireTld       Whether to require the URL to include a top-level domain (defaults to false)
+     * @param string|null              $tldMessage       Override the default TLD error message
      */
     public function __construct(
         ?array $options = null,
@@ -54,6 +55,7 @@ class Url extends Constraint
         ?array $groups = null,
         mixed $payload = null,
         ?bool $requireTld = null,
+        ?string $tldMessage = null,
     ) {
         parent::__construct($options, $groups, $payload);
 
@@ -66,6 +68,7 @@ class Url extends Constraint
         $this->relativeProtocol = $relativeProtocol ?? $this->relativeProtocol;
         $this->normalizer = $normalizer ?? $this->normalizer;
         $this->requireTld = $requireTld ?? $this->requireTld;
+        $this->tldMessage = $tldMessage ?? $this->tldMessage;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
             throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
