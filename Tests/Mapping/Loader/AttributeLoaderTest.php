@@ -210,6 +210,21 @@ class AttributeLoaderTest extends TestCase
         $this->assertEquals($expected, $metadata);
     }
 
+    public function testLoadExternalGroupSequenceProvider()
+    {
+        $loader = $this->createAttributeLoader();
+        $namespace = $this->getFixtureAttributeNamespace();
+
+        $metadata = new ClassMetadata($namespace.'\GroupProviderDto');
+        $loader->loadClassMetadata($metadata);
+
+        $expected = new ClassMetadata($namespace.'\GroupProviderDto');
+        $expected->setGroupSequenceProvider(true);
+        $expected->setGroupProvider('Symfony\Component\Validator\Tests\Dummy\DummyGroupProvider');
+
+        $this->assertEquals($expected, $metadata);
+    }
+
     protected function createAttributeLoader(): AttributeLoader
     {
         return new AttributeLoader();
@@ -218,5 +233,10 @@ class AttributeLoaderTest extends TestCase
     protected function getFixtureNamespace(): string
     {
         return 'Symfony\Component\Validator\Tests\Fixtures\NestedAttribute';
+    }
+
+    protected function getFixtureAttributeNamespace(): string
+    {
+        return 'Symfony\Component\Validator\Tests\Fixtures\Attribute';
     }
 }
