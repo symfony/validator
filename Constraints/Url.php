@@ -44,6 +44,7 @@ class Url extends Constraint
      * @param bool|null                $relativeProtocol Whether to accept URL without the protocol (i.e. //example.com) (defaults to false)
      * @param string[]|null            $groups
      * @param bool|null                $requireTld       Whether to require the URL to include a top-level domain (defaults to false)
+     * @param string|null              $tldMessage       Override the default TLD error message
      */
     public function __construct(
         ?array $options = null,
