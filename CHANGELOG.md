@@ -4,6 +4,7 @@ CHANGELOG
 7.3
 ---
 
+ * Add the `filenameCharset` and `filenameCountUnit` options to the `File` constraint
  * Deprecate defining custom constraints not supporting named arguments
  * Deprecate passing an array of options to the constructors of the constraint classes, pass each option as a dedicated argument instead
  * Add support for ratio checks for SVG files to the `Image` constraint
