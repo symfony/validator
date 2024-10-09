@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\CountValidator;
 use Symfony\Component\Validator\Constraints\DivisibleBy;
@@ -69,11 +72,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getThreeOrLessElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getThreeOrLessElements')]
     public function testValidValuesMax($value)
     {
         $constraint = new Count(['max' => 3]);
@@ -93,11 +94,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getFiveOrMoreElements')]
     public function testValidValuesMin($value)
     {
         $constraint = new Count(['min' => 5]);
@@ -117,11 +116,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getFourElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getFourElements')]
     public function testValidValuesExact($value)
     {
         $constraint = new Count(4);
@@ -141,11 +138,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getFiveOrMoreElements')]
     public function testTooManyValues($value)
     {
         $constraint = new Count([
@@ -182,11 +177,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getThreeOrLessElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getThreeOrLessElements')]
     public function testTooFewValues($value)
     {
         $constraint = new Count([
@@ -223,11 +216,9 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getFiveOrMoreElements')]
     public function testTooManyValuesExact($value)
     {
         $constraint = new Count([

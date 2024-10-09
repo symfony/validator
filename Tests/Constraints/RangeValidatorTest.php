@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\RangeValidator;
@@ -69,11 +72,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getTenToTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMin($value)
     {
         $constraint = new Range(['min' => 10]);
@@ -93,11 +94,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getTenToTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMax($value)
     {
         $constraint = new Range(['max' => 20]);
@@ -117,11 +116,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getTenToTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinMax($value)
     {
         $constraint = new Range(['min' => 10, 'max' => 20]);
@@ -141,11 +138,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getLessThanTen
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesMin($value, $formattedValue)
     {
         $constraint = new Range([
@@ -178,11 +173,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getMoreThanTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesMax($value, $formattedValue)
     {
         $constraint = new Range([
@@ -215,11 +208,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getMoreThanTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesCombinedMax($value, $formattedValue)
     {
         $constraint = new Range([
@@ -255,11 +246,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getLessThanTen
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesCombinedMin($value, $formattedValue)
     {
         $constraint = new Range([
@@ -634,11 +623,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getTenToTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinPropertyPath($value)
     {
         $this->setObject(new Limit(10));
@@ -747,11 +734,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getMoreThanTwenty
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesCombinedMaxPropertyPath($value, $formattedValue)
     {
         $this->setObject(new MinMax(10, 20));
@@ -799,11 +784,9 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider getLessThanTen
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesCombinedMinPropertyPath($value, $formattedValue)
     {
         $this->setObject(new MinMax(10, 20));

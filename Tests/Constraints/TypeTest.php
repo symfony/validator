@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -46,9 +48,8 @@ class TypeTest extends TestCase
         new Type(null);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testTypeInOptionsArray()
     {
         $constraint = new Type(null, options: ['type' => 'digit']);

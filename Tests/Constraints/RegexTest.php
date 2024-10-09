@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
@@ -97,9 +99,8 @@ class RegexTest extends TestCase
         $this->assertEquals('trim', $regex->normalizer);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidNormalizerThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -107,9 +108,8 @@ class RegexTest extends TestCase
         new Regex(['pattern' => '/^[0-9]+$/', 'normalizer' => 'Unknown Callable']);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidNormalizerObjectThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -148,9 +148,8 @@ class RegexTest extends TestCase
         new Regex(null);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);
@@ -159,9 +158,8 @@ class RegexTest extends TestCase
         new Regex([]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testPatternInOptionsArray()
     {
         $constraint = new Regex(null, options: ['pattern' => '/^[0-9]+$/']);

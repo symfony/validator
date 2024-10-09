@@ -11,6 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\ChoiceValidator;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -81,9 +84,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testValidChoiceArrayFirstArgument()
     {
         $this->validator->validate('bar', new Choice(['foo', 'bar']));
@@ -91,11 +93,9 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider provideLegacyConstraintsWithChoicesArrayDoctrineStyle
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('provideLegacyConstraintsWithChoicesArrayDoctrineStyle')]
     public function testValidChoiceArrayDoctrineStyle(Choice $constraint)
     {
         $this->validator->validate('bar', $constraint);
@@ -126,11 +126,9 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         yield 'named arguments, static method' => [new Choice(callback: [__CLASS__, 'staticCallback'])];
     }
 
-    /**
-     * @group legacy
-     *
-     * @dataProvider provideLegacyConstraintsWithCallbackFunctionDoctrineStyle
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    #[DataProvider('provideLegacyConstraintsWithCallbackFunctionDoctrineStyle')]
     public function testValidChoiceCallbackFunctionDoctrineStyle(Choice $constraint)
     {
         $this->validator->validate('bar', $constraint);
@@ -194,9 +192,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testMultipleChoicesDoctrineStyle()
     {
         $this->validator->validate(['baz', 'bar'], new Choice([
@@ -218,9 +215,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidChoiceDoctrineStyle()
     {
         $this->validator->validate('baz', new Choice(['choices' => ['foo', 'bar'], 'message' => 'myMessage']));
@@ -266,9 +262,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidChoiceMultipleDoctrineStyle()
     {
         $this->validator->validate(['foo', 'baz'], new Choice([
@@ -306,9 +301,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testTooFewChoicesDoctrineStyle()
     {
         $value = ['foo'];
@@ -351,9 +345,8 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testTooManyChoicesDoctrineStyle()
     {
         $value = ['foo', 'bar', 'moo'];

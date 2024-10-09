@@ -11,8 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\PhpUnit\ExpectUserDeprecationMessageTrait;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -40,8 +41,6 @@ use Symfony\Component\Validator\Tests\Mapping\Loader\Fixtures\ConstraintWithoutV
 
 class XmlFileLoaderTest extends TestCase
 {
-    use ExpectUserDeprecationMessageTrait;
-
     public function testLoadClassMetadataReturnsTrueIfSuccessful()
     {
         $loader = new XmlFileLoader(__DIR__.'/constraint-mapping.xml');
@@ -94,9 +93,8 @@ class XmlFileLoaderTest extends TestCase
         $this->assertEquals($expected, $metadata);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLoadClassMetadataValueOption()
     {
         $loader = new XmlFileLoader(__DIR__.'/constraint-mapping-value-option.xml');
@@ -192,9 +190,8 @@ class XmlFileLoaderTest extends TestCase
         }
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLoadConstraintWithoutNamedArgumentsSupport()
     {
         $loader = new XmlFileLoader(__DIR__.'/constraint-without-named-arguments-support.xml');

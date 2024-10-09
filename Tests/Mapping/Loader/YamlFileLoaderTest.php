@@ -11,8 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\PhpUnit\ExpectUserDeprecationMessageTrait;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -37,8 +38,6 @@ use Symfony\Component\Validator\Tests\Mapping\Loader\Fixtures\ConstraintWithoutV
 
 class YamlFileLoaderTest extends TestCase
 {
-    use ExpectUserDeprecationMessageTrait;
-
     public function testLoadClassMetadataReturnsFalseIfEmpty()
     {
         $loader = new YamlFileLoader(__DIR__.'/empty-mapping.yml');
@@ -138,9 +137,8 @@ class YamlFileLoaderTest extends TestCase
         $this->assertEquals($expected, $metadata);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLoadClassMetadataValueOption()
     {
         $loader = new YamlFileLoader(__DIR__.'/constraint-mapping-value-option.yml');
@@ -208,9 +206,8 @@ class YamlFileLoaderTest extends TestCase
         $this->assertEquals($expected, $metadata);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLoadConstraintWithoutNamedArgumentsSupport()
     {
         $loader = new YamlFileLoader(__DIR__.'/constraint-without-named-arguments-support.yml');

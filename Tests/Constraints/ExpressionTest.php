@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -51,9 +53,8 @@ class ExpressionTest extends TestCase
         new Expression(null);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);
@@ -62,9 +63,8 @@ class ExpressionTest extends TestCase
         new Expression([]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInitializeWithOptionsArray()
     {
         $constraint = new Expression([
@@ -74,9 +74,8 @@ class ExpressionTest extends TestCase
         $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testExpressionInOptionsArray()
     {
         $constraint = new Expression(null, options: ['expression' => '!this.getParent().get("field2").getData()']);

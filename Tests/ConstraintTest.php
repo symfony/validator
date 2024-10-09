@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -29,9 +31,8 @@ use Symfony\Component\Validator\Tests\Fixtures\LegacyConstraintA;
 
 class ConstraintTest extends TestCase
 {
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetProperties()
     {
         $constraint = new LegacyConstraintA([
@@ -43,9 +44,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals('bar', $constraint->property2);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetNotExistingPropertyThrowsException()
     {
         $this->expectException(InvalidOptionsException::class);
@@ -55,9 +55,8 @@ class ConstraintTest extends TestCase
         ]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testMagicPropertiesAreNotAllowed()
     {
         $constraint = new LegacyConstraintA();
@@ -67,9 +66,8 @@ class ConstraintTest extends TestCase
         $constraint->foo = 'bar';
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidAndRequiredOptionsPassed()
     {
         $this->expectException(InvalidOptionsException::class);
@@ -80,9 +78,8 @@ class ConstraintTest extends TestCase
         ]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetDefaultProperty()
     {
         $constraint = new LegacyConstraintA('foo');
@@ -90,9 +87,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals('foo', $constraint->property2);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetDefaultPropertyDoctrineStyle()
     {
         $constraint = new LegacyConstraintA(['value' => 'foo']);
@@ -100,9 +96,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals('foo', $constraint->property2);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetDefaultPropertyDoctrineStylePlusOtherProperty()
     {
         $constraint = new LegacyConstraintA(['value' => 'foo', 'property1' => 'bar']);
@@ -111,9 +106,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals('bar', $constraint->property1);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetDefaultPropertyDoctrineStyleWhenDefaultPropertyIsNamedValue()
     {
         $constraint = new ConstraintWithValueAsDefault(['value' => 'foo']);
@@ -122,9 +116,8 @@ class ConstraintTest extends TestCase
         $this->assertNull($constraint->property);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testDontSetDefaultPropertyIfValuePropertyExists()
     {
         $constraint = new ConstraintWithValue(['value' => 'foo']);
@@ -133,9 +126,8 @@ class ConstraintTest extends TestCase
         $this->assertNull($constraint->property);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetUndefinedDefaultProperty()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -143,9 +135,8 @@ class ConstraintTest extends TestCase
         new ConstraintB('foo');
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testRequiredOptionsMustBeDefined()
     {
         $this->expectException(MissingOptionsException::class);
@@ -153,9 +144,8 @@ class ConstraintTest extends TestCase
         new ConstraintC();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testRequiredOptionsPassed()
     {
         $constraint = new ConstraintC(['option1' => 'default']);
@@ -163,9 +153,8 @@ class ConstraintTest extends TestCase
         $this->assertSame('default', $constraint->option1);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testGroupsAreConvertedToArray()
     {
         $constraint = new LegacyConstraintA(['groups' => 'Foo']);
@@ -180,18 +169,16 @@ class ConstraintTest extends TestCase
         $this->assertEquals(['Default', 'Foo'], $constraint->groups);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testAllowsSettingZeroRequiredPropertyValue()
     {
         $constraint = new LegacyConstraintA(0);
         $this->assertEquals(0, $constraint->property2);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testCanCreateConstraintWithNoDefaultOptionAndEmptyArray()
     {
         $constraint = new ConstraintB([]);
@@ -222,9 +209,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals($constraint, $restoredConstraint);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSerializeDoctrineStyle()
     {
         $constraint = new LegacyConstraintA([
@@ -248,9 +234,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals($expected, $constraint);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSerializeInitializesGroupsOptionToDefaultDoctrineStyle()
     {
         $constraint = new LegacyConstraintA([
@@ -278,9 +263,8 @@ class ConstraintTest extends TestCase
         $this->assertSame(['MyGroup'], $constraint->groups);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSerializeKeepsCustomGroupsDoctrineStyle()
     {
         $constraint = new LegacyConstraintA([
@@ -300,9 +284,8 @@ class ConstraintTest extends TestCase
         Constraint::getErrorName(1);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testOptionsAsDefaultOption()
     {
         $constraint = new LegacyConstraintA($options = ['value1']);
@@ -314,9 +297,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals($options, $constraint->property2);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidOptions()
     {
         $this->expectException(InvalidOptionsException::class);
@@ -324,9 +306,8 @@ class ConstraintTest extends TestCase
         new LegacyConstraintA(['property2' => 'foo', 'bar', 5 => 'baz']);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testOptionsWithInvalidInternalPointer()
     {
         $options = ['property1' => 'foo'];
@@ -338,9 +319,8 @@ class ConstraintTest extends TestCase
         $this->assertEquals('foo', $constraint->property1);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testAttributeSetUndefinedDefaultOption()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -348,9 +328,8 @@ class ConstraintTest extends TestCase
         new ConstraintB(['value' => 1]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testStaticPropertiesAreNoOptions()
     {
         $this->expectException(InvalidOptionsException::class);
@@ -360,9 +339,8 @@ class ConstraintTest extends TestCase
         ]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSetTypedProperty()
     {
         $constraint = new ConstraintWithTypedProperty([

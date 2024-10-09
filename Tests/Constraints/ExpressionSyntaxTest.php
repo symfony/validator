@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\ExpressionSyntax;
 use Symfony\Component\Validator\Constraints\ExpressionSyntaxValidator;
@@ -44,9 +46,8 @@ class ExpressionSyntaxTest extends TestCase
         yield 'attribute' => [$metadata->properties['b']->constraints[0]];
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testValidatedByServiceDoctrineStyle()
     {
         $constraint = new ExpressionSyntax(['service' => 'my_service']);

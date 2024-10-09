@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
@@ -29,9 +31,8 @@ class UrlTest extends TestCase
         $this->assertEquals('trim', $url->normalizer);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidNormalizerThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -39,9 +40,8 @@ class UrlTest extends TestCase
         new Url(['normalizer' => 'Unknown Callable', 'requireTld' => true]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidNormalizerObjectThrowsException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -80,9 +80,8 @@ class UrlTest extends TestCase
         self::assertTrue($dConstraint->requireTld);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testRequireTldDefaultsToFalse()
     {
         $constraint = new Url();

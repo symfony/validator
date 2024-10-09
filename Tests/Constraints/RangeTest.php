@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -18,9 +20,8 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 class RangeTest extends TestCase
 {
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testThrowsConstraintExceptionIfBothMinLimitAndPropertyPath()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -38,9 +39,8 @@ class RangeTest extends TestCase
         new Range(min: 'min', minPropertyPath: 'minPropertyPath');
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testThrowsConstraintExceptionIfBothMaxLimitAndPropertyPath()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -92,9 +92,8 @@ class RangeTest extends TestCase
         new Range(min: 'min', max: 'max', maxMessage: 'maxMessage');
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testThrowsConstraintDefinitionExceptionIfBothMinAndMaxAndMinMessageAndMaxMessageOptions()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -107,9 +106,8 @@ class RangeTest extends TestCase
         ]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testThrowsConstraintDefinitionExceptionIfBothMinAndMaxAndMinMessageOptions()
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -121,9 +119,8 @@ class RangeTest extends TestCase
         ]);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testThrowsConstraintDefinitionExceptionIfBothMinAndMaxAndMaxMessageOptions()
     {
         $this->expectException(ConstraintDefinitionException::class);

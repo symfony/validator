@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Validator\Constraints\Image;
@@ -87,9 +89,9 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
 
     /**
      * Checks that the logic from FileValidator still works.
-     *
-     * @group legacy
      */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testFileNotFoundDoctrineStyle()
     {
         $this->validator->validate('foobar', new Image([
@@ -127,9 +129,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testWidthTooSmallDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -155,9 +156,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testWidthTooBigDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -183,9 +183,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testHeightTooSmallDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -211,9 +210,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testHeightTooBigDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -241,9 +239,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testPixelsTooFewDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -273,9 +270,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testPixelsTooManyDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -303,9 +299,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testRatioTooSmallDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -331,9 +326,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testRatioTooBigDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -386,9 +380,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testSquareNotAllowedDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
@@ -414,9 +407,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLandscapeNotAllowedDoctrineStyle()
     {
         $this->validator->validate($this->imageLandscape, new Image([
@@ -442,9 +434,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testPortraitNotAllowedDoctrineStyle()
     {
         $this->validator->validate($this->imagePortrait, new Image([
@@ -478,9 +469,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testCorruptedDoctrineStyle()
     {
         if (!\function_exists('imagecreatefromstring')) {
@@ -534,9 +524,8 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testInvalidMimeTypeWithNarrowedSetDoctrineStyle()
     {
         $this->validator->validate($this->image, new Image([
