@@ -27,6 +27,7 @@ class Unique extends Constraint
 
     public array|string $fields = [];
     public ?string $errorPath = null;
+    public bool $stopOnFirstError = true;
 
     protected const ERROR_NAMES = [
         self::IS_NOT_UNIQUE => 'IS_NOT_UNIQUE',
@@ -50,6 +51,7 @@ class Unique extends Constraint
         mixed $payload = null,
         array|string|null $fields = null,
         ?string $errorPath = null,
+        ?bool $stopOnFirstError = null,
     ) {
         if (\is_array($options)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
@@ -61,6 +63,7 @@ class Unique extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
         $this->fields = $fields ?? $this->fields;
         $this->errorPath = $errorPath ?? $this->errorPath;
+        $this->stopOnFirstError = $stopOnFirstError ?? $this->stopOnFirstError;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
             throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));

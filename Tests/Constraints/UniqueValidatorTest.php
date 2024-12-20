@@ -387,6 +387,77 @@ class UniqueValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
+    public function testWithoutStopOnFirstError()
+    {
+        $this->validator->validate(
+            ['a1', 'a2', 'a1', 'a1', 'a2'],
+            new Unique(stopOnFirstError: false),
+        );
+
+        $this
+            ->buildViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', '"a1"')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[2]')
+
+            ->buildNextViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', '"a1"')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[3]')
+
+            ->buildNextViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', '"a2"')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[4]')
+
+            ->assertRaised();
+    }
+
+    public function testWithoutStopOnFirstErrorWithErrorPath()
+    {
+        $array = [
+            new DummyClassOne(),
+            new DummyClassOne(),
+            new DummyClassOne(),
+            new DummyClassOne(),
+            new DummyClassOne(),
+        ];
+
+        $array[0]->code = 'a1';
+        $array[1]->code = 'a2';
+        $array[2]->code = 'a1';
+        $array[3]->code = 'a1';
+        $array[4]->code = 'a2';
+
+        $this->validator->validate(
+            $array,
+            new Unique(
+                normalizer: [self::class, 'normalizeDummyClassOne'],
+                fields: 'code',
+                errorPath: 'code',
+                stopOnFirstError: false,
+            )
+        );
+
+        $this
+            ->buildViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', 'array')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[2].code')
+
+            ->buildNextViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', 'array')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[3].code')
+
+            ->buildNextViolation('This collection should contain only unique elements.')
+            ->setParameter('{{ value }}', 'array')
+            ->setCode(Unique::IS_NOT_UNIQUE)
+            ->atPath('property.path[4].code')
+
+            ->assertRaised();
+    }
+
     public static function normalizeDummyClassOne(DummyClassOne $obj): array
     {
         return [
