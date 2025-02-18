@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Validator\Tests\Constraints\Fixtures\WhenTestWithAttributes;
+use Symfony\Component\Validator\Tests\Constraints\Fixtures\WhenTestWithClosure;
 
 final class WhenTest extends TestCase
 {
@@ -110,5 +111,39 @@ final class WhenTest extends TestCase
         self::assertEquals([new NotNull(groups: ['foo'])], $quuxConstraint->constraints);
         self::assertEquals([new Length(exactly: 10, groups: ['foo'])], $quuxConstraint->otherwise);
         self::assertSame(['foo'], $quuxConstraint->groups);
+    }
+
+    /**
+     * @requires PHP 8.5
+     */
+    public function testAttributesWithClosure()
+    {
+        $loader = new AttributeLoader();
+        $metadata = new ClassMetadata(WhenTestWithClosure::class);
+
+        self::assertTrue($loader->loadClassMetadata($metadata));
+
+        [$classConstraint] = $metadata->getConstraints();
+
+        self::assertInstanceOf(When::class, $classConstraint);
+        self::assertInstanceOf(\Closure::class, $classConstraint->expression);
+        self::assertEquals([
+            new Callback(
+                callback: 'callback',
+                groups: ['Default', 'WhenTestWithClosure'],
+            ),
+        ], $classConstraint->constraints);
+        self::assertEmpty($classConstraint->otherwise);
+
+        [$fooConstraint] = $metadata->properties['foo']->getConstraints();
+
+        self::assertInstanceOf(When::class, $fooConstraint);
+        self::assertInstanceOf(\Closure::class, $fooConstraint->expression);
+        self::assertEquals([
+            new NotNull(groups: ['Default', 'WhenTestWithClosure']),
+            new NotBlank(groups: ['Default', 'WhenTestWithClosure']),
+        ], $fooConstraint->constraints);
+        self::assertEmpty($fooConstraint->otherwise);
+        self::assertSame(['Default', 'WhenTestWithClosure'], $fooConstraint->groups);
     }
 }
