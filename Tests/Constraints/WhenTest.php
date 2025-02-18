@@ -75,7 +75,7 @@ final class WhenTest extends TestCase
 
         [$barConstraint] = $metadata->properties['bar']->getConstraints();
 
-        self::assertInstanceOf(When::class, $fooConstraint);
+        self::assertInstanceOf(When::class, $barConstraint);
         self::assertSame('false', $barConstraint->expression);
         self::assertEquals([
             new NotNull(groups: ['foo']),
