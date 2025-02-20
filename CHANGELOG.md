@@ -11,6 +11,7 @@ CHANGELOG
  * Add support for the `otherwise` option in the `When` constraint
  * Add support for multiple fields containing nested constraints in `Composite` constraints
  * Add the `stopOnFirstError` option to the `Unique` constraint to validate all elements
+ * Add support for closures in the `When` constraint
 
 7.2
 ---

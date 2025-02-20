@@ -40,6 +40,34 @@ final class WhenValidatorTest extends ConstraintValidatorTestCase
         ));
     }
 
+    public function testConstraintsAreExecutedWhenClosureIsTrue()
+    {
+        $constraints = [
+            new NotNull(),
+            new NotBlank(),
+        ];
+
+        $this->expectValidateValue(0, 'Foo', $constraints);
+
+        $this->validator->validate('Foo', new When(
+            expression: static fn () => true,
+            constraints: $constraints,
+        ));
+    }
+
+    public function testClosureTakesSubject()
+    {
+        $subject = new \stdClass();
+        $this->setObject($subject);
+
+        $this->validator->validate($subject, new When(
+            expression: static function ($closureSubject) use ($subject) {
+                self::assertSame($subject, $closureSubject);
+            },
+            constraints: new NotNull(),
+        ));
+    }
+
     public function testConstraintIsExecuted()
     {
         $constraint = new NotNull();
@@ -60,6 +88,20 @@ final class WhenValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate('Foo', new When(
             expression: 'false',
+            constraints: $constraint,
+            otherwise: $otherwise,
+        ));
+    }
+
+    public function testOtherwiseIsExecutedWhenClosureReturnsFalse()
+    {
+        $constraint = new NotNull();
+        $otherwise = new Length(exactly: 10);
+
+        $this->expectValidateValue(0, 'Foo', [$otherwise]);
+
+        $this->validator->validate('Foo', new When(
+            expression: static fn () => false,
             constraints: $constraint,
             otherwise: $otherwise,
         ));
