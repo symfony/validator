@@ -165,6 +165,9 @@ class Image extends File
         ?string $corruptedMessage = null,
         ?array $groups = null,
         mixed $payload = null,
+        ?string $filenameCharset = null,
+        ?string $filenameCountUnit = null,
+        ?string $filenameCharsetMessage = null,
     ) {
         parent::__construct(
             $options,
@@ -187,7 +190,10 @@ class Image extends File
             $uploadExtensionErrorMessage,
             $uploadErrorMessage,
             $groups,
-            $payload
+            $payload,
+            $filenameCharset,
+            $filenameCountUnit,
+            $filenameCharsetMessage,
         );
 
         $this->minWidth = $minWidth ?? $this->minWidth;
