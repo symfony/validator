@@ -118,6 +118,8 @@ final class WhenTest extends TestCase
      */
     public function testAttributesWithClosure()
     {
+        $this->markTestSkipped('Requires https://github.com/php/php-src/issues/17851 to be fixed');
+
         $loader = new AttributeLoader();
         $metadata = new ClassMetadata(WhenTestWithClosure::class);
 
@@ -129,7 +131,7 @@ final class WhenTest extends TestCase
         self::assertInstanceOf(\Closure::class, $classConstraint->expression);
         self::assertEquals([
             new Callback(
-                callback: 'callback',
+                callback: 'isValid',
                 groups: ['Default', 'WhenTestWithClosure'],
             ),
         ], $classConstraint->constraints);

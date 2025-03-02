@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints\Fixtures;
 
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\When;
 
 #[When(expression: static function () {
         return true;
-    }, constraints: new NotNull()
+    }, constraints: new Callback('isValid')
 )]
 class WhenTestWithClosure
 {
