@@ -118,8 +118,6 @@ final class WhenTest extends TestCase
      */
     public function testAttributesWithClosure()
     {
-        $this->markTestSkipped('Requires https://github.com/php/php-src/issues/17851 to be fixed');
-
         $loader = new AttributeLoader();
         $metadata = new ClassMetadata(WhenTestWithClosure::class);
 
