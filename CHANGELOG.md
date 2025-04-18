@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+8.1
+---
+
+ * Add the `Xml` constraint for validating XML content
+
 8.0
 ---
 
