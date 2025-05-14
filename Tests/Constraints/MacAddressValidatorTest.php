@@ -63,6 +63,19 @@ class MacAddressValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
+    /**
+     * @dataProvider getNotValidMacs
+     */
+    public function testNotValidMac($mac)
+    {
+        $this->validator->validate($mac, new MacAddress());
+
+        $this->buildViolation('This value is not a valid MAC address.')
+            ->setParameter('{{ value }}', '"'.$mac.'"')
+            ->setCode(MacAddress::INVALID_MAC_ERROR)
+            ->assertRaised();
+    }
+
     public static function getValidMacs(): array
     {
         return [
@@ -73,6 +86,17 @@ class MacAddressValidatorTest extends ConstraintValidatorTestCase
             ['FF:FF:FF:FF:FF:FF'],
             ['FF-FF-FF-FF-FF-FF'],
             ['FFFF.FFFF.FFFF'],
+        ];
+    }
+
+    public static function getNotValidMacs(): array
+    {
+        return [
+            ['00:00:00:00:00'],
+            ['00:00:00:00:00:0G'],
+            ['GG:GG:GG:GG:GG:GG'],
+            ['GG-GG-GG-GG-GG-GG'],
+            ['GGGG.GGGG.GGGG'],
         ];
     }
 
