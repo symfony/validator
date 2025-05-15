@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints\Slug;
 use Symfony\Component\Validator\Constraints\SlugValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -47,6 +48,7 @@ class SlugValidatorTest extends ConstraintValidatorTestCase
      * @testWith ["test-slug"]
      *           ["slug-123-test"]
      *           ["slug"]
+     *           ["TestSlug"]
      */
     public function testValidSlugs($slug)
     {
@@ -56,8 +58,7 @@ class SlugValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @testWith ["NotASlug"]
-     *           ["Not a slug"]
+     * @testWith ["Not a slug"]
      *           ["not-á-slug"]
      *           ["not-@-slug"]
      */
@@ -91,13 +92,25 @@ class SlugValidatorTest extends ConstraintValidatorTestCase
 
     /**
      * @testWith ["slug"]
-     * @testWith ["test1234"]
+     *           ["test1234"]
      */
     public function testCustomRegexValidSlugs($slug)
     {
         $constraint = new Slug(regex: '/^[a-z0-9]+$/i');
 
         $this->validator->validate($slug, $constraint);
+
+        $this->assertNoViolation();
+    }
+
+    /**
+     * @testWith ["PHP"]
+     *           ["Symfony is cool"]
+     *           ["Lorem ipsum dolor sit amet"]
+     */
+    public function testAcceptAsciiSluggerResults(string $text)
+    {
+        $this->validator->validate((new AsciiSlugger())->slug($text), new Slug());
 
         $this->assertNoViolation();
     }

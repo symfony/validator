@@ -25,7 +25,7 @@ class Slug extends Constraint
     public const NOT_SLUG_ERROR = '14e6df1e-c8ab-4395-b6ce-04b132a3765e';
 
     public string $message = 'This value is not a valid slug.';
-    public string $regex = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
+    public string $regex = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/i';
 
     #[HasNamedArguments]
     public function __construct(
