@@ -8,7 +8,6 @@ CHANGELOG
  * Deprecate defining custom constraints not supporting named arguments
  * Deprecate passing an array of options to the constructors of the constraint classes, pass each option as a dedicated argument instead
  * Add support for ratio checks for SVG files to the `Image` constraint
- * Add the `Slug` constraint
  * Add support for the `otherwise` option in the `When` constraint
  * Add support for multiple fields containing nested constraints in `Composite` constraints
  * Add the `stopOnFirstError` option to the `Unique` constraint to validate all elements
