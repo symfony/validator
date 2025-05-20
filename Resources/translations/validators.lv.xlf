@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target>Šai vērtībai nevajadzētu būt pēc "{{ max }}" nedēļas.</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target>Šī vērtība nav derīgs URL slug.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target>Šī vērtība nav derīgs Twig šablons.</target>

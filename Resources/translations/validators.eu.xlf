@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target state="needs-review-translation">Balio hau ez luke astearen "{{ max }}" ondoren egon behar.</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target state="needs-review-translation">Balio hau ez da slug balioduna.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target state="needs-review-translation">Balio hau ez da Twig txantiloi baliozko bat.</target>

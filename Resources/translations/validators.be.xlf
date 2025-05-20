@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target state="needs-review-translation">Гэта значэнне не павінна быць пасля тыдня "{{ max }}".</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target state="needs-review-translation">Гэта значэнне не з'яўляецца сапраўдным слугам.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target state="needs-review-translation">Гэта значэнне не з'яўляецца сапраўдным шаблонам Twig.</target>

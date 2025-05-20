@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target>Nilai ini tidak boleh setelah minggu "{{ max }}".</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target>Nilai ini bukan slug yang valid.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target state="needs-review-translation">Nilai ini bukan templat Twig yang valid.</target>
