@@ -468,7 +468,7 @@
             </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
-                <target state="needs-review-translation">Bu değer geçerli bir Twig şablonu değil.</target>
+                <target>Bu değer geçerli bir Twig şablonu olarak kabul edilmiyor.</target>
             </trans-unit>
         </body>
     </file>
