@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target>Ez az érték nem lehet a "{{ max }}". hétnél későbbi.</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target>Ez az érték nem érvényes slug.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target state="needs-review-translation">Ez az érték nem érvényes Twig sablon.</target>

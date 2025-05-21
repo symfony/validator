@@ -466,10 +466,6 @@
                 <source>This value should not be after week "{{ max }}".</source>
                 <target state="needs-review-translation">Tämän arvon ei pitäisi olla viikon "{{ max }}" jälkeen.</target>
             </trans-unit>
-            <trans-unit id="120">
-                <source>This value is not a valid slug.</source>
-                <target state="needs-review-translation">Tämä arvo ei ole kelvollinen slug.</target>
-            </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
                 <target state="needs-review-translation">Tämä arvo ei ole kelvollinen Twig-malli.</target>
