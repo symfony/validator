@@ -58,7 +58,7 @@ class Image extends File
         self::CORRUPTED_IMAGE_ERROR => 'CORRUPTED_IMAGE_ERROR',
     ];
 
-    public array|string $mimeTypes = 'image/*';
+    public array|string $mimeTypes = [];
     public ?int $minWidth = null;
     public ?int $maxWidth = null;
     public ?int $maxHeight = null;
@@ -220,7 +220,7 @@ class Image extends File
         $this->allowPortraitMessage = $allowPortraitMessage ?? $this->allowPortraitMessage;
         $this->corruptedMessage = $corruptedMessage ?? $this->corruptedMessage;
 
-        if (null === $this->mimeTypes && [] === $this->extensions) {
+        if ([] === $this->mimeTypes && [] === $this->extensions) {
             $this->mimeTypes = 'image/*';
         }
 
