@@ -109,6 +109,115 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
+    /**
+     * Test that protocols: ['*'] allows any protocol
+     */
+    public function testProtocolsWildcardAllowsAnyProtocol()
+    {
+        $constraint = new Url(protocols: ['*'], requireTld: false);
+
+        $validUrls = [
+            'http://example.com',
+            'https://example.com',
+            'ftp://example.com',
+            'custom://example.com',
+            'myapp://example.com/path?query=1',
+            'git+ssh://git@github.com/repo.git',
+            'file://path/to/file',
+            'scheme123://example.com',
+            'a://example.com',
+        ];
+
+        foreach ($validUrls as $url) {
+            $this->validator->validate($url, $constraint);
+            $this->assertNoViolation();
+        }
+    }
+
+    /**
+     * Test that protocols: ['*'] still validates scheme format according to RFC 3986
+     */
+    public function testProtocolsWildcardRejectsInvalidSchemes()
+    {
+        $constraint = new Url(protocols: ['*'], requireTld: true);
+
+        $invalidUrls = [
+            '123://example.com',
+            '+scheme://example.com',
+            '-scheme://example.com',
+            '.scheme://example.com',
+            'example.com',
+            '://example.com',
+        ];
+
+        foreach ($invalidUrls as $url) {
+            $this->setUp();
+            $this->validator->validate($url, $constraint);
+
+            $this->buildViolation($constraint->message)
+                ->setParameter('{{ value }}', '"'.$url.'"')
+                ->setCode(Url::INVALID_URL_ERROR)
+                ->assertRaised();
+        }
+    }
+
+    /**
+     * Test that protocols: ['*'] works with relativeProtocol
+     */
+    public function testProtocolsWildcardWithRelativeProtocol()
+    {
+        $constraint = new Url(protocols: ['*'], relativeProtocol: true, requireTld: true);
+
+        $this->validator->validate('custom://example.com', $constraint);
+        $this->assertNoViolation();
+
+        $this->validator->validate('//example.com', $constraint);
+        $this->assertNoViolation();
+    }
+
+    /**
+     * Test that protocols: ['*'] works with requireTld
+     */
+    public function testProtocolsWildcardWithRequireTld()
+    {
+        $constraint = new Url(protocols: ['*'], requireTld: true);
+
+        $this->validator->validate('custom://example.com', $constraint);
+        $this->assertNoViolation();
+
+        $this->validator->validate('custom://localhost', $constraint);
+        $this->buildViolation($constraint->tldMessage)
+            ->setParameter('{{ value }}', '"custom://localhost"')
+            ->setCode(Url::MISSING_TLD_ERROR)
+            ->assertRaised();
+    }
+
+    /**
+     * Test that protocols accepts regex patterns
+     */
+    public function testProtocolsSupportsRegexPatterns()
+    {
+        $constraint = new Url(protocols: ['https?', 'custom.*'], requireTld: true);
+
+        $validUrls = [
+            'http://example.com',
+            'https://example.com',
+            'custom://example.com',
+            'customapp://example.com',
+        ];
+
+        foreach ($validUrls as $url) {
+            $this->validator->validate($url, $constraint);
+            $this->assertNoViolation();
+        }
+
+        $this->validator->validate('ftp://example.com', $constraint);
+        $this->buildViolation($constraint->message)
+            ->setParameter('{{ value }}', '"ftp://example.com"')
+            ->setCode(Url::INVALID_URL_ERROR)
+            ->assertRaised();
+    }
+
     public static function getValidRelativeUrls()
     {
         return [
