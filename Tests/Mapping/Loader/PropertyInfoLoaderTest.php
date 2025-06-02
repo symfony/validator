@@ -15,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\PropertyAccessExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyListExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\PropertyInfo\Type as LegacyType;
 use Symfony\Component\TypeInfo\Type;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Iban;
@@ -62,7 +61,6 @@ class PropertyInfoLoaderTest extends TestCase
             private int $i = 0;
             private int $j = 0;
             private array $types;
-            private array $legacyTypes;
 
             public function getType(string $class, string $property, array $context = []): ?Type
             {
@@ -85,29 +83,6 @@ class PropertyInfoLoaderTest extends TestCase
                 ++$this->i;
 
                 return $type;
-            }
-
-            public function getTypes(string $class, string $property, array $context = []): ?array
-            {
-                $this->legacyTypes ??= [
-                    [new LegacyType('string', true)],
-                    [new LegacyType('string')],
-                    [new LegacyType('string', true), new LegacyType('int'), new LegacyType('bool')],
-                    [new LegacyType('object', true, Entity::class)],
-                    [new LegacyType('array', true, null, true, null, new LegacyType('object', false, Entity::class))],
-                    [new LegacyType('array', true, null, true)],
-                    [new LegacyType('float', true)], // The existing constraint is float
-                    [new LegacyType('string', true)],
-                    [new LegacyType('string', true)],
-                    [new LegacyType('array', true, null, true, null, new LegacyType('float'))],
-                    [new LegacyType('string')],
-                    [new LegacyType('string')],
-                ];
-
-                $legacyType = $this->legacyTypes[$this->j];
-                ++$this->j;
-
-                return $legacyType;
             }
         };
 
@@ -240,11 +215,6 @@ class PropertyInfoLoaderTest extends TestCase
             {
                 return Type::string();
             }
-
-            public function getTypes(string $class, string $property, array $context = []): ?array
-            {
-                return [new LegacyType('string')];
-            }
         };
 
         $propertyAccessExtractor = $this->createMock(PropertyAccessExtractorInterface::class);
@@ -278,11 +248,6 @@ class PropertyInfoLoaderTest extends TestCase
                 public function getType(string $class, string $property, array $context = []): ?Type
                 {
                     return Type::string();
-                }
-
-                public function getTypes(string $class, string $property, array $context = []): ?array
-                {
-                    return [new LegacyType('string')];
                 }
             };
         }
