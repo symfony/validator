@@ -62,23 +62,28 @@ class CardScheme extends Constraint
         } else {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
-            }
 
-            $options['value'] = $schemes;
+                $options['value'] = $schemes;
+            }
         }
 
         parent::__construct($options, $groups, $payload);
 
+        $this->schemes = $schemes ?? $this->schemes;
         $this->message = $message ?? $this->message;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'schemes';
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getRequiredOptions(): array
     {
         return ['schemes'];

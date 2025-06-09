@@ -58,18 +58,16 @@ class Regex extends Constraint
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
             $options = array_merge($pattern, $options ?? []);
+            $pattern = $options['pattern'] ?? null;
         } elseif (null !== $pattern) {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
             }
-
-            $options['value'] = $pattern;
         }
 
         parent::__construct($options, $groups, $payload);
 
+        $this->pattern = $pattern ?? $this->pattern;
         $this->message = $message ?? $this->message;
         $this->htmlPattern = $htmlPattern ?? $this->htmlPattern;
         $this->match = $match ?? $this->match;
@@ -80,11 +78,17 @@ class Regex extends Constraint
         }
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'pattern';
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getRequiredOptions(): array
     {
         return ['pattern'];

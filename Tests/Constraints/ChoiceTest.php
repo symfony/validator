@@ -19,6 +19,9 @@ use Symfony\Component\Validator\Tests\Fixtures\ConstraintChoiceWithPreset;
 
 class ChoiceTest extends TestCase
 {
+    /**
+     * @group legacy
+     */
     public function testSetDefaultPropertyChoice()
     {
         $constraint = new ConstraintChoiceWithPreset('A');
