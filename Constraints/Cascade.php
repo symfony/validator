@@ -29,6 +29,7 @@ class Cascade extends Constraint
     {
         if (\is_array($exclude) && !array_is_list($exclude)) {
             $options = array_merge($exclude, $options ?? []);
+            $options['exclude'] = array_flip((array) ($options['exclude'] ?? []));
         } else {
             $this->exclude = array_flip((array) $exclude);
         }
