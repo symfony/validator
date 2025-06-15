@@ -27,6 +27,20 @@ class CascadeTest extends TestCase
         self::assertTrue($loader->loadClassMetadata($metadata));
         self::assertSame(CascadingStrategy::CASCADE, $metadata->getCascadingStrategy());
     }
+
+    public function testExcludeProperties()
+    {
+        $constraint = new Cascade(['foo', 'bar']);
+
+        self::assertSame(['foo' => 0, 'bar' => 1], $constraint->exclude);
+    }
+
+    public function testExcludePropertiesDoctrineStyle()
+    {
+        $constraint = new Cascade(['exclude' => ['foo', 'bar']]);
+
+        self::assertSame(['foo' => 0, 'bar' => 1], $constraint->exclude);
+    }
 }
 
 #[Cascade]
