@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -28,6 +29,7 @@ class Sequentially extends Composite
      * @param Constraint[]|array<string,mixed>|null $constraints An array of validation constraints
      * @param string[]|null                         $groups
      */
+    #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null)
     {
         if (\is_array($constraints) && !array_is_list($constraints)) {
