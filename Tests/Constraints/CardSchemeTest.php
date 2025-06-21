@@ -46,16 +46,6 @@ class CardSchemeTest extends TestCase
 
         new CardScheme(null);
     }
-
-    /**
-     * @group legacy
-     */
-    public function testSchemesInOptionsArray()
-    {
-        $constraint = new CardScheme(null, options: ['schemes' => [CardScheme::MASTERCARD]]);
-
-        $this->assertSame([CardScheme::MASTERCARD], $constraint->schemes);
-    }
 }
 
 class CardSchemeDummy

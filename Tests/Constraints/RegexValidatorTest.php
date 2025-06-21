@@ -55,19 +55,6 @@ class RegexValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @group legacy
-     *
-     * @dataProvider getValidValuesWithWhitespaces
-     */
-    public function testValidValuesWithWhitespaces($value)
-    {
-        $constraint = new Regex(['pattern' => '/^[0-9]+$/', 'normalizer' => 'trim']);
-        $this->validator->validate($value, $constraint);
-
-        $this->assertNoViolation();
-    }
-
-    /**
      * @dataProvider getValidValuesWithWhitespaces
      */
     public function testValidValuesWithWhitespacesNamed($value)
@@ -104,27 +91,6 @@ class RegexValidatorTest extends ConstraintValidatorTestCase
             ["\x00070707\x00"],
             ["\x0B\x0B70707\x0B\x0B"],
         ];
-    }
-
-    /**
-     * @group legacy
-     *
-     * @dataProvider getInvalidValues
-     */
-    public function testInvalidValues($value)
-    {
-        $constraint = new Regex([
-            'pattern' => '/^[0-9]+$/',
-            'message' => 'myMessage',
-        ]);
-
-        $this->validator->validate($value, $constraint);
-
-        $this->buildViolation('myMessage')
-            ->setParameter('{{ value }}', '"'.$value.'"')
-            ->setParameter('{{ pattern }}', '/^[0-9]+$/')
-            ->setCode(Regex::REGEX_FAILED_ERROR)
-            ->assertRaised();
     }
 
     /**

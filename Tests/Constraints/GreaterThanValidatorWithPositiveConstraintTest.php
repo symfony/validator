@@ -14,7 +14,6 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\GreaterThanValidator;
 use Symfony\Component\Validator\Constraints\Positive;
-use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 /**
  * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
@@ -56,28 +55,6 @@ class GreaterThanValidatorWithPositiveConstraintTest extends AbstractComparisonV
             [-2, '-2', 0, '0', 'int'],
             [-2.5, '-2.5', 0, '0', 'int'],
         ];
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testThrowsConstraintExceptionIfPropertyPath()
-    {
-        $this->expectException(ConstraintDefinitionException::class);
-        $this->expectExceptionMessage('The "propertyPath" option of the "Symfony\Component\Validator\Constraints\Positive" constraint cannot be set.');
-
-        return new Positive(['propertyPath' => 'field']);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testThrowsConstraintExceptionIfValue()
-    {
-        $this->expectException(ConstraintDefinitionException::class);
-        $this->expectExceptionMessage('The "value" option of the "Symfony\Component\Validator\Constraints\Positive" constraint cannot be set.');
-
-        return new Positive(['value' => 0]);
     }
 
     /**

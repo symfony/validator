@@ -4,7 +4,118 @@ CHANGELOG
 8.0
 ---
 
- * Remove `Bic::INVALID_BANK_CODE_ERROR` constant. This error code was not used in the Bic constraint validator anymore.
+ * Remove the `getRequiredOptions()` and `getDefaultOption()` methods from the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
+   `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
+ * Remove support for evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
+   class instead.
+
+   Before:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public function __construct(
+           public $option1 = null,
+           public $option2 = null,
+           ?array $groups = null,
+           mixed $payload = null,
+       ) {
+           parent::__construct(null, $groups, $payload);
+       }
+   }
+   ```
+
+ * Remove the `getRequiredOptions()` method from the base `Constraint` class. Use mandatory constructor arguments instead.
+
+   Before:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+
+       public function getRequiredOptions()
+       {
+           return ['option1'];
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public function __construct(
+           public $option1,
+           public $option2 = null,
+           ?array $groups = null,
+           mixed $payload = null,
+       ) {
+           parent::__construct(null, $groups, $payload);
+       }
+   }
+   ```
+ * Remove the `normalizeOptions()` and `getDefaultOption()` methods of the base `Constraint` class without replacements.
+   Overriding them in child constraint does not have any effects.
+ * Remove support for passing an array of options to the `Composite` constraint class. Initialize the properties referenced with `getNestedConstraints()`
+   in child classes before calling the constructor of `Composite`.
+
+   Before:
+
+   ```php
+   class CustomCompositeConstraint extends Composite
+   {
+       public array $constraints = [];
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+
+       protected function getCompositeOption(): string
+       {
+           return 'constraints';
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   class CustomCompositeConstraint extends Composite
+   {
+       public function __construct(
+           public array $constraints,
+           ?array $groups = null,
+           mixed $payload = null,
+       ) {
+           parent::__construct(null, $groups, $payload);
+       }
+   }
+   ```
+ * Remove `Bic::INVALID_BANK_CODE_ERROR` constant. This error code was not used in the Bic constraint validator anymore
 
 7.4
 ---
@@ -131,7 +242,6 @@ CHANGELOG
        }
    }
    ```
->>>>>>> 7.4
 
 7.3
 ---

@@ -13,7 +13,6 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Url;
-use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 
@@ -27,26 +26,6 @@ class UrlTest extends TestCase
         $url = new Url(normalizer: 'trim', requireTld: true);
 
         $this->assertEquals('trim', $url->normalizer);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("string" given).');
-        new Url(['normalizer' => 'Unknown Callable', 'requireTld' => true]);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerObjectThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("stdClass" given).');
-        new Url(['normalizer' => new \stdClass(), 'requireTld' => true]);
     }
 
     public function testAttributes()
@@ -78,16 +57,6 @@ class UrlTest extends TestCase
         self::assertFalse($dConstraint->relativeProtocol);
         self::assertNull($dConstraint->normalizer);
         self::assertTrue($dConstraint->requireTld);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testRequireTldDefaultsToFalse()
-    {
-        $constraint = new Url();
-
-        $this->assertFalse($constraint->requireTld);
     }
 }
 

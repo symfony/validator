@@ -51,19 +51,4 @@ class NotNullValidatorTest extends ConstraintValidatorTestCase
             ->setCode(NotNull::IS_NULL_ERROR)
             ->assertRaised();
     }
-
-    /**
-     * @group legacy
-     */
-    public function testNullIsInvalidDoctrineStyle()
-    {
-        $this->validator->validate(null, new NotNull([
-            'message' => 'myMessage',
-        ]));
-
-        $this->buildViolation('myMessage')
-            ->setParameter('{{ value }}', 'null')
-            ->setCode(NotNull::IS_NULL_ERROR)
-            ->assertRaised();
-    }
 }

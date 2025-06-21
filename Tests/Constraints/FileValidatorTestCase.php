@@ -375,38 +375,6 @@ abstract class FileValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
-    public function testInvalidMimeTypeDoctrineStyle()
-    {
-        $file = $this
-            ->getMockBuilder(\Symfony\Component\HttpFoundation\File\File::class)
-            ->setConstructorArgs([__DIR__.'/Fixtures/foo'])
-            ->getMock();
-        $file
-            ->expects($this->once())
-            ->method('getPathname')
-            ->willReturn($this->path);
-        $file
-            ->expects($this->once())
-            ->method('getMimeType')
-            ->willReturn('application/pdf');
-
-        $this->validator->validate($file, new File([
-            'mimeTypes' => ['image/png', 'image/jpg'],
-            'mimeTypesMessage' => 'myMessage',
-        ]));
-
-        $this->buildViolation('myMessage')
-            ->setParameter('{{ type }}', '"application/pdf"')
-            ->setParameter('{{ types }}', '"image/png", "image/jpg"')
-            ->setParameter('{{ file }}', '"'.$this->path.'"')
-            ->setParameter('{{ name }}', '"'.basename($this->path).'"')
-            ->setCode(File::INVALID_MIME_TYPE_ERROR)
-            ->assertRaised();
-    }
-
     public function testInvalidWildcardMimeType()
     {
         $file = $this
@@ -443,24 +411,6 @@ abstract class FileValidatorTestCase extends ConstraintValidatorTestCase
         ftruncate($this->file, 0);
 
         $this->validator->validate($this->getFile($this->path), new File(disallowEmptyMessage: 'myMessage'));
-
-        $this->buildViolation('myMessage')
-            ->setParameter('{{ file }}', '"'.$this->path.'"')
-            ->setParameter('{{ name }}', '"'.basename($this->path).'"')
-            ->setCode(File::EMPTY_ERROR)
-            ->assertRaised();
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testDisallowEmptyDoctrineStyle()
-    {
-        ftruncate($this->file, 0);
-
-        $this->validator->validate($this->getFile($this->path), new File([
-            'disallowEmptyMessage' => 'myMessage',
-        ]));
 
         $this->buildViolation('myMessage')
             ->setParameter('{{ file }}', '"'.$this->path.'"')

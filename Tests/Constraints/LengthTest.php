@@ -33,26 +33,6 @@ class LengthTest extends TestCase
         $this->assertEquals('trim', $length->normalizer);
     }
 
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("string" given).');
-        new Length(['min' => 0, 'max' => 10, 'normalizer' => 'Unknown Callable']);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerObjectThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("stdClass" given).');
-        new Length(['min' => 0, 'max' => 10, 'normalizer' => new \stdClass()]);
-    }
-
     public function testDefaultCountUnitIsUsed()
     {
         $length = new Length(min: 0, max: 10);

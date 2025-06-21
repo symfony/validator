@@ -44,16 +44,6 @@ class ExpressionSyntaxTest extends TestCase
         yield 'attribute' => [$metadata->properties['b']->constraints[0]];
     }
 
-    /**
-     * @group legacy
-     */
-    public function testValidatedByServiceDoctrineStyle()
-    {
-        $constraint = new ExpressionSyntax(['service' => 'my_service']);
-
-        self::assertSame('my_service', $constraint->validatedBy());
-    }
-
     public function testAttributes()
     {
         $metadata = new ClassMetadata(ExpressionSyntaxDummy::class);

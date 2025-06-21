@@ -26,17 +26,6 @@ use Symfony\Component\Validator\Tests\Constraints\Fixtures\WhenTestWithClosure;
 
 final class WhenTest extends TestCase
 {
-    /**
-     * @group legacy
-     */
-    public function testMissingOptionsExceptionIsThrown()
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage('The options "expression", "constraints" must be set for constraint "Symfony\Component\Validator\Constraints\When".');
-
-        new When([]);
-    }
-
     public function testMissingConstraints()
     {
         $this->expectException(MissingOptionsException::class);
@@ -153,19 +142,5 @@ final class WhenTest extends TestCase
         ], $fooConstraint->constraints);
         self::assertSame([], $fooConstraint->otherwise);
         self::assertSame(['Default', 'WhenTestWithClosure'], $fooConstraint->groups);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testConstraintsInOptionsArray()
-    {
-        $constraints = [
-            new NotNull(),
-            new Length(min: 10),
-        ];
-        $constraint = new When('true', options: ['constraints' => $constraints]);
-
-        $this->assertSame($constraints, $constraint->constraints);
     }
 }

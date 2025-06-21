@@ -50,39 +50,6 @@ class ExpressionTest extends TestCase
 
         new Expression(null);
     }
-
-    /**
-     * @group legacy
-     */
-    public function testMissingPatternDoctrineStyle()
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(\sprintf('The options "expression" must be set for constraint "%s".', Expression::class));
-
-        new Expression([]);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testInitializeWithOptionsArray()
-    {
-        $constraint = new Expression([
-            'expression' => '!this.getParent().get("field2").getData()',
-        ]);
-
-        $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testExpressionInOptionsArray()
-    {
-        $constraint = new Expression(null, options: ['expression' => '!this.getParent().get("field2").getData()']);
-
-        $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
-    }
 }
 
 class ExpressionDummy

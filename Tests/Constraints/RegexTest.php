@@ -13,7 +13,6 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
@@ -97,26 +96,6 @@ class RegexTest extends TestCase
         $this->assertEquals('trim', $regex->normalizer);
     }
 
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("string" given).');
-        new Regex(['pattern' => '/^[0-9]+$/', 'normalizer' => 'Unknown Callable']);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testInvalidNormalizerObjectThrowsException()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The "normalizer" option must be a valid callable ("stdClass" given).');
-        new Regex(['pattern' => '/^[0-9]+$/', 'normalizer' => new \stdClass()]);
-    }
-
     public function testAttributes()
     {
         $metadata = new ClassMetadata(RegexDummy::class);
@@ -146,27 +125,6 @@ class RegexTest extends TestCase
         $this->expectExceptionMessage(\sprintf('The options "pattern" must be set for constraint "%s".', Regex::class));
 
         new Regex(null);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testMissingPatternDoctrineStyle()
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(\sprintf('The options "pattern" must be set for constraint "%s".', Regex::class));
-
-        new Regex([]);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testPatternInOptionsArray()
-    {
-        $constraint = new Regex(null, options: ['pattern' => '/^[0-9]+$/']);
-
-        $this->assertSame('/^[0-9]+$/', $constraint->pattern);
     }
 }
 

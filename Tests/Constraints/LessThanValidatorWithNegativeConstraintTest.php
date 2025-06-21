@@ -14,7 +14,6 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\LessThanValidator;
 use Symfony\Component\Validator\Constraints\Negative;
-use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 /**
  * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
@@ -56,28 +55,6 @@ class LessThanValidatorWithNegativeConstraintTest extends AbstractComparisonVali
             [2.5, '2.5', 0, '0', 'int'],
             [333, '333', 0, '0', 'int'],
         ];
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testThrowsConstraintExceptionIfPropertyPath()
-    {
-        $this->expectException(ConstraintDefinitionException::class);
-        $this->expectExceptionMessage('The "propertyPath" option of the "Symfony\Component\Validator\Constraints\Negative" constraint cannot be set.');
-
-        return new Negative(['propertyPath' => 'field']);
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testThrowsConstraintExceptionIfValue()
-    {
-        $this->expectException(ConstraintDefinitionException::class);
-        $this->expectExceptionMessage('The "value" option of the "Symfony\Component\Validator\Constraints\Negative" constraint cannot be set.');
-
-        return new Negative(['value' => 0]);
     }
 
     /**

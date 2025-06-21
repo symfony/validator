@@ -221,23 +221,6 @@ class TypeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @group legacy
-     */
-    public function testInvalidValuesMultipleTypesDoctrineStyle()
-    {
-        $this->validator->validate('12345', new Type([
-            'type' => ['boolean', 'array'],
-            'message' => 'myMessage',
-        ]));
-
-        $this->buildViolation('myMessage')
-            ->setParameter('{{ value }}', '"12345"')
-            ->setParameter('{{ type }}', implode('|', ['boolean', 'array']))
-            ->setCode(Type::INVALID_TYPE_ERROR)
-            ->assertRaised();
-    }
-
     protected static function createFile()
     {
         if (!self::$file) {
