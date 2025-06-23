@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -39,6 +40,7 @@ class AtLeastOneOf extends Composite
      * @param string|null                                $messageCollection       Failure message for All and Collection inner constraints
      * @param bool|null                                  $includeInternalMessages Whether to include inner constraint messages (defaults to true)
      */
+    #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null, ?string $message = null, ?string $messageCollection = null, ?bool $includeInternalMessages = null)
     {
         if (\is_array($constraints) && !array_is_list($constraints)) {
