@@ -91,6 +91,21 @@ class LocaleValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
+    public function testTooLongLocale()
+    {
+        $constraint = new Locale([
+            'message' => 'myMessage',
+        ]);
+
+        $locale = str_repeat('a', (\defined('INTL_MAX_LOCALE_LEN') ? \INTL_MAX_LOCALE_LEN : 85) + 1);
+        $this->validator->validate($locale, $constraint);
+
+        $this->buildViolation('myMessage')
+            ->setParameter('{{ value }}', '"' . $locale . '"')
+            ->setCode(Locale::NO_SUCH_LOCALE_ERROR)
+            ->assertRaised();
+    }
+
     /**
      * @dataProvider getUncanonicalizedLocales
      */
