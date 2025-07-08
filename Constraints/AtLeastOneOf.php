@@ -43,22 +43,31 @@ class AtLeastOneOf extends Composite
     #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null, ?string $message = null, ?string $messageCollection = null, ?bool $includeInternalMessages = null)
     {
-        if (\is_array($constraints) && !array_is_list($constraints)) {
+        if (!$constraints instanceof Constraint && !\is_array($constraints) || \is_array($constraints) && !array_is_list($constraints)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
+            $options = $constraints;
+        } else {
+            $this->constraints = $constraints;
         }
 
-        parent::__construct($constraints ?? [], $groups, $payload);
+        parent::__construct($options ?? null, $groups, $payload);
 
         $this->message = $message ?? $this->message;
         $this->messageCollection = $messageCollection ?? $this->messageCollection;
         $this->includeInternalMessages = $includeInternalMessages ?? $this->includeInternalMessages;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'constraints';
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getRequiredOptions(): array
     {
         return ['constraints'];

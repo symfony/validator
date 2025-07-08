@@ -37,11 +37,18 @@ class Traverse extends Constraint
 
         if (\is_array($traverse)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
+            $options = $traverse;
+            $traverse = $options['traverse'] ?? null;
         }
 
-        parent::__construct($traverse, null, $payload);
+        parent::__construct($options ?? null, $payload);
+
+        $this->traverse = $traverse ?? $this->traverse;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'traverse';

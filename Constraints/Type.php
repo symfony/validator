@@ -43,14 +43,11 @@ class Type extends Constraint
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
             $options = array_merge($type, $options ?? []);
+            $type = $options['type'] ?? null;
         } elseif (null !== $type) {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
             }
-
-            $options['value'] = $type;
         } elseif (\is_array($options)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
         }
@@ -58,13 +55,20 @@ class Type extends Constraint
         parent::__construct($options, $groups, $payload);
 
         $this->message = $message ?? $this->message;
+        $this->type = $type ?? $this->type;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'type';
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getRequiredOptions(): array
     {
         return ['type'];

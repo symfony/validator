@@ -67,25 +67,30 @@ class Expression extends Constraint
         } else {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
-            }
 
-            $options['value'] = $expression;
+               $options['value'] = $expression;
+            }
         }
 
         parent::__construct($options, $groups, $payload);
 
         $this->message = $message ?? $this->message;
+        $this->expression = $expression ?? $this->expression;
         $this->values = $values ?? $this->values;
         $this->negate = $negate ?? $this->negate;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'expression';
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getRequiredOptions(): array
     {
         return ['expression'];

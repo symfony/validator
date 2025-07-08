@@ -52,13 +52,15 @@ class When extends Composite
         } else {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
-            }
 
-            $options['expression'] = $expression;
-            $options['constraints'] = $constraints;
-            $options['otherwise'] = $otherwise;
+                $options['expression'] = $expression;
+                $options['constraints'] = $constraints;
+                $options['otherwise'] = $otherwise;
+            } else {
+                $this->expression = $expression;
+                $this->constraints = $constraints;
+                $this->otherwise = $otherwise;
+            }
         }
 
         if (!\is_array($options['constraints'] ?? [])) {
@@ -69,15 +71,7 @@ class When extends Composite
             $options['otherwise'] = [$options['otherwise']];
         }
 
-        if (null !== $groups) {
-            $options['groups'] = $groups;
-        }
-
-        if (null !== $payload) {
-            $options['payload'] = $payload;
-        }
-
-        parent::__construct($options);
+        parent::__construct($options, $groups, $payload);
 
         $this->values = $values ?? $this->values;
     }

@@ -38,6 +38,9 @@ class CompoundTest extends TestCase
         $this->assertSame($payload, $compound->payload);
     }
 
+    /**
+     * @group legacy
+     */
     public function testGroupsAndPayloadInOptionsArray()
     {
         $payload = new \stdClass();
@@ -47,6 +50,9 @@ class CompoundTest extends TestCase
         $this->assertSame($payload, $compound->payload);
     }
 
+    /**
+     * @group legacy
+     */
     public function testCanDependOnNormalizedOptions()
     {
         $constraint = new ForwardingOptionCompound($min = 3);

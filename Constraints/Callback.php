@@ -44,11 +44,7 @@ class Callback extends Constraint
         if (!\is_array($callback) || (!isset($callback['callback']) && !isset($callback['groups']) && !isset($callback['payload']))) {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
             }
-
-            $options['callback'] = $callback;
         } else {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
@@ -56,8 +52,13 @@ class Callback extends Constraint
         }
 
         parent::__construct($options, $groups, $payload);
+
+        $this->callback = $callback ?? $this->callback;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'callback';
