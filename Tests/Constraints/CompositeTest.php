@@ -132,7 +132,7 @@ class CompositeTest extends TestCase
     public function testFailIfExplicitNestedGroupsNotSubsetOfExplicitParentGroupsInOtherNested()
     {
         $this->expectException(ConstraintDefinitionException::class);
-        new ConcreteComposite(new NotNull(groups: ['Default']), new NotNull(groups: ['Default', 'Foobar']),['Default', 'Strict']);
+        new ConcreteComposite(new NotNull(groups: ['Default']), new NotNull(groups: ['Default', 'Foobar']), ['Default', 'Strict']);
     }
 
     public function testImplicitGroupNamesAreForwarded()
