@@ -49,9 +49,11 @@ final class PasswordStrength extends Constraint
     {
         if (\is_array($options)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-        }
 
-        $options['minScore'] ??= self::STRENGTH_MEDIUM;
+            $options['minScore'] ??= self::STRENGTH_MEDIUM;
+        } else {
+            $minScore ??= self::STRENGTH_MEDIUM;
+        }
 
         parent::__construct($options, $groups, $payload);
 

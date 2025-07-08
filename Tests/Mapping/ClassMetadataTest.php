@@ -88,8 +88,8 @@ class ClassMetadataTest extends TestCase
         $this->metadata->addPropertyConstraints('lastName', [new ConstraintA(), new ConstraintB()]);
 
         $constraints = [
-            new ConstraintA(['groups' => ['Default', 'Entity']]),
-            new ConstraintB(['groups' => ['Default', 'Entity']]),
+            new ConstraintA(null, null, ['Default', 'Entity']),
+            new ConstraintB(null, ['Default', 'Entity']),
         ];
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -105,8 +105,8 @@ class ClassMetadataTest extends TestCase
         $this->metadata->addGetterConstraint('lastName', new ConstraintB());
 
         $constraints = [
-            new ConstraintA(['groups' => ['Default', 'Entity']]),
-            new ConstraintB(['groups' => ['Default', 'Entity']]),
+            new ConstraintA(null, null, ['Default', 'Entity']),
+            new ConstraintB(null, ['Default', 'Entity']),
         ];
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -121,8 +121,8 @@ class ClassMetadataTest extends TestCase
         $this->metadata->addGetterConstraints('lastName', [new ConstraintA(), new ConstraintB()]);
 
         $constraints = [
-            new ConstraintA(['groups' => ['Default', 'Entity']]),
-            new ConstraintB(['groups' => ['Default', 'Entity']]),
+            new ConstraintA(null, null, ['Default', 'Entity']),
+            new ConstraintB(null, ['Default', 'Entity']),
         ];
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -141,15 +141,15 @@ class ClassMetadataTest extends TestCase
         $this->metadata->addConstraint(new ConstraintA());
 
         $constraints = [
-            new ConstraintA(['groups' => [
+            new ConstraintA(null, null, [
                 'Default',
                 'EntityParent',
                 'Entity',
-            ]]),
-            new ConstraintA(['groups' => [
+            ]),
+            new ConstraintA(null, null, [
                 'Default',
                 'Entity',
-            ]]),
+            ]),
         ];
 
         $this->assertEquals($constraints, $this->metadata->getConstraints());
@@ -159,23 +159,21 @@ class ClassMetadataTest extends TestCase
     {
         $parent = new ClassMetadata(self::PARENTCLASS);
         $parent->addPropertyConstraint('firstName', new ConstraintA());
-        $parent->addPropertyConstraint('firstName', new ConstraintB(['groups' => 'foo']));
+        $parent->addPropertyConstraint('firstName', new ConstraintB(null, ['foo']));
 
         $this->metadata->addPropertyConstraint('firstName', new ConstraintA());
         $this->metadata->mergeConstraints($parent);
 
-        $constraintA1 = new ConstraintA(['groups' => [
+        $constraintA1 = new ConstraintA(null, null, [
             'Default',
             'EntityParent',
             'Entity',
-        ]]);
-        $constraintA2 = new ConstraintA(['groups' => [
+        ]);
+        $constraintA2 = new ConstraintA(null, null, [
             'Default',
             'Entity',
-        ]]);
-        $constraintB = new ConstraintB([
-            'groups' => ['foo'],
         ]);
+        $constraintB = new ConstraintB(null, ['foo']);
 
         $members = $this->metadata->getPropertyMetadata('firstName');
 
@@ -219,17 +217,17 @@ class ClassMetadataTest extends TestCase
         $this->metadata->addPropertyConstraint('internal', new ConstraintA());
 
         $parentConstraints = [
-            new ConstraintA(['groups' => [
+            new ConstraintA(null, null, [
                 'Default',
                 'EntityParent',
                 'Entity',
-            ]]),
+            ]),
         ];
         $constraints = [
-            new ConstraintA(['groups' => [
+            new ConstraintA(null, null, [
                 'Default',
                 'Entity',
-            ]]),
+            ]),
         ];
 
         $members = $this->metadata->getPropertyMetadata('internal');
@@ -250,8 +248,8 @@ class ClassMetadataTest extends TestCase
 
     public function testSerialize()
     {
-        $this->metadata->addConstraint(new ConstraintA(['property1' => 'A']));
-        $this->metadata->addConstraint(new ConstraintB(['groups' => 'TestGroup']));
+        $this->metadata->addConstraint(new ConstraintA('A'));
+        $this->metadata->addConstraint(new ConstraintB(null, ['TestGroup']));
         $this->metadata->addPropertyConstraint('firstName', new ConstraintA());
         $this->metadata->addGetterConstraint('lastName', new ConstraintB());
 
@@ -395,9 +393,11 @@ class ClassCompositeConstraint extends Composite
 {
     public $nested;
 
-    public function getDefaultOption(): ?string
+    public function __construct(array $nested)
     {
-        return $this->getCompositeOption();
+        $this->nested = $nested;
+
+        parent::__construct();
     }
 
     protected function getCompositeOption(): string

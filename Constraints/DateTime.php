@@ -52,18 +52,20 @@ class DateTime extends Constraint
         } elseif (null !== $format) {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            } else {
-                $options = [];
-            }
 
-            $options['value'] = $format;
+                $options['value'] = $format;
+            }
         }
 
         parent::__construct($options, $groups, $payload);
 
+        $this->format = $format ?? $this->format;
         $this->message = $message ?? $this->message;
     }
 
+    /**
+     * @deprecated since Symfony 7.4
+     */
     public function getDefaultOption(): ?string
     {
         return 'format';

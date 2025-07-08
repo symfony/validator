@@ -6,6 +6,134 @@ CHANGELOG
 
  * Remove `Bic::INVALID_BANK_CODE_ERROR` constant. This error code was not used in the Bic constraint validator anymore.
 
+7.4
+---
+
+ * Deprecate evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
+   class instead.
+
+   Before:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Validator\Attribute\HasNamedArguments;
+
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       #[HasNamedArguments]
+       public function __construct($option1 = null, $option2 = null, ?array $groups = null, mixed $payload = null)
+       {
+           parent::__construct(null, $groups, $payload);
+
+           $this->option1 = $option1;
+           $this->option2 = $option2;
+       }
+   }
+   ```
+
+ * Deprecate the `getRequiredOptions()` method of the base `Constraint` class. Use mandatory constructor arguments instead.
+
+   Before:
+
+   ```php
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+
+       public function getRequiredOptions()
+       {
+           return ['option1'];
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Validator\Attribute\HasNamedArguments;
+
+   class CustomConstraint extends Constraint
+   {
+       public $option1;
+       public $option2;
+
+       #[HasNamedArguments]
+       public function __construct($option1, $option2 = null, ?array $groups = null, mixed $payload = null)
+       {
+           parent::__construct(null, $groups, $payload);
+
+           $this->option1 = $option1;
+           $this->option2 = $option2;
+       }
+   }
+   ```
+ * Deprecate the `normalizeOptions()` and `getDefaultOption()` methods of the base `Constraint` class without replacements.
+   Overriding them in child constraint will not have any effects starting with Symfony 8.0.
+ * Deprecate passing an array of options to the `Composite` constraint class. Initialize the properties referenced with `getNestedConstraints()`
+   in child classes before calling the constructor of `Composite`.
+
+   Before:
+
+   ```php
+   class CustomCompositeConstraint extends Composite
+   {
+       public array $constraints = [];
+
+       public function __construct(?array $options = null)
+       {
+           parent::__construct($options);
+       }
+
+       protected function getCompositeOption(): string
+       {
+           return 'constraints';
+       }
+   }
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Validator\Attribute\HasNamedArguments;
+
+   class CustomCompositeConstraint extends Composite
+   {
+       public array $constraints = [];
+
+       #[HasNamedArguments]
+       public function __construct(array $constraints, ?array $groups = null, mixed $payload = null)
+       {
+           $this->constraints = $constraints;
+
+           parent::__construct(null, $groups, $payload);
+       }
+   }
+   ```
+>>>>>>> 7.4
+
 7.3
 ---
 
