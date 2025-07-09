@@ -110,7 +110,7 @@ abstract class Constraint
     {
         unset($this->groups); // enable lazy initialization
 
-        if (null === $options && (\func_num_args() > 0 || (new \ReflectionMethod($this, 'getRequiredOptions'))->getDeclaringClass()->getName() === self::class)) {
+        if (null === $options && (\func_num_args() > 0 || self::class === (new \ReflectionMethod($this, 'getRequiredOptions'))->getDeclaringClass()->getName())) {
             if (null !== $groups) {
                 $this->groups = $groups;
             }

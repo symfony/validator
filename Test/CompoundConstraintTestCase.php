@@ -35,7 +35,7 @@ abstract class CompoundConstraintTestCase extends TestCase
     protected ValidatorInterface $validator;
     protected ?ConstraintViolationListInterface $violationList = null;
     protected ExecutionContextInterface $context;
-    protected string $root;
+    protected mixed $root;
 
     private mixed $validatedValue;
 
