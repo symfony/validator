@@ -43,8 +43,8 @@ final class WeekValidator extends ConstraintValidator
             return;
         }
 
-        [$year, $weekNumber] = \explode('-W', $value, 2);
-        $weeksInYear = (int) \date('W', \mktime(0, 0, 0, 12, 28, $year));
+        [$year, $weekNumber] = explode('-W', $value, 2);
+        $weeksInYear = (int) date('W', mktime(0, 0, 0, 12, 28, $year));
 
         if ($weekNumber > $weeksInYear) {
             $this->context->buildViolation($constraint->invalidWeekNumberMessage)
@@ -56,7 +56,7 @@ final class WeekValidator extends ConstraintValidator
         }
 
         if ($constraint->min) {
-            [$minYear, $minWeekNumber] = \explode('-W', $constraint->min, 2);
+            [$minYear, $minWeekNumber] = explode('-W', $constraint->min, 2);
             if ($year < $minYear || ($year === $minYear && $weekNumber < $minWeekNumber)) {
                 $this->context->buildViolation($constraint->tooLowMessage)
                     ->setCode(Week::TOO_LOW_ERROR)
@@ -69,7 +69,7 @@ final class WeekValidator extends ConstraintValidator
         }
 
         if ($constraint->max) {
-            [$maxYear, $maxWeekNumber] = \explode('-W', $constraint->max, 2);
+            [$maxYear, $maxWeekNumber] = explode('-W', $constraint->max, 2);
             if ($year > $maxYear || ($year === $maxYear && $weekNumber > $maxWeekNumber)) {
                 $this->context->buildViolation($constraint->tooHighMessage)
                     ->setCode(Week::TOO_HIGH_ERROR)
