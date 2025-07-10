@@ -404,7 +404,7 @@
             </trans-unit>
             <trans-unit id="104">
                 <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-                <target>Nazwa pliku jest za długa. Powinna mieć {{ filename_max_length }} znak lub mniej.|Nazwa pliku jest za długa. Powinna mieć {{ filename_max_length }} znaków lub mniej.</target>
+                <target>Nazwa pliku jest za długa. Powinna mieć {{ filename_max_length }} znak lub mniej.|Nazwa pliku jest za długa. Powinna mieć {{ filename_max_length }} znaki lub mniej.|Nazwa pliku jest za długa. Powinna mieć {{ filename_max_length }} znaków lub mniej.</target>
             </trans-unit>
             <trans-unit id="105">
                 <source>The password strength is too low. Please use a stronger password.</source>
