@@ -110,7 +110,7 @@ class Uuid extends Constraint
         ?bool $strict = null,
         ?callable $normalizer = null,
         ?array $groups = null,
-        mixed $payload = null
+        mixed $payload = null,
     ) {
         parent::__construct($options, $groups, $payload);
 
@@ -120,7 +120,7 @@ class Uuid extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
-            throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
+            throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
         }
     }
 }

@@ -83,7 +83,7 @@ class AnnotationLoader implements LoaderInterface
                         if (preg_match('/^(get|is|has)(.+)$/i', $method->name, $matches)) {
                             $metadata->addGetterMethodConstraint(lcfirst($matches[2]), $matches[0], $constraint);
                         } else {
-                            throw new MappingException(sprintf('The constraint on "%s::%s()" cannot be added. Constraints can only be added on methods beginning with "get", "is" or "has".', $className, $method->name));
+                            throw new MappingException(\sprintf('The constraint on "%s::%s()" cannot be added. Constraints can only be added on methods beginning with "get", "is" or "has".', $className, $method->name));
                         }
                     }
 
@@ -118,13 +118,13 @@ class AnnotationLoader implements LoaderInterface
         $annotations = [];
 
         if ($reflection instanceof \ReflectionClass && $annotations = $this->reader->getClassAnnotations($reflection)) {
-            $this->triggerDeprecationIfAnnotationIsUsed($annotations, sprintf('Class "%s"', $reflection->getName()));
+            $this->triggerDeprecationIfAnnotationIsUsed($annotations, \sprintf('Class "%s"', $reflection->getName()));
         }
         if ($reflection instanceof \ReflectionMethod && $annotations = $this->reader->getMethodAnnotations($reflection)) {
-            $this->triggerDeprecationIfAnnotationIsUsed($annotations, sprintf('Method "%s::%s()"', $reflection->getDeclaringClass()->getName(), $reflection->getName()));
+            $this->triggerDeprecationIfAnnotationIsUsed($annotations, \sprintf('Method "%s::%s()"', $reflection->getDeclaringClass()->getName(), $reflection->getName()));
         }
         if ($reflection instanceof \ReflectionProperty && $annotations = $this->reader->getPropertyAnnotations($reflection)) {
-            $this->triggerDeprecationIfAnnotationIsUsed($annotations, sprintf('Property "%s::$%s"', $reflection->getDeclaringClass()->getName(), $reflection->getName()));
+            $this->triggerDeprecationIfAnnotationIsUsed($annotations, \sprintf('Property "%s::$%s"', $reflection->getDeclaringClass()->getName(), $reflection->getName()));
         }
 
         foreach ($dedup as $annotation) {
@@ -151,7 +151,7 @@ class AnnotationLoader implements LoaderInterface
                 || $annotation instanceof GroupSequence
                 || $annotation instanceof GroupSequenceProvider
             ) {
-                trigger_deprecation('symfony/validator', '6.4', sprintf('%s uses Doctrine Annotations to configure validation constraints, which is deprecated. Use PHP attributes instead.', $messagePrefix));
+                trigger_deprecation('symfony/validator', '6.4', \sprintf('%s uses Doctrine Annotations to configure validation constraints, which is deprecated. Use PHP attributes instead.', $messagePrefix));
                 break;
             }
         }

@@ -115,7 +115,7 @@ class EmailValidatorTest extends ConstraintValidatorTestCase
             ['{}~!@!@£$%%^&*().!@£$%^&*()'],
             ['example@example.co..uk'],
             ['example@-example.com'],
-            [sprintf('example@%s.com', str_repeat('a', 64))],
+            [\sprintf('example@%s.com', str_repeat('a', 64))],
         ];
     }
 
@@ -243,7 +243,7 @@ class EmailValidatorTest extends ConstraintValidatorTestCase
             [' example@example.com '],
             [' example @example .com '],
             ['example@-example.com'],
-            [sprintf('example@%s.com', str_repeat('a', 64))],
+            [\sprintf('example@%s.com', str_repeat('a', 64))],
         ];
     }
 

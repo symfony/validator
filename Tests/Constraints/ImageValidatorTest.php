@@ -531,7 +531,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
         $this->assertSame('image/*', $constraint->mimeTypes);
 
         $this->buildViolation('This file is not a valid image.')
-            ->setParameter('{{ file }}', sprintf('"%s"', $this->notAnImage))
+            ->setParameter('{{ file }}', \sprintf('"%s"', $this->notAnImage))
             ->setParameter('{{ type }}', '"text/plain"')
             ->setParameter('{{ types }}', '"image/*"')
             ->setParameter('{{ name }}', '"ccc.txt"')
@@ -558,7 +558,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate($this->image, $constraint);
 
         $this->buildViolation('The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.')
-            ->setParameter('{{ file }}', sprintf('"%s"', $this->image))
+            ->setParameter('{{ file }}', \sprintf('"%s"', $this->image))
             ->setParameter('{{ type }}', '"image/gif"')
             ->setParameter('{{ types }}', '"image/jpeg", "image/png"')
             ->setParameter('{{ name }}', '"test.gif"')

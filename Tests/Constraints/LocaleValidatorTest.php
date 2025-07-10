@@ -101,7 +101,7 @@ class LocaleValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate($locale, $constraint);
 
         $this->buildViolation('myMessage')
-            ->setParameter('{{ value }}', '"' . $locale . '"')
+            ->setParameter('{{ value }}', '"'.$locale.'"')
             ->setCode(Locale::NO_SUCH_LOCALE_ERROR)
             ->assertRaised();
     }

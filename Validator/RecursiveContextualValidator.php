@@ -158,7 +158,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             return $this;
         }
 
-        throw new RuntimeException(sprintf('Cannot validate values of type "%s" automatically. Please provide a constraint.', get_debug_type($value)));
+        throw new RuntimeException(\sprintf('Cannot validate values of type "%s" automatically. Please provide a constraint.', get_debug_type($value)));
     }
 
     public function validateProperty(object $object, string $propertyName, string|GroupSequence|array|null $groups = null): static
@@ -166,7 +166,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         $classMetadata = $this->metadataFactory->getMetadataFor($object);
 
         if (!$classMetadata instanceof ClassMetadataInterface) {
-            throw new ValidatorException(sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
+            throw new ValidatorException(\sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
         }
 
         $propertyMetadatas = $classMetadata->getPropertyMetadata($propertyName);
@@ -207,7 +207,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         $classMetadata = $this->metadataFactory->getMetadataFor($objectOrClass);
 
         if (!$classMetadata instanceof ClassMetadataInterface) {
-            throw new ValidatorException(sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
+            throw new ValidatorException(\sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
         }
 
         $propertyMetadatas = $classMetadata->getPropertyMetadata($propertyName);
@@ -295,7 +295,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             $classMetadata = $this->metadataFactory->getMetadataFor($object);
 
             if (!$classMetadata instanceof ClassMetadataInterface) {
-                throw new UnsupportedMetadataException(sprintf('The metadata factory should return instances of "Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
+                throw new UnsupportedMetadataException(\sprintf('The metadata factory should return instances of "Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
             }
 
             $this->validateClassNode(
@@ -498,7 +498,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             // returns two metadata objects, not just one
             foreach ($metadata->getPropertyMetadata($propertyName) as $propertyMetadata) {
                 if (!$propertyMetadata instanceof PropertyMetadataInterface) {
-                    throw new UnsupportedMetadataException(sprintf('The property metadata instances should implement "Symfony\Component\Validator\Mapping\PropertyMetadataInterface", got: "%s".', get_debug_type($propertyMetadata)));
+                    throw new UnsupportedMetadataException(\sprintf('The property metadata instances should implement "Symfony\Component\Validator\Mapping\PropertyMetadataInterface", got: "%s".', get_debug_type($propertyMetadata)));
                 }
 
                 if ($propertyMetadata instanceof GetterMetadata) {
@@ -539,7 +539,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
 
         // If TRAVERSE, fail if we have no Traversable
         if (!$object instanceof \Traversable) {
-            throw new ConstraintDefinitionException(sprintf('Traversal was enabled for "%s", but this class does not implement "\Traversable".', get_debug_type($object)));
+            throw new ConstraintDefinitionException(\sprintf('Traversal was enabled for "%s", but this class does not implement "\Traversable".', get_debug_type($object)));
         }
 
         $this->validateEachObjectIn(
@@ -645,7 +645,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         }
 
         if (!\is_object($value)) {
-            throw new NoSuchMetadataException(sprintf('Cannot create metadata for non-objects. Got: "%s".', \gettype($value)));
+            throw new NoSuchMetadataException(\sprintf('Cannot create metadata for non-objects. Got: "%s".', \gettype($value)));
         }
 
         $this->validateObject(

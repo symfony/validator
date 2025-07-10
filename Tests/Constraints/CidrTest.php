@@ -52,7 +52,7 @@ class CidrTest extends TestCase
         $availableVersions = [Ip::ALL, Ip::V4, Ip::V6];
 
         self::expectException(ConstraintDefinitionException::class);
-        self::expectExceptionMessage(sprintf('The option "version" must be one of "%s".', implode('", "', $availableVersions)));
+        self::expectExceptionMessage(\sprintf('The option "version" must be one of "%s".', implode('", "', $availableVersions)));
 
         new Cidr(['version' => '8']);
     }
@@ -81,7 +81,7 @@ class CidrTest extends TestCase
         $expectedMax = Ip::V4 == $ipVersion ? 32 : 128;
 
         self::expectException(ConstraintDefinitionException::class);
-        self::expectExceptionMessage(sprintf('The netmask range must be between 0 and %d.', $expectedMax));
+        self::expectExceptionMessage(\sprintf('The netmask range must be between 0 and %d.', $expectedMax));
 
         new Cidr([
             'version' => $ipVersion,

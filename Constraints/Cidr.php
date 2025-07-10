@@ -62,12 +62,12 @@ class Cidr extends Constraint
         ?int $netmaskMax = null,
         ?string $message = null,
         ?array $groups = null,
-        $payload = null
+        $payload = null,
     ) {
         $this->version = $version ?? $options['version'] ?? $this->version;
 
         if (!\array_key_exists($this->version, self::NET_MAXES)) {
-            throw new ConstraintDefinitionException(sprintf('The option "version" must be one of "%s".', implode('", "', array_keys(self::NET_MAXES))));
+            throw new ConstraintDefinitionException(\sprintf('The option "version" must be one of "%s".', implode('", "', array_keys(self::NET_MAXES))));
         }
 
         $this->netmaskMin = $netmaskMin ?? $options['netmaskMin'] ?? $this->netmaskMin;
@@ -77,7 +77,7 @@ class Cidr extends Constraint
         unset($options['netmaskMin'], $options['netmaskMax'], $options['version']);
 
         if ($this->netmaskMin < 0 || $this->netmaskMax > self::NET_MAXES[$this->version] || $this->netmaskMin > $this->netmaskMax) {
-            throw new ConstraintDefinitionException(sprintf('The netmask range must be between 0 and %d.', self::NET_MAXES[$this->version]));
+            throw new ConstraintDefinitionException(\sprintf('The netmask range must be between 0 and %d.', self::NET_MAXES[$this->version]));
         }
 
         parent::__construct($options, $groups, $payload);
