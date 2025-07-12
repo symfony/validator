@@ -120,7 +120,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate('Bernhard', $constraint, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -156,7 +156,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -195,7 +195,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -234,7 +234,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -271,7 +271,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($array, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -308,7 +308,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($array, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -345,7 +345,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($traversable, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -384,7 +384,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($traversable, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -422,7 +422,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -463,7 +463,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -504,7 +504,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -525,7 +525,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -569,7 +569,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -610,7 +610,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -642,7 +642,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -665,7 +665,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -689,7 +689,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -705,7 +705,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -721,7 +721,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -751,7 +751,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -780,7 +780,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -827,7 +827,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -875,7 +875,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validateProperty($entity, 'firstName', 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -938,7 +938,7 @@ class RecursiveValidatorTest extends TestCase
             'Group'
         );
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -987,7 +987,7 @@ class RecursiveValidatorTest extends TestCase
             'Group'
         );
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1026,7 +1026,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -1046,7 +1046,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(2, $violations);
     }
 
@@ -1069,7 +1069,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Group 2');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -1092,7 +1092,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, ['Group 1', 'Group 2']);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(2, $violations);
     }
 
@@ -1125,7 +1125,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Default');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Violation in Group 2', $violations[0]->getMessage());
     }
@@ -1159,7 +1159,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Default');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Violation in Group 2', $violations[0]->getMessage());
     }
@@ -1191,7 +1191,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Default');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Violation in Default group', $violations[0]->getMessage());
     }
@@ -1221,7 +1221,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Other Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Violation in other group', $violations[0]->getMessage());
     }
@@ -1259,7 +1259,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, null, 'Default');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(\count($assertViolations), $violations);
         foreach ($assertViolations as $key => $message) {
             $this->assertSame($message, $violations[$key]->getMessage());
@@ -1362,7 +1362,7 @@ class RecursiveValidatorTest extends TestCase
         $sequence = new GroupSequence(['Group 1', 'Group 2', 'Group 3']);
         $violations = $this->validator->validate($entity, new Valid(), $sequence);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message 1', $violations[0]->getMessage());
     }
@@ -1392,7 +1392,7 @@ class RecursiveValidatorTest extends TestCase
         $sequence = new GroupSequence(['Group 1', 'Entity']);
         $violations = $this->validator->validate($entity, new Valid(), $sequence);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Reference violation 1', $violations[0]->getMessage());
     }
@@ -1410,7 +1410,7 @@ class RecursiveValidatorTest extends TestCase
                 ->validate($value->reference, new Valid(), 'Group')
             ;
 
-            /* @var ConstraintViolationInterface[] $violations */
+            /** @var ConstraintViolationInterface[] $violations */
             $this->assertCount(1, $violations);
             $this->assertSame('Message value', $violations[0]->getMessage());
             $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1451,7 +1451,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Separate violation', $violations[0]->getMessage());
     }
@@ -1507,7 +1507,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1570,7 +1570,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1608,7 +1608,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($traversable, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1640,7 +1640,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($traversable, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -1664,7 +1664,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($traversable, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1699,7 +1699,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1726,7 +1726,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1753,7 +1753,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1773,7 +1773,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1795,7 +1795,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(0, $violations);
     }
 
@@ -1825,7 +1825,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validate($entity, new Valid(), 'Group');
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertInstanceOf(Callback::class, $violations->get(0)->getConstraint());
     }
@@ -1847,7 +1847,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
         $this->assertSame('Message value', $violations[0]->getMessage());
         $this->assertSame('Message %param%', $violations[0]->getMessageTemplate());
@@ -1874,7 +1874,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity, new Valid(), ['Group 1', 'Group 2']);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
@@ -1893,7 +1893,7 @@ class RecursiveValidatorTest extends TestCase
 
         $violations = $this->validator->validate($entity, new Valid(), ['Group 1', 'Group 2']);
 
-        /* @var ConstraintViolationInterface[] $violations */
+        /** @var ConstraintViolationInterface[] $violations */
         $this->assertCount(1, $violations);
     }
 
