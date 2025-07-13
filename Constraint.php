@@ -140,9 +140,9 @@ abstract class Constraint
     protected function normalizeOptions(mixed $options): array
     {
         $normalizedOptions = [];
-        $defaultOption = $this->getDefaultOption();
+        $defaultOption = $this->getDefaultOption(false);
         $invalidOptions = [];
-        $missingOptions = array_flip($this->getRequiredOptions());
+        $missingOptions = array_flip($this->getRequiredOptions(false));
         $knownOptions = get_class_vars(static::class);
 
         if (\is_array($options) && isset($options['value']) && !property_exists($this, 'value')) {
@@ -255,11 +255,14 @@ abstract class Constraint
      * Override this method to define a default option.
      *
      * @deprecated since Symfony 7.4
-     *
      * @see __construct()
      */
     public function getDefaultOption(): ?string
     {
+        if (0 === \func_num_args() || func_get_arg(0)) {
+            trigger_deprecation('symfony/validator', '7.4', 'The %s() method is deprecated.', __METHOD__);
+        }
+
         return null;
     }
 
@@ -271,11 +274,14 @@ abstract class Constraint
      * @return string[]
      *
      * @deprecated since Symfony 7.4
-     *
      * @see __construct()
      */
     public function getRequiredOptions(): array
     {
+        if (0 === \func_num_args() || func_get_arg(0)) {
+            trigger_deprecation('symfony/validator', '7.4', 'The %s() method is deprecated.', __METHOD__);
+        }
+
         return [];
     }
 
