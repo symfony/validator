@@ -9,6 +9,8 @@ CHANGELOG
 7.4
 ---
 
+ * Deprecate `getRequiredOptions()` and `getDefaultOption()` methods of the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
+   `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
  * Deprecate evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
    class instead.
 

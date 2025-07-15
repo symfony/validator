@@ -37,6 +37,14 @@ final class WhenTest extends TestCase
         new When([]);
     }
 
+    public function testMissingConstraints()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The options "constraints" must be set for constraint "Symfony\Component\Validator\Constraints\When".');
+
+        new When('true');
+    }
+
     public function testNonConstraintsAreRejected()
     {
         $this->expectException(ConstraintDefinitionException::class);

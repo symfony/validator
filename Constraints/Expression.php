@@ -68,7 +68,9 @@ class Expression extends Constraint
         } else {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
+            }
 
+            if (null !== $expression) {
                 $options['value'] = $expression;
             }
         }
@@ -86,6 +88,10 @@ class Expression extends Constraint
      */
     public function getDefaultOption(): ?string
     {
+        if (0 === \func_num_args() || func_get_arg(0)) {
+            trigger_deprecation('symfony/validator', '7.4', 'The %s() method is deprecated.', __METHOD__);
+        }
+
         return 'expression';
     }
 
@@ -94,6 +100,10 @@ class Expression extends Constraint
      */
     public function getRequiredOptions(): array
     {
+        if (0 === \func_num_args() || func_get_arg(0)) {
+            trigger_deprecation('symfony/validator', '7.4', 'The %s() method is deprecated.', __METHOD__);
+        }
+
         return ['expression'];
     }
 
