@@ -57,7 +57,7 @@ class Expression extends Constraint
 
         if (\is_array($expression)) {
             $options = array_merge($expression, $options);
-        } else {
+        } elseif (null !== $expression) {
             $options['value'] = $expression;
         }
 
