@@ -71,7 +71,9 @@ class Expression extends Constraint
                 $options = [];
             }
 
-            $options['value'] = $expression;
+            if (null !== $expression) {
+                $options['value'] = $expression;
+            }
         }
 
         parent::__construct($options, $groups, $payload);

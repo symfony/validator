@@ -57,7 +57,9 @@ class When extends Composite
             }
 
             $options['expression'] = $expression;
-            $options['constraints'] = $constraints;
+            if (null !== $constraints) {
+                $options['constraints'] = $constraints;
+            }
             $options['otherwise'] = $otherwise;
         }
 

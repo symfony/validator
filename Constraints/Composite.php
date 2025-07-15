@@ -58,7 +58,7 @@ abstract class Composite extends Constraint
         $this->initializeNestedConstraints();
 
         foreach ((array) $this->getCompositeOption() as $option) {
-            /* @var Constraint[] $nestedConstraints */
+            /** @var Constraint[] $nestedConstraints */
             $nestedConstraints = $this->$option;
 
             if (!\is_array($nestedConstraints)) {

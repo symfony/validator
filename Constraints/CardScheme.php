@@ -66,7 +66,9 @@ class CardScheme extends Constraint
                 $options = [];
             }
 
-            $options['value'] = $schemes;
+            if (null !== $schemes) {
+                $options['value'] = $schemes;
+            }
         }
 
         parent::__construct($options, $groups, $payload);
