@@ -45,13 +45,20 @@ class Collection extends Composite
     #[HasNamedArguments]
     public function __construct(mixed $fields = null, ?array $groups = null, mixed $payload = null, ?bool $allowExtraFields = null, ?bool $allowMissingFields = null, ?string $extraFieldsMessage = null, ?string $missingFieldsMessage = null)
     {
+        $options = $fields;
+
         if (self::isFieldsOption($fields)) {
+            $options = [];
+
+            if (null !== $fields) {
+                $options['fields'] = $fields;
+            }
             $fields = ['fields' => $fields];
         } else {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
         }
 
-        parent::__construct($fields, $groups, $payload);
+        parent::__construct($options, $groups, $payload);
 
         $this->allowExtraFields = $allowExtraFields ?? $this->allowExtraFields;
         $this->allowMissingFields = $allowMissingFields ?? $this->allowMissingFields;
@@ -88,6 +95,10 @@ class Collection extends Composite
 
     private static function isFieldsOption($options): bool
     {
+        if (null === $options) {
+            return true;
+        }
+
         if (!\is_array($options)) {
             return false;
         }
