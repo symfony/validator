@@ -14,6 +14,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 
@@ -131,6 +132,22 @@ class RegexTest extends TestCase
         [$cConstraint] = $metadata->properties['c']->getConstraints();
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
+    }
+
+    public function testMissingPattern()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(\sprintf('The options "pattern" must be set for constraint "%s".', Regex::class));
+
+        new Regex(null);
+    }
+
+    public function testMissingPatternDoctrineStyle()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(\sprintf('The options "pattern" must be set for constraint "%s".', Regex::class));
+
+        new Regex([]);
     }
 }
 

@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Expression;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 
@@ -40,6 +41,22 @@ class ExpressionTest extends TestCase
         self::assertSame(['foo'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
         self::assertFalse($cConstraint->negate);
+    }
+
+    public function testMissingPattern()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(\sprintf('The options "expression" must be set for constraint "%s".', Expression::class));
+
+        new Expression(null);
+    }
+
+    public function testMissingPatternDoctrineStyle()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(\sprintf('The options "expression" must be set for constraint "%s".', Expression::class));
+
+        new Expression([]);
     }
 }
 

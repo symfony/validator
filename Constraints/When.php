@@ -45,7 +45,10 @@ class When extends Composite
             $options = array_merge($expression, $options);
         } else {
             $options['expression'] = $expression;
-            $options['constraints'] = $constraints;
+
+            if (null !== $constraints) {
+                $options['constraints'] = $constraints;
+            }
         }
 
         if (isset($options['constraints']) && !\is_array($options['constraints'])) {

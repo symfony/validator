@@ -443,7 +443,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
                     } else {
                         // The group sequence is dynamically obtained from the validated
                         // object
-                        /* @var \Symfony\Component\Validator\GroupSequenceProviderInterface $object */
+                        /** @var \Symfony\Component\Validator\GroupSequenceProviderInterface $object */
                         $group = $object->getGroupSequence();
                     }
                     $defaultOverridden = true;
