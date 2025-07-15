@@ -41,26 +41,6 @@ final class CssColorTest extends TestCase
         self::assertSame('some attached data', $cConstraint->payload);
     }
 
-    public function testMissingPattern()
-    {
-        $constraint = new CssColor(null);
-
-        $this->assertSame([
-            CssColor::HEX_LONG,
-            CssColor::HEX_LONG_WITH_ALPHA,
-            CssColor::HEX_SHORT,
-            CssColor::HEX_SHORT_WITH_ALPHA,
-            CssColor::BASIC_NAMED_COLORS,
-            CssColor::EXTENDED_NAMED_COLORS,
-            CssColor::SYSTEM_COLORS,
-            CssColor::KEYWORDS,
-            CssColor::RGB,
-            CssColor::RGBA,
-            CssColor::HSL,
-            CssColor::HSLA,
-        ], $constraint->formats);
-    }
-
     public function testMissingPatternDoctrineStyle()
     {
         $constraint = new CssColor([]);
