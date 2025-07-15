@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints\Required;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\InvalidOptionsException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -206,5 +207,13 @@ class CollectionTest extends TestCase
         $this->assertInstanceOf(Required::class, $constraint->fields['foo']);
         $this->assertTrue($constraint->allowExtraFields);
         $this->assertSame('foo bar baz', $constraint->extraFieldsMessage);
+    }
+
+    public function testMissingFields()
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(\sprintf('The options "fields" must be set for constraint "%s".', Collection::class));
+
+        new Collection(null);
     }
 }
