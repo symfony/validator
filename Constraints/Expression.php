@@ -16,6 +16,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\LogicException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Validates a value using an expression from the Expression Language component.
@@ -60,6 +61,10 @@ class Expression extends Constraint
             throw new LogicException(\sprintf('The "symfony/expression-language" component is required to use the "%s" constraint. Try running "composer require symfony/expression-language".', __CLASS__));
         }
 
+        if (null === $expression && !isset($options['expression'])) {
+            throw new MissingOptionsException(\sprintf('The options "expression" must be set for constraint "%s".', self::class), ['expression']);
+        }
+
         if (\is_array($expression)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
@@ -68,10 +73,6 @@ class Expression extends Constraint
         } else {
             if (\is_array($options)) {
                 trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            }
-
-            if (null !== $expression) {
-                $options['value'] = $expression;
             }
         }
 

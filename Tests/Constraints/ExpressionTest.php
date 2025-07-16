@@ -51,6 +51,9 @@ class ExpressionTest extends TestCase
         new Expression(null);
     }
 
+    /**
+     * @group legacy
+     */
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);
@@ -67,6 +70,16 @@ class ExpressionTest extends TestCase
         $constraint = new Expression([
             'expression' => '!this.getParent().get("field2").getData()',
         ]);
+
+        $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testExpressionInOptionsArray()
+    {
+        $constraint = new Expression(null, options: ['expression' => '!this.getParent().get("field2").getData()']);
 
         $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
     }

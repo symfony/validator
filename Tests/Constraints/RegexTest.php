@@ -148,12 +148,25 @@ class RegexTest extends TestCase
         new Regex(null);
     }
 
+    /**
+     * @group legacy
+     */
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);
         $this->expectExceptionMessage(\sprintf('The options "pattern" must be set for constraint "%s".', Regex::class));
 
         new Regex([]);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testPatternInOptionsArray()
+    {
+        $constraint = new Regex(null, options: ['pattern' => '/^[0-9]+$/']);
+
+        $this->assertSame('/^[0-9]+$/', $constraint->pattern);
     }
 }
 

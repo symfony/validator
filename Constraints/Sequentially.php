@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Use this constraint to sequentially validate nested constraints.
@@ -32,6 +33,10 @@ class Sequentially extends Composite
     #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null)
     {
+        if (null === $constraints || [] === $constraints) {
+            throw new MissingOptionsException(\sprintf('The options "constraints" must be set for constraint "%s".', self::class), ['constraints']);
+        }
+
         if (!$constraints instanceof Constraint && !\is_array($constraints) || \is_array($constraints) && !array_is_list($constraints)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
             $options = $constraints;

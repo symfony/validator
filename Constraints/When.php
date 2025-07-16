@@ -16,6 +16,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\LogicException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Conditionally apply validation constraints based on an expression using the ExpressionLanguage syntax.
@@ -59,6 +60,10 @@ class When extends Composite
                 }
                 $options['otherwise'] = $otherwise;
             } else {
+                if (null === $constraints) {
+                    throw new MissingOptionsException(\sprintf('The options "constraints" must be set for constraint "%s".', self::class), ['constraints']);
+                }
+
                 $this->expression = $expression;
                 $this->constraints = $constraints;
                 $this->otherwise = $otherwise;

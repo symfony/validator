@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Validates that a value is of a specific data type.
@@ -39,6 +40,10 @@ class Type extends Constraint
     #[HasNamedArguments]
     public function __construct(string|array|null $type, ?string $message = null, ?array $groups = null, mixed $payload = null, ?array $options = null)
     {
+        if (null === $type && !isset($options['type'])) {
+            throw new MissingOptionsException(\sprintf('The options "type" must be set for constraint "%s".', self::class), ['type']);
+        }
+
         if (\is_array($type) && \is_string(key($type))) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 

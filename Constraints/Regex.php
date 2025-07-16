@@ -14,6 +14,7 @@ namespace Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Validates that a value matches a regular expression.
@@ -54,15 +55,17 @@ class Regex extends Constraint
         mixed $payload = null,
         ?array $options = null,
     ) {
+        if (null === $pattern && !isset($options['pattern'])) {
+            throw new MissingOptionsException(\sprintf('The options "pattern" must be set for constraint "%s".', self::class), ['pattern']);
+        }
+
         if (\is_array($pattern)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
             $options = array_merge($pattern, $options ?? []);
             $pattern = $options['pattern'] ?? null;
-        } elseif (null !== $pattern) {
-            if (\is_array($options)) {
-                trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
-            }
+        } elseif (\is_array($options)) {
+            trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
         }
 
         parent::__construct($options, $groups, $payload);
