@@ -45,6 +45,16 @@ class TypeTest extends TestCase
 
         new Type(null);
     }
+
+    /**
+     * @group legacy
+     */
+    public function testTypeInOptionsArray()
+    {
+        $constraint = new Type(null, options: ['type' => 'digit']);
+
+        $this->assertSame('digit', $constraint->type);
+    }
 }
 
 class TypeDummy

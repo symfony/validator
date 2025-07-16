@@ -73,6 +73,16 @@ class ExpressionTest extends TestCase
 
         $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
     }
+
+    /**
+     * @group legacy
+     */
+    public function testExpressionInOptionsArray()
+    {
+        $constraint = new Expression(null, options: ['expression' => '!this.getParent().get("field2").getData()']);
+
+        $this->assertSame('!this.getParent().get("field2").getData()', $constraint->expression);
+    }
 }
 
 class ExpressionDummy

@@ -154,4 +154,18 @@ final class WhenTest extends TestCase
         self::assertSame([], $fooConstraint->otherwise);
         self::assertSame(['Default', 'WhenTestWithClosure'], $fooConstraint->groups);
     }
+
+    /**
+     * @group legacy
+     */
+    public function testConstraintsInOptionsArray()
+    {
+        $constraints = [
+            new NotNull(),
+            new Length(min: 10),
+        ];
+        $constraint = new When('true', options: ['constraints' => $constraints]);
+
+        $this->assertSame($constraints, $constraint->constraints);
+    }
 }

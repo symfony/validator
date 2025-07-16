@@ -158,6 +158,16 @@ class RegexTest extends TestCase
 
         new Regex([]);
     }
+
+    /**
+     * @group legacy
+     */
+    public function testPatternInOptionsArray()
+    {
+        $constraint = new Regex(null, options: ['pattern' => '/^[0-9]+$/']);
+
+        $this->assertSame('/^[0-9]+$/', $constraint->pattern);
+    }
 }
 
 class RegexDummy
