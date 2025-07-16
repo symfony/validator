@@ -53,7 +53,6 @@ class Collection extends Composite
             if (null !== $fields) {
                 $options['fields'] = $fields;
             }
-            $fields = ['fields' => $fields];
         } else {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
         }
