@@ -148,6 +148,9 @@ class RegexTest extends TestCase
         new Regex(null);
     }
 
+    /**
+     * @group legacy
+     */
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);

@@ -51,6 +51,9 @@ class ExpressionTest extends TestCase
         new Expression(null);
     }
 
+    /**
+     * @group legacy
+     */
     public function testMissingPatternDoctrineStyle()
     {
         $this->expectException(MissingOptionsException::class);

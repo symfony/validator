@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Constraints;
 
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 /**
  * Validates a collection with constraints defined for specific keys.
@@ -45,6 +46,10 @@ class Collection extends Composite
     #[HasNamedArguments]
     public function __construct(mixed $fields = null, ?array $groups = null, mixed $payload = null, ?bool $allowExtraFields = null, ?bool $allowMissingFields = null, ?string $extraFieldsMessage = null, ?string $missingFieldsMessage = null)
     {
+        if (null === $fields) {
+            throw new MissingOptionsException(\sprintf('The options "fields" must be set for constraint "%s".', self::class), ['fields']);
+        }
+
         if (self::isFieldsOption($fields)) {
             $this->fields = $fields;
         } else {
