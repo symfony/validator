@@ -75,24 +75,9 @@ class NoSuspiciousCharactersValidator extends ConstraintValidator
         }
 
         $checker = new \Spoofchecker();
-        $checks = $constraint->checks;
-
-        if (method_exists($checker, 'setRestrictionLevel')) {
-            $checks |= self::CHECK_RESTRICTION_LEVEL;
-            $checker->setRestrictionLevel($constraint->restrictionLevel ?? NoSuspiciousCharacters::RESTRICTION_LEVEL_MODERATE);
-        } elseif (NoSuspiciousCharacters::RESTRICTION_LEVEL_MINIMAL === $constraint->restrictionLevel) {
-            $checks |= self::CHECK_CHAR_LIMIT;
-        } elseif (NoSuspiciousCharacters::RESTRICTION_LEVEL_SINGLE_SCRIPT === $constraint->restrictionLevel) {
-            $checks |= self::CHECK_SINGLE_SCRIPT | self::CHECK_CHAR_LIMIT;
-        } elseif ($constraint->restrictionLevel) {
-            throw new LogicException('You can only use one of RESTRICTION_LEVEL_NONE, RESTRICTION_LEVEL_MINIMAL or RESTRICTION_LEVEL_SINGLE_SCRIPT with intl compiled against ICU < 58.');
-        } else {
-            $checks |= self::CHECK_SINGLE_SCRIPT;
-        }
-
+        $checker->setRestrictionLevel($constraint->restrictionLevel ?? NoSuspiciousCharacters::RESTRICTION_LEVEL_MODERATE);
         $checker->setAllowedLocales(implode(',', $constraint->locales ?? $this->defaultLocales));
-
-        $checker->setChecks($checks);
+        $checker->setChecks($constraint->checks | self::CHECK_RESTRICTION_LEVEL);
 
         if (!$checker->isSuspicious($value, $errorCode)) {
             return;

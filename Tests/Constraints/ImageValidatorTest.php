@@ -12,7 +12,6 @@
 namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\ImageValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
@@ -696,10 +695,6 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
      */
     public function testExtensionValid(string $name)
     {
-        if (!class_exists(MimeTypes::class)) {
-            $this->markTestSkipped('Guessing the mime type is not possible');
-        }
-
         $constraint = new Image(mimeTypes: [], extensions: ['gif'], extensionsMessage: 'myMessage');
 
         $this->validator->validate(new File(__DIR__.'/Fixtures/'.$name), $constraint);
@@ -742,10 +737,6 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
 
     public function testExtensionAutodetectMimeTypesInvalid()
     {
-        if (!class_exists(MimeTypes::class)) {
-            $this->markTestSkipped('Guessing the mime type is not possible');
-        }
-
         $path = __DIR__.'/Fixtures/invalid-content.gif';
         $constraint = new Image(mimeTypesMessage: 'myMessage', extensions: ['gif']);
 

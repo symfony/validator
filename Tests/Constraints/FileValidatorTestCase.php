@@ -500,36 +500,34 @@ abstract class FileValidatorTestCase extends ConstraintValidatorTestCase
             [(string) \UPLOAD_ERR_EXTENSION, 'uploadExtensionErrorMessage'],
         ];
 
-        if (class_exists(UploadedFile::class)) {
-            // when no maxSize is specified on constraint, it should use the ini value
-            $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
-                '{{ limit }}' => UploadedFile::getMaxFilesize() / 1048576,
-                '{{ suffix }}' => 'MiB',
-            ]];
+        // when no maxSize is specified on constraint, it should use the ini value
+        $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
+            '{{ limit }}' => UploadedFile::getMaxFilesize() / 1048576,
+            '{{ suffix }}' => 'MiB',
+        ]];
 
-            // it should use the smaller limitation (maxSize option in this case)
-            $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
-                '{{ limit }}' => 1,
-                '{{ suffix }}' => 'bytes',
-            ], '1'];
+        // it should use the smaller limitation (maxSize option in this case)
+        $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
+            '{{ limit }}' => 1,
+            '{{ suffix }}' => 'bytes',
+        ], '1'];
 
-            // access FileValidator::factorizeSizes() private method to format max file size
-            $reflection = new \ReflectionClass(new FileValidator());
-            $method = $reflection->getMethod('factorizeSizes');
-            [, $limit, $suffix] = $method->invokeArgs(new FileValidator(), [0, UploadedFile::getMaxFilesize(), false]);
+        // access FileValidator::factorizeSizes() private method to format max file size
+        $reflection = new \ReflectionClass(new FileValidator());
+        $method = $reflection->getMethod('factorizeSizes');
+        [, $limit, $suffix] = $method->invokeArgs(new FileValidator(), [0, UploadedFile::getMaxFilesize(), false]);
 
-            // it correctly parses the maxSize option and not only uses simple string comparison
-            // 1000G should be bigger than the ini value
-            $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
-                '{{ limit }}' => $limit,
-                '{{ suffix }}' => $suffix,
-            ], '1000G'];
+        // it correctly parses the maxSize option and not only uses simple string comparison
+        // 1000G should be bigger than the ini value
+        $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
+            '{{ limit }}' => $limit,
+            '{{ suffix }}' => $suffix,
+        ], '1000G'];
 
-            $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
-                '{{ limit }}' => '100',
-                '{{ suffix }}' => 'kB',
-            ], '100K'];
-        }
+        $tests[] = [(string) \UPLOAD_ERR_INI_SIZE, 'uploadIniSizeErrorMessage', [
+            '{{ limit }}' => '100',
+            '{{ suffix }}' => 'kB',
+        ], '100K'];
 
         return $tests;
     }
