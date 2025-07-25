@@ -47,8 +47,7 @@ class Email extends Constraint
     public $normalizer;
 
     /**
-     * @param array<string,mixed>|null     $options
-     * @param self::VALIDATION_MODE_*|null $mode    The pattern used to validate the email address; pass null to use the default mode configured for the EmailValidator
+     * @param self::VALIDATION_MODE_*|null $mode   The pattern used to validate the email address; pass null to use the default mode configured for the EmailValidator
      * @param string[]|null                $groups
      */
     #[HasNamedArguments]

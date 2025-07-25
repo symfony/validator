@@ -40,9 +40,8 @@ final class PasswordStrength extends Constraint
     public int $minScore;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param self::STRENGTH_*|null    $minScore The minimum required strength of the password (defaults to {@see PasswordStrength::STRENGTH_MEDIUM})
-     * @param string[]|null            $groups
+     * @param self::STRENGTH_*|null $minScore The minimum required strength of the password (defaults to {@see PasswordStrength::STRENGTH_MEDIUM})
+     * @param string[]|null         $groups
      */
     #[HasNamedArguments]
     public function __construct(?array $options = null, ?int $minScore = null, ?array $groups = null, mixed $payload = null, ?string $message = null)

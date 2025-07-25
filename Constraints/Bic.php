@@ -65,7 +65,6 @@ class Bic extends Constraint
     public string $mode = self::VALIDATION_MODE_STRICT;
 
     /**
-     * @param array<string,mixed>|null     $options
      * @param string|null                  $iban             An IBAN value to validate that its country code is the same as the BIC's one
      * @param string|null                  $ibanPropertyPath Property path to the IBAN value when validating objects
      * @param string[]|null                $groups

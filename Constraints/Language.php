@@ -36,9 +36,8 @@ class Language extends Constraint
     public bool $alpha3 = false;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param bool|null                $alpha3  Pass true to validate the language with three-letter code (ISO 639-2 (2T)) or false with two-letter code (ISO 639-1) (defaults to false)
-     * @param string[]|null            $groups
+     * @param bool|null     $alpha3 Pass true to validate the language with three-letter code (ISO 639-2 (2T)) or false with two-letter code (ISO 639-1) (defaults to false)
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(

@@ -38,9 +38,8 @@ class DateTime extends Constraint
     public string $message = 'This value is not a valid datetime.';
 
     /**
-     * @param non-empty-string|array<string,mixed>|null $format  The datetime format to match (defaults to 'Y-m-d H:i:s')
-     * @param string[]|null                             $groups
-     * @param array<string,mixed>|null                  $options
+     * @param non-empty-string|null $format The datetime format to match (defaults to 'Y-m-d H:i:s')
+     * @param string[]|null         $groups
      */
     #[HasNamedArguments]
     public function __construct(string|array|null $format = null, ?string $message = null, ?array $groups = null, mixed $payload = null, ?array $options = null)

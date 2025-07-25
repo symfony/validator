@@ -50,10 +50,9 @@ class Isbn extends Constraint
     public ?string $message = null;
 
     /**
-     * @param self::ISBN_*|array<string,mixed>|null $type    The type of ISBN to validate (i.e. {@see Isbn::ISBN_10}, {@see Isbn::ISBN_13} or null to accept both, defaults to null)
-     * @param string|null                           $message If defined, this message has priority over the others
-     * @param string[]|null                         $groups
-     * @param array<string,mixed>|null              $options
+     * @param self::ISBN_*|null $type    The type of ISBN to validate (i.e. {@see Isbn::ISBN_10}, {@see Isbn::ISBN_13} or null to accept both, defaults to null)
+     * @param string|null       $message If defined, this message has priority over the others
+     * @param string[]|null     $groups
      */
     #[HasNamedArguments]
     public function __construct(

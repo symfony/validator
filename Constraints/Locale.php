@@ -36,9 +36,8 @@ class Locale extends Constraint
     public bool $canonicalize = true;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param bool|null                $canonicalize Whether to canonicalize the value before validation (defaults to true) (see {@see https://www.php.net/manual/en/locale.canonicalize.php})
-     * @param string[]|null            $groups
+     * @param bool|null     $canonicalize Whether to canonicalize the value before validation (defaults to true) (see {@see https://www.php.net/manual/en/locale.canonicalize.php})
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(

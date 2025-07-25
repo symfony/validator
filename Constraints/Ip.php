@@ -108,7 +108,6 @@ class Ip extends Constraint
     public $normalizer;
 
     /**
-     * @param array<string,mixed>|null            $options
      * @param self::V4*|self::V6*|self::ALL*|null $version The IP version to validate (defaults to {@see self::V4})
      * @param string[]|null                       $groups
      */
