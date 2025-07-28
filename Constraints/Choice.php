@@ -85,6 +85,7 @@ class Choice extends Constraint
         ?bool $match = null,
     ) {
         if (\is_array($options) && $options && array_is_list($options)) {
+            trigger_deprecation('symfony/validator', '7.4', 'Support for passing the choices as the first argument to %s is deprecated.', static::class);
             $choices ??= $options;
             $options = null;
         } elseif (\is_array($options) && [] !== $options) {

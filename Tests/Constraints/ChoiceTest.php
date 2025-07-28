@@ -66,7 +66,7 @@ class ChoiceDummy
     #[Choice(choices: ['foo', 'bar'], message: 'myMessage')]
     private $b;
 
-    #[Choice([1, 2], groups: ['my_group'], payload: 'some attached data')]
+    #[Choice(choices: [1, 2], groups: ['my_group'], payload: 'some attached data')]
     private $c;
 
     #[Choice(choices: ['one' => 1, 'two' => 2])]
