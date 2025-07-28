@@ -36,9 +36,8 @@ class NotBlank extends Constraint
     public $normalizer;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param bool|null                $allowNull Whether to allow null values (defaults to false)
-     * @param string[]|null            $groups
+     * @param bool|null     $allowNull Whether to allow null values (defaults to false)
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(?array $options = null, ?string $message = null, ?bool $allowNull = null, ?callable $normalizer = null, ?array $groups = null, mixed $payload = null)

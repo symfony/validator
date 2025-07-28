@@ -27,8 +27,8 @@ class All extends Composite
     public array|Constraint $constraints = [];
 
     /**
-     * @param array<Constraint>|array<string,mixed>|Constraint|null $constraints
-     * @param string[]|null                                         $groups
+     * @param array<Constraint>|Constraint|null $constraints
+     * @param string[]|null                     $groups
      */
     #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null)

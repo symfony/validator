@@ -46,10 +46,9 @@ class Issn extends Constraint
     public bool $requireHyphen = false;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param bool|null                $caseSensitive Whether to allow the value to end with a lowercase character (defaults to false)
-     * @param bool|null                $requireHyphen Whether to require a hyphenated ISSN value (defaults to false)
-     * @param string[]|null            $groups
+     * @param bool|null     $caseSensitive Whether to allow the value to end with a lowercase character (defaults to false)
+     * @param bool|null     $requireHyphen Whether to require a hyphenated ISSN value (defaults to false)
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(

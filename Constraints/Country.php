@@ -36,9 +36,8 @@ class Country extends Constraint
     public bool $alpha3 = false;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param bool|null                $alpha3  Whether to check for alpha-3 codes instead of alpha-2 (defaults to false)
-     * @param string[]|null            $groups
+     * @param bool|null     $alpha3 Whether to check for alpha-3 codes instead of alpha-2 (defaults to false)
+     * @param string[]|null $groups
      *
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Current_codes
      */

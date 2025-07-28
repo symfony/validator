@@ -9,6 +9,7 @@ CHANGELOG
 7.4
 ---
 
+ * Add the `min` and `max` parameter to the `Length` constraint violation
  * Deprecate `getRequiredOptions()` and `getDefaultOption()` methods of the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
    `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
  * Deprecate evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
@@ -36,16 +37,14 @@ CHANGELOG
 
    class CustomConstraint extends Constraint
    {
-       public $option1;
-       public $option2;
-
        #[HasNamedArguments]
-       public function __construct($option1 = null, $option2 = null, ?array $groups = null, mixed $payload = null)
-       {
+       public function __construct(
+           public $option1 = null,
+           public $option2 = null,
+           ?array $groups = null,
+           mixed $payload = null,
+       ) {
            parent::__construct(null, $groups, $payload);
-
-           $this->option1 = $option1;
-           $this->option2 = $option2;
        }
    }
    ```
@@ -79,16 +78,14 @@ CHANGELOG
 
    class CustomConstraint extends Constraint
    {
-       public $option1;
-       public $option2;
-
        #[HasNamedArguments]
-       public function __construct($option1, $option2 = null, ?array $groups = null, mixed $payload = null)
-       {
+       public function __construct(
+           public $option1,
+           public $option2 = null,
+           ?array $groups = null,
+           mixed $payload = null,
+       ) {
            parent::__construct(null, $groups, $payload);
-
-           $this->option1 = $option1;
-           $this->option2 = $option2;
        }
    }
    ```
@@ -123,13 +120,12 @@ CHANGELOG
 
    class CustomCompositeConstraint extends Composite
    {
-       public array $constraints = [];
-
        #[HasNamedArguments]
-       public function __construct(array $constraints, ?array $groups = null, mixed $payload = null)
+       public function __construct(
+           public array $constraints,
+           ?array $groups = null,
+           mixed $payload = null)
        {
-           $this->constraints = $constraints;
-
            parent::__construct(null, $groups, $payload);
        }
    }

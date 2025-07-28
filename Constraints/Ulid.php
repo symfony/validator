@@ -47,9 +47,8 @@ class Ulid extends Constraint
     public string $format = self::FORMAT_BASE_32;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param string[]|null            $groups
-     * @param self::FORMAT_*|null      $format
+     * @param string[]|null       $groups
+     * @param self::FORMAT_*|null $format
      */
     #[HasNamedArguments]
     public function __construct(

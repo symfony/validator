@@ -38,9 +38,8 @@ class Unique extends Constraint
     public $normalizer;
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param string[]|null            $groups
-     * @param string[]|string|null     $fields  Defines the key or keys in the collection that should be checked for uniqueness (defaults to null, which ensure uniqueness for all keys)
+     * @param string[]|null        $groups
+     * @param string[]|string|null $fields Defines the key or keys in the collection that should be checked for uniqueness (defaults to null, which ensure uniqueness for all keys)
      */
     #[HasNamedArguments]
     public function __construct(

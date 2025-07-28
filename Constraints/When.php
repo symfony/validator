@@ -32,12 +32,11 @@ class When extends Composite
     public array|Constraint $otherwise = [];
 
     /**
-     * @param string|Expression|array<string,mixed>|\Closure(object): bool $expression  The condition to evaluate, either as a closure or using the ExpressionLanguage syntax
-     * @param Constraint[]|Constraint|null                                 $constraints One or multiple constraints that are applied if the expression returns true
-     * @param array<string,mixed>|null                                     $values      The values of the custom variables used in the expression (defaults to [])
-     * @param string[]|null                                                $groups
-     * @param array<string,mixed>|null                                     $options
-     * @param Constraint[]|Constraint                                      $otherwise   One or multiple constraints that are applied if the expression returns false
+     * @param string|Expression|\Closure(object): bool $expression  The condition to evaluate, either as a closure or using the ExpressionLanguage syntax
+     * @param Constraint[]|Constraint|null             $constraints One or multiple constraints that are applied if the expression returns true
+     * @param array<string,mixed>|null                 $values      The values of the custom variables used in the expression (defaults to [])
+     * @param string[]|null                            $groups
+     * @param Constraint[]|Constraint                  $otherwise   One or multiple constraints that are applied if the expression returns false
      */
     #[HasNamedArguments]
     public function __construct(string|Expression|array|\Closure $expression, array|Constraint|null $constraints = null, ?array $values = null, ?array $groups = null, $payload = null, ?array $options = null, array|Constraint $otherwise = [])

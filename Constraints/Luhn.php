@@ -37,8 +37,7 @@ class Luhn extends Constraint
     public string $message = 'Invalid card number.';
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param string[]|null            $groups
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(

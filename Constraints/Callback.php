@@ -28,8 +28,8 @@ class Callback extends Constraint
     public $callback;
 
     /**
-     * @param string|string[]|callable|array<string,mixed>|null $callback The callback definition
-     * @param string[]|null                                     $groups
+     * @param string|string[]|callable|null $callback The callback definition
+     * @param string[]|null                 $groups
      */
     #[HasNamedArguments]
     public function __construct(array|string|callable|null $callback = null, ?array $groups = null, mixed $payload = null, ?array $options = null)

@@ -31,8 +31,7 @@ class Json extends Constraint
     public string $message = 'This value should be valid JSON.';
 
     /**
-     * @param array<string,mixed>|null $options
-     * @param string[]|null            $groups
+     * @param string[]|null $groups
      */
     #[HasNamedArguments]
     public function __construct(?array $options = null, ?string $message = null, ?array $groups = null, mixed $payload = null)

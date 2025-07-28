@@ -35,11 +35,11 @@ class AtLeastOneOf extends Composite
     public bool $includeInternalMessages = true;
 
     /**
-     * @param array<Constraint>|array<string,mixed>|null $constraints             An array of validation constraints
-     * @param string[]|null                              $groups
-     * @param string|null                                $message                 Intro of the failure message that will be followed by the failed constraint(s) message(s)
-     * @param string|null                                $messageCollection       Failure message for All and Collection inner constraints
-     * @param bool|null                                  $includeInternalMessages Whether to include inner constraint messages (defaults to true)
+     * @param array<Constraint>|null $constraints             An array of validation constraints
+     * @param string[]|null          $groups
+     * @param string|null            $message                 Intro of the failure message that will be followed by the failed constraint(s) message(s)
+     * @param string|null            $messageCollection       Failure message for All and Collection inner constraints
+     * @param bool|null              $includeInternalMessages Whether to include inner constraint messages (defaults to true)
      */
     #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null, ?string $message = null, ?string $messageCollection = null, ?bool $includeInternalMessages = null)

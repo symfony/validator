@@ -91,7 +91,6 @@ class Image extends File
     public string $corruptedMessage = 'The image file is corrupted.';
 
     /**
-     * @param array<string,mixed>|null $options
      * @param positive-int|string|null $maxSize                     The max size of the underlying file
      * @param bool|null                $binaryFormat                Pass true to use binary-prefixed units (KiB, MiB, etc.) or false to use SI-prefixed units (kB, MB) in displayed messages. Pass null to guess the format from the maxSize option. (defaults to null)
      * @param non-empty-string[]|null  $mimeTypes                   Acceptable media types

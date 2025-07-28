@@ -83,7 +83,6 @@ class NoSuspiciousCharacters extends Constraint
     public ?array $locales = null;
 
     /**
-     * @param array<string,mixed>|null                    $options
      * @param int-mask-of<self::CHECK_*>|null             $checks           A bitmask of the checks to perform on the string (defaults to all checks)
      * @param int-mask-of<self::RESTRICTION_LEVEL_*>|null $restrictionLevel Configures the set of acceptable characters for the validated string through a specified "level" (defaults to
      *                                                                      {@see NoSuspiciousCharacters::RESTRICTION_LEVEL_MODERATE} on ICU >= 58, {@see NoSuspiciousCharacters::RESTRICTION_LEVEL_SINGLE_SCRIPT} otherwise)
