@@ -317,7 +317,7 @@ class AtLeastOneOfValidatorTest extends ConstraintValidatorTestCase
                 new Collection([
                     'bar' => new AtLeastOneOf([
                         new Type('int'),
-                        new Choice(['test1', 'test2']),
+                        new Choice(choices: ['test1', 'test2']),
                     ]),
                 ]),
                 new Collection([

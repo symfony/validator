@@ -9,6 +9,7 @@ CHANGELOG
 7.4
 ---
 
+ * Deprecate passing a list of choices to the first argument of the `Choice` constraint. Use the `choices` option instead
  * Add the `min` and `max` parameter to the `Length` constraint violation
  * Deprecate `getRequiredOptions()` and `getDefaultOption()` methods of the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
    `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
