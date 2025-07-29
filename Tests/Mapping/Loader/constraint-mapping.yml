@@ -26,11 +26,6 @@ Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
     firstName:
       # Constraint without value
       - NotNull: ~
-      # Constraint with single value
-      - Range:
-          min: 3
-      # Constraint with multiple values
-      - Choice: [A, B]
       # Constraint with child constraints
       - All:
           - NotNull: ~

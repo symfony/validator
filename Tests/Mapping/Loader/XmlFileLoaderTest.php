@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Traverse;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Exception\MappingException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\XmlFileLoader;
@@ -76,8 +77,6 @@ class XmlFileLoaderTest extends TestCase
         $expected->addConstraint(new ConstraintWithNamedArguments(['foo', 'bar']));
         $expected->addConstraint(new ConstraintWithoutValueWithNamedArguments(['foo']));
         $expected->addPropertyConstraint('firstName', new NotNull());
-        $expected->addPropertyConstraint('firstName', new Range(min: 3));
-        $expected->addPropertyConstraint('firstName', new Choice(['A', 'B']));
         $expected->addPropertyConstraint('firstName', new All(constraints: [new NotNull(), new Range(min: 3)]));
         $expected->addPropertyConstraint('firstName', new All(constraints: [new NotNull(), new Range(min: 3)]));
         $expected->addPropertyConstraint('firstName', new Collection(fields: [
@@ -91,6 +90,23 @@ class XmlFileLoaderTest extends TestCase
         $expected->addGetterConstraint('lastName', new NotNull());
         $expected->addGetterConstraint('valid', new IsTrue());
         $expected->addGetterConstraint('permissions', new IsTrue());
+
+        $this->assertEquals($expected, $metadata);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testLoadClassMetadataValueOption()
+    {
+        $loader = new XmlFileLoader(__DIR__.'/constraint-mapping-value-option.xml');
+        $metadata = new ClassMetadata(Entity::class);
+
+        $loader->loadClassMetadata($metadata);
+
+        $expected = new ClassMetadata(Entity::class);
+        $expected->addPropertyConstraint('firstName', new Type(type: 'string'));
+        $expected->addPropertyConstraint('firstName', new Choice(choices: ['A', 'B']));
 
         $this->assertEquals($expected, $metadata);
     }

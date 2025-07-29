@@ -74,20 +74,21 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('foobar', new Choice(callback: 'abcd'));
     }
 
-    /**
-     * @dataProvider provideConstraintsWithChoicesArray
-     */
-    public function testValidChoiceArray(Choice $constraint)
+    public function testValidChoiceArray()
     {
-        $this->validator->validate('bar', $constraint);
+        $this->validator->validate('bar', new Choice(choices: ['foo', 'bar']));
 
         $this->assertNoViolation();
     }
 
-    public static function provideConstraintsWithChoicesArray(): iterable
+    /**
+     * @group legacy
+     */
+    public function testValidChoiceArrayFirstArgument()
     {
-        yield 'first argument' => [new Choice(['foo', 'bar'])];
-        yield 'named arguments' => [new Choice(choices: ['foo', 'bar'])];
+        $this->validator->validate('bar', new Choice(['foo', 'bar']));
+
+        $this->assertNoViolation();
     }
 
     /**

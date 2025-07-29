@@ -59,17 +59,6 @@
       <!-- Constraint without value -->
       <constraint name="NotNull" />
 
-      <!-- Constraint with single value -->
-      <constraint name="Range">
-         <option name="min">3</option>
-      </constraint>
-
-      <!-- Constraint with multiple values -->
-      <constraint name="Choice">
-        <value>A</value>
-        <value>B</value>
-      </constraint>
-
       <!-- Constraint with child constraints -->
       <constraint name="All">
         <constraint name="NotNull" />
