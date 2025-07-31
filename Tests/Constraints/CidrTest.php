@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Cidr;
 use Symfony\Component\Validator\Constraints\Ip;
@@ -65,9 +66,7 @@ class CidrTest extends TestCase
         new Cidr(version: '8');
     }
 
-    /**
-     * @dataProvider getValidMinMaxValues
-     */
+    #[DataProvider('getValidMinMaxValues')]
     public function testWithValidMinMaxValues(string $ipVersion, int $netmaskMin, int $netmaskMax)
     {
         $cidrConstraint = new Cidr(
@@ -81,9 +80,7 @@ class CidrTest extends TestCase
         self::assertEquals($netmaskMax, $cidrConstraint->netmaskMax);
     }
 
-    /**
-     * @dataProvider getInvalidMinMaxValues
-     */
+    #[DataProvider('getInvalidMinMaxValues')]
     public function testWithInvalidMinMaxValues(string $ipVersion, int $netmaskMin, int $netmaskMax)
     {
         $expectedMax = Ip::V4 == $ipVersion ? 32 : 128;

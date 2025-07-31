@@ -109,9 +109,7 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         yield 'Doctrine default option' => [new Choice(['value' => ['foo', 'bar']])];
     }
 
-    /**
-     * @dataProvider provideConstraintsWithCallbackFunction
-     */
+    #[DataProvider('provideConstraintsWithCallbackFunction')]
     public function testValidChoiceCallbackFunction(Choice $constraint)
     {
         $this->validator->validate('bar', $constraint);

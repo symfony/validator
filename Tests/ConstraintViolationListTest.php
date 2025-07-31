@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -123,9 +124,7 @@ EOF;
         $this->assertEquals($expected, (string) $this->list);
     }
 
-    /**
-     * @dataProvider findByCodesProvider
-     */
+    #[DataProvider('findByCodesProvider')]
     public function testFindByCodes($code, $violationsCount)
     {
         $violations = [

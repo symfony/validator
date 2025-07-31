@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Email;
@@ -166,10 +167,8 @@ class CollectionTest extends TestCase
         $this->assertSame('foo bar baz', $constraint->extraFieldsMessage);
     }
 
-    /**
-     * @testWith [[]]
-     *           [null]
-     */
+    #[TestWith([[]])]
+    #[TestWith([null])]
     public function testEmptyConstraintListForField(?array $fieldConstraint)
     {
         $constraint = new Collection(
@@ -189,10 +188,8 @@ class CollectionTest extends TestCase
         $this->assertSame('foo bar baz', $constraint->extraFieldsMessage);
     }
 
-    /**
-     * @testWith [[]]
-     *           [null]
-     */
+    #[TestWith([[]])]
+    #[TestWith([null])]
     public function testEmptyConstraintListForFieldInOptions(?array $fieldConstraint)
     {
         $constraint = new Collection(

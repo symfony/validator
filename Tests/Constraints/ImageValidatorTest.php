@@ -11,8 +11,10 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Validator\Constraints\Image;
@@ -20,10 +22,9 @@ use Symfony\Component\Validator\Constraints\ImageValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
- * @requires extension fileinfo
- *
  * @extends ConstraintValidatorTestCase<ImageValidator>
  */
+#[RequiresPhpExtension('fileinfo')]
 class ImageValidatorTest extends ConstraintValidatorTestCase
 {
     protected string $path;
@@ -544,7 +545,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /** @dataProvider provideSvgWithViolation */
+    #[DataProvider('provideSvgWithViolation')]
     public function testSvgWithViolation(string $image, Image $constraint, string $violation, array $parameters = [])
     {
         $this->validator->validate($image, $constraint);
@@ -644,7 +645,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /** @dataProvider provideSvgWithoutViolation */
+    #[DataProvider('provideSvgWithoutViolation')]
     public function testSvgWithoutViolation(string $image, Image $constraint)
     {
         $this->validator->validate($image, $constraint);
@@ -680,9 +681,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @dataProvider providerValidExtension
-     */
+    #[DataProvider('providerValidExtension')]
     public function testExtensionValid(string $name)
     {
         if (!class_exists(MimeTypes::class)) {
@@ -702,9 +701,7 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
         yield ['test.png.gif'];
     }
 
-    /**
-     * @dataProvider provideInvalidExtension
-     */
+    #[DataProvider('provideInvalidExtension')]
     public function testExtensionInvalid(string $name, string $extension)
     {
         $path = __DIR__.'/Fixtures/'.$name;
