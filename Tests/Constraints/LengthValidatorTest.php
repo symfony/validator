@@ -117,7 +117,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
     }
 
     #[DataProvider('getFiveOrMoreCharacters')]
-    public function testValidValuesMin(int|string $value)
+    public function testValidValuesMin(int|string $value, int $valueLength)
     {
         $constraint = new Length(min: 5);
         $this->validator->validate($value, $constraint);
@@ -126,7 +126,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
     }
 
     #[DataProvider('getThreeOrLessCharacters')]
-    public function testValidValuesMax(int|string $value)
+    public function testValidValuesMax(int|string $value, int $valueLength)
     {
         $constraint = new Length(max: 3);
         $this->validator->validate($value, $constraint);
