@@ -33,7 +33,7 @@ class Type extends Constraint
     public string|array|null $type = null;
 
     /**
-     * @param string|list<string>|null $type    The type(s) to enforce on the value
+     * @param string|list<string>|null $type   The type(s) to enforce on the value
      * @param string[]|null            $groups
      */
     #[HasNamedArguments]

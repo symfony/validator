@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -21,7 +22,7 @@ use Symfony\Component\Validator\Exception\InvalidArgumentException;
  *
  * A file can be one of the following:
  *   - A string (or object with a __toString() method) path to an existing file;
- *   - A valid {@see \Symfony\Component\HttpFoundation\File\File File} object (including objects of {@see \Symfony\Component\HttpFoundation\File\UploadedFile UploadedFile} class).
+ *   - A valid {@see \Symfony\Component\HttpFoundation\File\File} object (including objects of {@see UploadedFile} class).
  *
  * @property int $maxSize
  *
@@ -105,7 +106,7 @@ class File extends Constraint
      * @param string[]|null                      $groups
      * @param array<string|string[]>|string|null $extensions                  A list of valid extensions to check. Related media types are also enforced ({@see https://symfony.com/doc/current/reference/constraints/File.html#extensions})
      * @param string|null                        $filenameCharset             The charset to be used when computing filename length (defaults to null)
-     * @param self::FILENAME_COUNT_*|null        $filenameCountUnit           The character count unit used for checking the filename length (defaults to {@see File::FILENAME_COUNT_BYTES})
+     * @param self::FILENAME_COUNT_*|null        $filenameCountUnit           The character count unit used for checking the filename length (defaults to {@see self::FILENAME_COUNT_BYTES})
      *
      * @see https://www.iana.org/assignments/media-types/media-types.xhtml Existing media types
      */
