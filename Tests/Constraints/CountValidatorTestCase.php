@@ -83,9 +83,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getThreeOrLessElements
-     */
+    #[DataProvider('getThreeOrLessElements')]
     public function testValidValuesMaxNamed($value)
     {
         $constraint = new Count(max: 3);
@@ -105,9 +103,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[DataProvider('getFiveOrMoreElements')]
     public function testValidValuesMinNamed($value)
     {
         $constraint = new Count(min: 5);
@@ -127,9 +123,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getFourElements
-     */
+    #[DataProvider('getFourElements')]
     public function testValidValuesExactNamed($value)
     {
         $constraint = new Count(exactly: 4);
@@ -159,9 +153,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[DataProvider('getFiveOrMoreElements')]
     public function testTooManyValuesNamed($value)
     {
         $constraint = new Count(max: 4, maxMessage: 'myMessage');
@@ -198,9 +190,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getThreeOrLessElements
-     */
+    #[DataProvider('getThreeOrLessElements')]
     public function testTooFewValuesNamed($value)
     {
         $constraint = new Count(min: 4, minMessage: 'myMessage');
@@ -238,9 +228,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreElements
-     */
+    #[DataProvider('getFiveOrMoreElements')]
     public function testTooManyValuesExactNamed($value)
     {
         $constraint = new Count(exactly: 4, exactMessage: 'myMessage');
@@ -256,9 +244,7 @@ abstract class CountValidatorTestCase extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getThreeOrLessElements
-     */
+    #[DataProvider('getThreeOrLessElements')]
     public function testTooFewValuesExact($value)
     {
         $constraint = new Count(

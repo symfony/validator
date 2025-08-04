@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\PropertyAccessExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyListExtractorInterface;
@@ -224,9 +225,7 @@ class PropertyInfoLoaderTest extends TestCase
         $this->assertCount(0, $noAutoMappingConstraints, 'DisableAutoMapping constraint is not added in the list');
     }
 
-    /**
-     * @dataProvider regexpProvider
-     */
+    #[DataProvider('regexpProvider')]
     public function testClassValidator(bool $expected, ?string $classValidatorRegexp = null)
     {
         $propertyListExtractor = $this->createMock(PropertyListExtractorInterface::class);
