@@ -70,9 +70,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinNamed($value)
     {
         $constraint = new Range(min: 10);
@@ -81,9 +79,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMaxNamed($value)
     {
         $constraint = new Range(max: 20);
@@ -92,9 +88,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinMaxNamed($value)
     {
         $constraint = new Range(min: 10, max: 20);
@@ -103,9 +97,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getLessThanTen
-     */
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesMinNamed($value, $formattedValue)
     {
         $constraint = new Range(min: 10, minMessage: 'myMessage');
@@ -119,9 +111,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getMoreThanTwenty
-     */
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesMaxNamed($value, $formattedValue)
     {
         $constraint = new Range(max: 20, maxMessage: 'myMessage');
@@ -135,9 +125,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getMoreThanTwenty
-     */
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesCombinedMaxNamed($value, $formattedValue)
     {
         $constraint = new Range(min: 10, max: 20, notInRangeMessage: 'myNotInRangeMessage');
@@ -152,9 +140,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLessThanTen
-     */
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesCombinedMinNamed($value, $formattedValue)
     {
         $constraint = new Range(min: 10, max: 20, notInRangeMessage: 'myNotInRangeMessage');
@@ -228,9 +214,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         return $tests;
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMin($value)
     {
         $constraint = new Range(min: 'March 10, 2014');
@@ -239,9 +223,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMax($value)
     {
         $constraint = new Range(max: 'March 20, 2014');
@@ -250,9 +232,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMinMax($value)
     {
         $constraint = new Range(min: 'March 10, 2014', max: 'March 20, 2014');
@@ -261,9 +241,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getSoonerThanTenthMarch2014
-     */
+    #[DataProvider('getSoonerThanTenthMarch2014')]
     public function testInvalidDatesMin(\DateTimeInterface $value, string $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -284,9 +262,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLaterThanTwentiethMarch2014
-     */
+    #[DataProvider('getLaterThanTwentiethMarch2014')]
     public function testInvalidDatesMax(\DateTimeInterface $value, string $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -307,9 +283,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLaterThanTwentiethMarch2014
-     */
+    #[DataProvider('getLaterThanTwentiethMarch2014')]
     public function testInvalidDatesCombinedMax(\DateTimeInterface $value, string $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -332,9 +306,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getSoonerThanTenthMarch2014
-     */
+    #[DataProvider('getSoonerThanTenthMarch2014')]
     public function testInvalidDatesCombinedMin($value, $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -471,9 +443,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider throwsOnInvalidStringDatesProvider
-     */
+    #[DataProvider('throwsOnInvalidStringDatesProvider')]
     public function testThrowsOnInvalidStringDates($expectedMessage, $value, $min, $max)
     {
         $this->expectException(ConstraintDefinitionException::class);
@@ -508,9 +478,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinPropertyPathNamed($value)
     {
         $this->setObject(new Limit(10));
@@ -520,9 +488,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMaxPropertyPath($value)
     {
         $this->setObject(new Limit(20));
@@ -534,9 +500,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMaxPropertyPathNamed($value)
     {
         $this->setObject(new Limit(20));
@@ -546,9 +510,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenToTwenty
-     */
+    #[DataProvider('getTenToTwenty')]
     public function testValidValuesMinMaxPropertyPath($value)
     {
         $this->setObject(new MinMax(10, 20));
@@ -561,9 +523,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getLessThanTen
-     */
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesMinPropertyPath($value, $formattedValue)
     {
         $this->setObject(new Limit(10));
@@ -583,9 +543,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getMoreThanTwenty
-     */
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesMaxPropertyPath($value, $formattedValue)
     {
         $this->setObject(new Limit(20));
@@ -605,9 +563,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getMoreThanTwenty
-     */
+    #[DataProvider('getMoreThanTwenty')]
     public function testInvalidValuesCombinedMaxPropertyPathNamed($value, $formattedValue)
     {
         $this->setObject(new MinMax(10, 20));
@@ -630,9 +586,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLessThanTen
-     */
+    #[DataProvider('getLessThanTen')]
     public function testInvalidValuesCombinedMinPropertyPathNamed($value, $formattedValue)
     {
         $this->setObject(new MinMax(10, 20));
@@ -655,9 +609,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLessThanTen
-     */
+    #[DataProvider('getLessThanTen')]
     public function testViolationOnNullObjectWithDefinedMin($value, $formattedValue)
     {
         $this->setObject(null);
@@ -676,9 +628,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getMoreThanTwenty
-     */
+    #[DataProvider('getMoreThanTwenty')]
     public function testViolationOnNullObjectWithDefinedMax($value, $formattedValue)
     {
         $this->setObject(null);
@@ -697,9 +647,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMinPropertyPath($value)
     {
         $this->setObject(new Limit('March 10, 2014'));
@@ -709,9 +657,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMaxPropertyPath($value)
     {
         $this->setObject(new Limit('March 20, 2014'));
@@ -722,9 +668,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getTenthToTwentiethMarch2014
-     */
+    #[DataProvider('getTenthToTwentiethMarch2014')]
     public function testValidDatesMinMaxPropertyPath($value)
     {
         $this->setObject(new MinMax('March 10, 2014', 'March 20, 2014'));
@@ -735,9 +679,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getSoonerThanTenthMarch2014
-     */
+    #[DataProvider('getSoonerThanTenthMarch2014')]
     public function testInvalidDatesMinPropertyPath($value, $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -761,9 +703,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLaterThanTwentiethMarch2014
-     */
+    #[DataProvider('getLaterThanTwentiethMarch2014')]
     public function testInvalidDatesMaxPropertyPath($value, $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -787,9 +727,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getLaterThanTwentiethMarch2014
-     */
+    #[DataProvider('getLaterThanTwentiethMarch2014')]
     public function testInvalidDatesCombinedMaxPropertyPath($value, $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -816,9 +754,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getSoonerThanTenthMarch2014
-     */
+    #[DataProvider('getSoonerThanTenthMarch2014')]
     public function testInvalidDatesCombinedMinPropertyPath($value, $dateTimeAsString)
     {
         // Conversion of dates to string differs between ICU versions
@@ -887,9 +823,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @dataProvider provideMessageIfMinAndMaxSet
-     */
+    #[DataProvider('provideMessageIfMinAndMaxSet')]
     public function testMessageIfMinAndMaxSet(array $constraintExtraOptions, int $value, string $expectedMessage, string $expectedCode)
     {
         $constraint = new Range(...array_merge(['min' => 1, 'max' => 10], $constraintExtraOptions));

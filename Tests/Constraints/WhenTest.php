@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
@@ -110,9 +111,7 @@ final class WhenTest extends TestCase
         self::assertSame(['foo'], $quuxConstraint->groups);
     }
 
-    /**
-     * @requires PHP 8.5
-     */
+    #[RequiresPhp('>= 8.5')]
     public function testAttributesWithClosure()
     {
         $loader = new AttributeLoader();

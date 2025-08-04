@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LengthValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -115,9 +116,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    /**
-     * @dataProvider getFiveOrMoreCharacters
-     */
+    #[DataProvider('getFiveOrMoreCharacters')]
     public function testValidValuesMin(int|string $value)
     {
         $constraint = new Length(min: 5);
@@ -126,9 +125,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getThreeOrLessCharacters
-     */
+    #[DataProvider('getThreeOrLessCharacters')]
     public function testValidValuesMax(int|string $value)
     {
         $constraint = new Length(max: 3);
@@ -137,9 +134,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getFourCharacters
-     */
+    #[DataProvider('getFourCharacters')]
     public function testValidValuesExact(int|string $value)
     {
         $constraint = new Length(4);
@@ -148,9 +143,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getThreeCharactersWithWhitespaces
-     */
+    #[DataProvider('getThreeCharactersWithWhitespaces')]
     public function testValidNormalizedValues($value)
     {
         $constraint = new Length(min: 3, max: 3, normalizer: 'trim');
@@ -183,9 +176,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getThreeOrLessCharacters
-     */
+    #[DataProvider('getThreeOrLessCharacters')]
     public function testInvalidValuesMin(int|string $value, int $valueLength)
     {
         $constraint = new Length(
@@ -206,9 +197,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getThreeOrLessCharacters
-     */
+    #[DataProvider('getThreeOrLessCharacters')]
     public function testInvalidValuesMinNamed(int|string $value, int $valueLength)
     {
         $constraint = new Length(min: 4, minMessage: 'myMessage');
@@ -226,9 +215,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreCharacters
-     */
+    #[DataProvider('getFiveOrMoreCharacters')]
     public function testInvalidValuesMax(int|string $value, int $valueLength)
     {
         $constraint = new Length(
@@ -249,9 +236,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreCharacters
-     */
+    #[DataProvider('getFiveOrMoreCharacters')]
     public function testInvalidValuesMaxNamed(int|string $value, int $valueLength)
     {
         $constraint = new Length(max: 4, maxMessage: 'myMessage');
@@ -269,9 +254,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getThreeOrLessCharacters
-     */
+    #[DataProvider('getThreeOrLessCharacters')]
     public function testInvalidValuesExactLessThanFour(int|string $value, int $valueLength)
     {
         $constraint = new Length(
@@ -294,9 +277,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getThreeOrLessCharacters
-     */
+    #[DataProvider('getThreeOrLessCharacters')]
     public function testInvalidValuesExactLessThanFourNamed(int|string $value, int $valueLength)
     {
         $constraint = new Length(exactly: 4, exactMessage: 'myMessage');
@@ -315,9 +296,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getFiveOrMoreCharacters
-     */
+    #[DataProvider('getFiveOrMoreCharacters')]
     public function testInvalidValuesExactMoreThanFour(int|string $value, int $valueLength)
     {
         $constraint = new Length(
@@ -340,9 +319,7 @@ class LengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getOneCharset
-     */
+    #[DataProvider('getOneCharset')]
     public function testOneCharset($value, $charset, $isValid)
     {
         $constraint = new Length(

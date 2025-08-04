@@ -82,9 +82,7 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider provideConstraintsWithCallbackFunction
-     */
+    #[DataProvider('provideConstraintsWithCallbackFunction')]
     public function testValidChoiceCallbackFunction(Choice $constraint)
     {
         $this->validator->validate('bar', $constraint);

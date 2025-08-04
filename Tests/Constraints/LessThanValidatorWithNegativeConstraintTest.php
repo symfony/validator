@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\LessThanValidator;
 use Symfony\Component\Validator\Constraints\Negative;
@@ -57,9 +58,7 @@ class LessThanValidatorWithNegativeConstraintTest extends AbstractComparisonVali
         ];
     }
 
-    /**
-     * @dataProvider provideInvalidConstraintOptions
-     */
+    #[DataProvider('provideInvalidConstraintOptions')]
     public function testThrowsConstraintExceptionIfNoValueOrPropertyPath($options)
     {
         $this->markTestSkipped('Value option always set for Negative constraint');
@@ -80,9 +79,7 @@ class LessThanValidatorWithNegativeConstraintTest extends AbstractComparisonVali
         $this->markTestSkipped('PropertyPath option is not used in Negative constraint');
     }
 
-    /**
-     * @dataProvider provideValidComparisonsToPropertyPath
-     */
+    #[DataProvider('provideValidComparisonsToPropertyPath')]
     public function testValidComparisonToPropertyPath($comparedValue)
     {
         $this->markTestSkipped('PropertyPath option is not used in Negative constraint');

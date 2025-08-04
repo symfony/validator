@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\ExpressionSyntax;
 use Symfony\Component\Validator\Constraints\ExpressionSyntaxValidator;
@@ -26,9 +27,7 @@ class ExpressionSyntaxTest extends TestCase
         self::assertSame(ExpressionSyntaxValidator::class, $constraint->validatedBy());
     }
 
-    /**
-     * @dataProvider provideServiceValidatedConstraints
-     */
+    #[DataProvider('provideServiceValidatedConstraints')]
     public function testValidatedByService(ExpressionSyntax $constraint)
     {
         self::assertSame('my_service', $constraint->validatedBy());

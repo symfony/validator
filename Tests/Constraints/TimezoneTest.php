@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Timezone;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -50,9 +51,7 @@ class TimezoneTest extends TestCase
         new Timezone(countryCode: 'AR');
     }
 
-    /**
-     * @dataProvider provideInvalidZones
-     */
+    #[DataProvider('provideInvalidZones')]
     public function testExceptionForInvalidGroupedTimezones(int $zone)
     {
         $this->expectException(ConstraintDefinitionException::class);

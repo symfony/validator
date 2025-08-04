@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -45,9 +46,7 @@ class YamlFileLoaderTest extends TestCase
         $this->assertSame([], $r->getValue($loader));
     }
 
-    /**
-     * @dataProvider provideInvalidYamlFiles
-     */
+    #[DataProvider('provideInvalidYamlFiles')]
     public function testInvalidYamlFiles($path)
     {
         $loader = new YamlFileLoader(__DIR__.'/'.$path);

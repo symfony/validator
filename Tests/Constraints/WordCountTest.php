@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\WordCount;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -18,9 +19,7 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 
-/**
- * @requires extension intl
- */
+#[RequiresPhpExtension('intl')]
 class WordCountTest extends TestCase
 {
     public function testLocaleIsSet()
