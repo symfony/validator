@@ -4,6 +4,7 @@ CHANGELOG
 8.0
 ---
 
+ * Add method `getGroupProvider()` to `ClassMetadataInterface`
  * Remove the `getRequiredOptions()` and `getDefaultOption()` methods from the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
    `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
  * Remove support for evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
