@@ -468,7 +468,7 @@
             </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
-                <target state="needs-review-translation">هذه القيمة ليست نموذج Twig صالح.</target>
+                <target>هذه القيمة ليست نموذج Twig صالح.</target>
             </trans-unit>
         </body>
     </file>
