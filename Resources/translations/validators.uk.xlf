@@ -468,7 +468,7 @@
             </trans-unit>
             <trans-unit id="121">
                 <source>This value is not a valid Twig template.</source>
-                <target state="needs-review-translation">Це значення не є дійсним шаблоном Twig.</target>
+                <target>Це значення не є дійсним шаблоном Twig.</target>
             </trans-unit>
         </body>
     </file>
