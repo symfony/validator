@@ -75,8 +75,8 @@ class DebugCommandTest extends TestCase
             |               |                                                    |                        | ]                                                          |
             +---------------+----------------------------------------------------+------------------------+------------------------------------------------------------+
 
-            TXT
-            , $tester->getDisplay(true)
+            TXT,
+            $tester->getDisplay(true)
         );
     }
 
@@ -173,8 +173,8 @@ class DebugCommandTest extends TestCase
             |               |                                                    |                        | ]                                                          |
             +---------------+----------------------------------------------------+------------------------+------------------------------------------------------------+
 
-            TXT
-            , $tester->getDisplay(true)
+            TXT,
+            $tester->getDisplay(true)
         );
     }
 
@@ -189,8 +189,8 @@ class DebugCommandTest extends TestCase
 
         $this->assertStringContainsString(<<<TXT
             Neither class nor path were found with "App\NotFoundResource" argument.
-            TXT
-            , $tester->getDisplay(true)
+            TXT,
+            $tester->getDisplay(true)
         );
     }
 }
