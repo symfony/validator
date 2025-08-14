@@ -121,59 +121,19 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
 
     public function __serialize(): array
     {
-        if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
-            return [
-                'constraints' => $this->constraints,
-                'constraintsByGroup' => $this->constraintsByGroup,
-                'traversalStrategy' => $this->traversalStrategy,
-                'autoMappingStrategy' => $this->autoMappingStrategy,
-                'getters' => $this->getters,
-                'groupSequence' => $this->groupSequence,
-                'groupSequenceProvider' => $this->groupSequenceProvider,
-                'groupProvider' => $this->groupProvider,
-                'members' => $this->members,
-                'name' => $this->name,
-                'properties' => $this->properties,
-                'defaultGroup' => $this->defaultGroup,
-            ];
-        }
-
-        trigger_deprecation('symfony/validator', '7.4', 'Implementing "%s::__sleep()" is deprecated, use "__serialize()" instead.', get_debug_type($this));
-
-        $data = [];
-        foreach ($this->__sleep() as $key) {
-            try {
-                if (($r = new \ReflectionProperty($this, $key))->isInitialized($this)) {
-                    $data[$key] = $r->getValue($this);
-                }
-            } catch (\ReflectionException) {
-                $data[$key] = $this->$key;
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * @deprecated since Symfony 7.4, will be removed in 8.0
-     */
-    public function __sleep(): array
-    {
-        trigger_deprecation('symfony/validator', '7.4', 'Calling "%s::__sleep()" is deprecated, use "__serialize()" instead.', get_debug_type($this));
-
         return [
-            'constraints',
-            'constraintsByGroup',
-            'traversalStrategy',
-            'autoMappingStrategy',
-            'getters',
-            'groupSequence',
-            'groupSequenceProvider',
-            'groupProvider',
-            'members',
-            'name',
-            'properties',
-            'defaultGroup',
+            'constraints' => $this->constraints,
+            'constraintsByGroup' => $this->constraintsByGroup,
+            'traversalStrategy' => $this->traversalStrategy,
+            'autoMappingStrategy' => $this->autoMappingStrategy,
+            'getters' => $this->getters,
+            'groupSequence' => $this->groupSequence,
+            'groupSequenceProvider' => $this->groupSequenceProvider,
+            'groupProvider' => $this->groupProvider,
+            'members' => $this->members,
+            'name' => $this->name,
+            'properties' => $this->properties,
+            'defaultGroup' => $this->defaultGroup,
         ];
     }
 

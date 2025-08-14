@@ -5,6 +5,7 @@ CHANGELOG
 ---
 
  * Add method `getGroupProvider()` to `ClassMetadataInterface`
+ * Replace `__sleep/wakeup()` by `__(un)serialize()`  on `GenericMetadata` implementations
  * Remove the `getRequiredOptions()` and `getDefaultOption()` methods from the `All`, `AtLeastOneOf`, `CardScheme`, `Collection`,
    `CssColor`, `Expression`, `Regex`, `Sequentially`, `Type`, and `When` constraints
  * Remove support for evaluating options in the base `Constraint` class. Initialize properties in the constructor of the concrete constraint
