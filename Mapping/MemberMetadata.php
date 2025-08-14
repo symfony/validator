@@ -78,7 +78,7 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
 
     public function __serialize(): array
     {
-        if (self::class === (new \ReflectionMethod($this, '__sleep'))->class) {
+        if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
             return [
                 'constraints' => $this->constraints,
                 'constraintsByGroup' => $this->constraintsByGroup,
