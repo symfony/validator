@@ -179,11 +179,22 @@ abstract class Constraint
      *
      * @internal
      */
-    public function __sleep(): array
+    public function __serialize(): array
     {
         // Initialize "groups" option if it is not set
         $this->groups;
 
-        return array_keys(get_object_vars($this));
+        $data = [];
+        $class = $this::class;
+        foreach ((array) $this as $k => $v) {
+            $data[match (true) {
+                '' === $k || "\0" !== $k[0] => $k,
+                str_starts_with($k, "\0*\0") => substr($k, 3),
+                str_starts_with($k, "\0{$class}\0") => substr($k, 2 + \strlen($class)),
+                default => $k,
+            }] = $v;
+        }
+
+        return $data;
     }
 }
