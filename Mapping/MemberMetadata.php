@@ -29,26 +29,9 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
  */
 abstract class MemberMetadata extends GenericMetadata implements PropertyMetadataInterface
 {
-    /**
-     * @internal This property is public in order to reduce the size of the
-     *           class' serialized representation. Do not access it. Use
-     *           {@link getClassName()} instead.
-     */
-    public string $class;
-
-    /**
-     * @internal This property is public in order to reduce the size of the
-     *           class' serialized representation. Do not access it. Use
-     *           {@link getName()} instead.
-     */
-    public string $name;
-
-    /**
-     * @internal This property is public in order to reduce the size of the
-     *           class' serialized representation. Do not access it. Use
-     *           {@link getPropertyName()} instead.
-     */
-    public string $property;
+    private string $class;
+    private string $name;
+    private string $property;
 
     /**
      * @var \ReflectionMethod[]|\ReflectionProperty[]
@@ -80,11 +63,6 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
     {
         if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
             return parent::__serialize() + [
-                'constraints' => $this->constraints,
-                'constraintsByGroup' => $this->constraintsByGroup,
-                'cascadingStrategy' => $this->cascadingStrategy,
-                'traversalStrategy' => $this->traversalStrategy,
-                'autoMappingStrategy' => $this->autoMappingStrategy,
                 'class' => $this->class,
                 'name' => $this->name,
                 'property' => $this->property,
