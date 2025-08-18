@@ -298,7 +298,7 @@ class PropertyInfoLoaderTest extends TestCase
         /** @var ClassMetadata $classMetadata */
         $classMetadata = $validator->getMetadataFor(new PropertyInfoLoaderNoAutoMappingEntity());
         $this->assertSame([], $classMetadata->getPropertyMetadata('string'));
-        $this->assertCount(2, $classMetadata->getPropertyMetadata('autoMappingExplicitlyEnabled')[0]->constraints);
+        $this->assertCount(2, $classMetadata->getPropertyMetadata('autoMappingExplicitlyEnabled')[0]->getConstraints());
         $this->assertSame(AutoMappingStrategy::ENABLED, $classMetadata->getPropertyMetadata('autoMappingExplicitlyEnabled')[0]->getAutoMappingStrategy());
     }
 }

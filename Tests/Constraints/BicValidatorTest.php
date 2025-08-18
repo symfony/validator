@@ -79,7 +79,7 @@ class BicValidatorTest extends ConstraintValidatorTestCase
         $classMetadata = new ClassMetadata(BicDummy::class);
         (new AttributeLoader())->loadClassMetadata($classMetadata);
 
-        [$constraint] = $classMetadata->properties['bic1']->constraints;
+        [$constraint] = $classMetadata->getPropertyMetadata('bic1')[0]->getConstraints();
 
         $this->setObject(new BicDummy());
 
@@ -130,7 +130,7 @@ class BicValidatorTest extends ConstraintValidatorTestCase
         $classMetadata = new ClassMetadata(BicDummy::class);
         (new AttributeLoader())->loadClassMetadata($classMetadata);
 
-        [$constraint] = $classMetadata->properties['bic1']->constraints;
+        [$constraint] = $classMetadata->getPropertyMetadata('bic1')[0]->getConstraints();
 
         $this->validator->validate('UNCRIT2B912', $constraint);
 

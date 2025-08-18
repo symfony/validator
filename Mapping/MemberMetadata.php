@@ -79,7 +79,7 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
     public function __serialize(): array
     {
         if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
-            return [
+            return parent::__serialize() + [
                 'constraints' => $this->constraints,
                 'constraintsByGroup' => $this->constraintsByGroup,
                 'cascadingStrategy' => $this->cascadingStrategy,
@@ -127,7 +127,7 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
     }
 
     /**
-     * Returns the name of the member.
+     * Returns the name of the property or its getter.
      */
     public function getName(): string
     {
@@ -144,33 +144,21 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
         return $this->property;
     }
 
-    /**
-     * Returns whether this member is public.
-     */
     public function isPublic(object|string $objectOrClassName): bool
     {
         return $this->getReflectionMember($objectOrClassName)->isPublic();
     }
 
-    /**
-     * Returns whether this member is protected.
-     */
     public function isProtected(object|string $objectOrClassName): bool
     {
         return $this->getReflectionMember($objectOrClassName)->isProtected();
     }
 
-    /**
-     * Returns whether this member is private.
-     */
     public function isPrivate(object|string $objectOrClassName): bool
     {
         return $this->getReflectionMember($objectOrClassName)->isPrivate();
     }
 
-    /**
-     * Returns the reflection instance for accessing the member's value.
-     */
     public function getReflectionMember(object|string $objectOrClassName): \ReflectionMethod|\ReflectionProperty
     {
         $className = \is_string($objectOrClassName) ? $objectOrClassName : $objectOrClassName::class;

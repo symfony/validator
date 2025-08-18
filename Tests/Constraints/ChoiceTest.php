@@ -37,24 +37,24 @@ class ChoiceTest extends TestCase
         self::assertTrue($loader->loadClassMetadata($metadata));
 
         /** @var Choice $aConstraint */
-        [$aConstraint] = $metadata->properties['a']->getConstraints();
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertSame([1, 2], $aConstraint->choices);
         self::assertSame(['Default', 'ChoiceDummy'], $aConstraint->groups);
 
         /** @var Choice $bConstraint */
-        [$bConstraint] = $metadata->properties['b']->getConstraints();
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         self::assertSame(['foo', 'bar'], $bConstraint->choices);
         self::assertSame('myMessage', $bConstraint->message);
         self::assertSame(['Default', 'ChoiceDummy'], $bConstraint->groups);
 
         /** @var Choice $cConstraint */
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertSame([1, 2], $aConstraint->choices);
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
 
         /** @var Choice $stringIndexedConstraint */
-        [$stringIndexedConstraint] = $metadata->properties['stringIndexed']->getConstraints();
+        [$stringIndexedConstraint] = $metadata->getPropertyMetadata('stringIndexed')[0]->getConstraints();
         self::assertSame(['one' => 1, 'two' => 2], $stringIndexedConstraint->choices);
     }
 }

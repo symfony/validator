@@ -86,13 +86,13 @@ class GenericMetadata implements MetadataInterface
     public function __serialize(): array
     {
         if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
-            return [
+            return array_filter([
                 'constraints' => $this->constraints,
                 'constraintsByGroup' => $this->constraintsByGroup,
-                'cascadingStrategy' => $this->cascadingStrategy,
-                'traversalStrategy' => $this->traversalStrategy,
-                'autoMappingStrategy' => $this->autoMappingStrategy,
-            ];
+                'cascadingStrategy' => CascadingStrategy::NONE !== $this->cascadingStrategy ? $this->cascadingStrategy : null,
+                'traversalStrategy' => TraversalStrategy::NONE !== $this->traversalStrategy ? $this->traversalStrategy : null,
+                'autoMappingStrategy' => AutoMappingStrategy::NONE !== $this->autoMappingStrategy ? $this->autoMappingStrategy : null,
+            ]);
         }
 
         trigger_deprecation('symfony/validator', '7.4', 'Implementing "%s::__sleep()" is deprecated, use "__serialize()" instead.', get_debug_type($this));
@@ -183,10 +183,14 @@ class GenericMetadata implements MetadataInterface
             return $this;
         }
 
-        $this->constraints[] = $constraint;
+        if (!\in_array($constraint, $this->constraints, true)) {
+            $this->constraints[] = $constraint;
+        }
 
         foreach ($constraint->groups as $group) {
-            $this->constraintsByGroup[$group][] = $constraint;
+            if (!\in_array($constraint, $this->constraintsByGroup[$group] ??= [], true)) {
+                $this->constraintsByGroup[$group][] = $constraint;
+            }
         }
 
         return $this;

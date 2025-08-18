@@ -122,11 +122,9 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
     public function __serialize(): array
     {
         if (self::class === (new \ReflectionMethod($this, '__sleep'))->class || self::class !== (new \ReflectionMethod($this, '__serialize'))->class) {
-            return [
-                'constraints' => $this->constraints,
-                'constraintsByGroup' => $this->constraintsByGroup,
-                'traversalStrategy' => $this->traversalStrategy,
-                'autoMappingStrategy' => $this->autoMappingStrategy,
+            return array_filter([
+                'traversalStrategy' => TraversalStrategy::IMPLICIT !== $this->traversalStrategy ? $this->traversalStrategy : null,
+            ] + parent::__serialize() + [
                 'getters' => $this->getters,
                 'groupSequence' => $this->groupSequence,
                 'groupSequenceProvider' => $this->groupSequenceProvider,
@@ -135,7 +133,7 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
                 'name' => $this->name,
                 'properties' => $this->properties,
                 'defaultGroup' => $this->defaultGroup,
-            ];
+            ]);
         }
 
         trigger_deprecation('symfony/validator', '7.4', 'Implementing "%s::__sleep()" is deprecated, use "__serialize()" instead.', get_debug_type($this));
@@ -377,11 +375,8 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
                 $member = clone $member;
 
                 foreach ($member->getConstraints() as $constraint) {
-                    if (\in_array($constraint::DEFAULT_GROUP, $constraint->groups, true)) {
-                        $member->constraintsByGroup[$this->getDefaultGroup()][] = $constraint;
-                    }
-
                     $constraint->addImplicitGroupName($this->getDefaultGroup());
+                    $member->addConstraint($constraint);
                 }
 
                 if ($member instanceof MemberMetadata && !$member->isPrivate($this->name)) {

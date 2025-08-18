@@ -54,26 +54,26 @@ class UrlTest extends TestCase
         $metadata = new ClassMetadata(UrlDummy::class);
         self::assertTrue((new AttributeLoader())->loadClassMetadata($metadata));
 
-        [$aConstraint] = $metadata->properties['a']->getConstraints();
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertSame(['http', 'https'], $aConstraint->protocols);
         self::assertFalse($aConstraint->relativeProtocol);
         self::assertNull($aConstraint->normalizer);
         self::assertFalse($aConstraint->requireTld);
 
-        [$bConstraint] = $metadata->properties['b']->getConstraints();
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         self::assertSame(['ftp', 'gopher'], $bConstraint->protocols);
         self::assertSame('trim', $bConstraint->normalizer);
         self::assertSame('myMessage', $bConstraint->message);
         self::assertSame(['Default', 'UrlDummy'], $bConstraint->groups);
         self::assertFalse($bConstraint->requireTld);
 
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertTrue($cConstraint->relativeProtocol);
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
         self::assertFalse($cConstraint->requireTld);
 
-        [$dConstraint] = $metadata->properties['d']->getConstraints();
+        [$dConstraint] = $metadata->getPropertyMetadata('d')[0]->getConstraints();
         self::assertSame(['http', 'https'], $dConstraint->protocols);
         self::assertFalse($dConstraint->relativeProtocol);
         self::assertNull($dConstraint->normalizer);

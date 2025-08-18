@@ -110,17 +110,17 @@ class WordCountTest extends TestCase
         $loader = new AttributeLoader();
         $this->assertTrue($loader->loadClassMetadata($metadata));
 
-        [$aConstraint] = $metadata->properties['a']->getConstraints();
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         $this->assertSame(1, $aConstraint->min);
         $this->assertNull($aConstraint->max);
         $this->assertNull($aConstraint->locale);
 
-        [$bConstraint] = $metadata->properties['b']->getConstraints();
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         $this->assertSame(2, $bConstraint->min);
         $this->assertSame(5, $bConstraint->max);
         $this->assertNull($bConstraint->locale);
 
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         $this->assertSame(3, $cConstraint->min);
         $this->assertNull($cConstraint->max);
         $this->assertSame('en', $cConstraint->locale);

@@ -180,24 +180,15 @@ class ClassMetadataTest extends TestCase
         $this->assertCount(2, $members);
         $this->assertEquals(self::CLASSNAME, $members[0]->getClassName());
         $this->assertEquals([$constraintA2], $members[0]->getConstraints());
-        $this->assertEquals(
-            [
-                'Default' => [$constraintA2],
-                'Entity' => [$constraintA2],
-            ],
-            $members[0]->constraintsByGroup
-        );
+        $this->assertEquals([$constraintA2], $members[0]->findConstraints('Default'));
+        $this->assertEquals([$constraintA2], $members[0]->findConstraints('Entity'));
+
         $this->assertEquals(self::PARENTCLASS, $members[1]->getClassName());
         $this->assertEquals([$constraintA1, $constraintB], $members[1]->getConstraints());
-        $this->assertEquals(
-            [
-                'Default' => [$constraintA1],
-                'Entity' => [$constraintA1],
-                'EntityParent' => [$constraintA1],
-                'foo' => [$constraintB],
-            ],
-            $members[1]->constraintsByGroup
-        );
+        $this->assertEquals([$constraintA1], $members[1]->findConstraints('Default'));
+        $this->assertEquals([$constraintA1], $members[1]->findConstraints('Entity'));
+        $this->assertEquals([$constraintA1], $members[1]->findConstraints('EntityParent'));
+        $this->assertEquals([$constraintB], $members[1]->findConstraints('foo'));
     }
 
     public function testMemberMetadatas()
@@ -337,7 +328,6 @@ class ClassMetadataTest extends TestCase
         $metadata->addConstraint(new Cascade());
 
         $this->assertSame(CascadingStrategy::CASCADE, $metadata->getCascadingStrategy());
-        $this->assertCount(4, $metadata->properties);
         $this->assertSame([
             'requiredChild',
             'optionalChild',
@@ -352,7 +342,6 @@ class ClassMetadataTest extends TestCase
         $metadata->addConstraint(new Cascade());
 
         $this->assertSame(CascadingStrategy::CASCADE, $metadata->getCascadingStrategy());
-        $this->assertCount(5, $metadata->properties);
         $this->assertSame([
             'classes',
             'classAndArray',
@@ -368,7 +357,6 @@ class ClassMetadataTest extends TestCase
         $metadata->addConstraint(new Cascade());
 
         $this->assertSame(CascadingStrategy::CASCADE, $metadata->getCascadingStrategy());
-        $this->assertCount(1, $metadata->properties);
         $this->assertSame([
             'classes',
         ], $metadata->getConstrainedProperties());
@@ -381,7 +369,6 @@ class ClassMetadataTest extends TestCase
         $metadata->addConstraint(new Cascade(exclude: ['requiredChild', 'optionalChild']));
 
         $this->assertSame(CascadingStrategy::CASCADE, $metadata->getCascadingStrategy());
-        $this->assertCount(2, $metadata->properties);
         $this->assertSame([
             'staticChild',
             'children',

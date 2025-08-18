@@ -95,11 +95,11 @@ class LengthTest extends TestCase
         $loader = new AttributeLoader();
         self::assertTrue($loader->loadClassMetadata($metadata));
 
-        [$aConstraint] = $metadata->properties['a']->getConstraints();
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertSame(42, $aConstraint->min);
         self::assertSame(42, $aConstraint->max);
 
-        [$bConstraint] = $metadata->properties['b']->getConstraints();
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         self::assertSame(1, $bConstraint->min);
         self::assertSame(4711, $bConstraint->max);
         self::assertSame('myMinMessage', $bConstraint->minMessage);
@@ -108,7 +108,7 @@ class LengthTest extends TestCase
         self::assertSame('ISO-8859-15', $bConstraint->charset);
         self::assertSame(['Default', 'LengthDummy'], $bConstraint->groups);
 
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
     }

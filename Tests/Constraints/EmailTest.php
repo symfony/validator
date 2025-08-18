@@ -79,16 +79,16 @@ class EmailTest extends TestCase
         $metadata = new ClassMetadata(EmailDummy::class);
         (new AttributeLoader())->loadClassMetadata($metadata);
 
-        [$aConstraint] = $metadata->properties['a']->constraints;
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertNull($aConstraint->mode);
         self::assertNull($aConstraint->normalizer);
 
-        [$bConstraint] = $metadata->properties['b']->constraints;
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         self::assertSame('myMessage', $bConstraint->message);
         self::assertSame(Email::VALIDATION_MODE_HTML5, $bConstraint->mode);
         self::assertSame('trim', $bConstraint->normalizer);
 
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
     }
