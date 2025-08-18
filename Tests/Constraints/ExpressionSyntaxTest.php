@@ -40,7 +40,7 @@ class ExpressionSyntaxTest extends TestCase
         $metadata = new ClassMetadata(ExpressionSyntaxDummy::class);
         self::assertTrue((new AttributeLoader())->loadClassMetadata($metadata));
 
-        yield 'attribute' => [$metadata->properties['b']->constraints[0]];
+        yield 'attribute' => [$metadata->getPropertyMetadata('b')[0]->getConstraints()[0]];
     }
 
     public function testAttributes()
@@ -48,16 +48,16 @@ class ExpressionSyntaxTest extends TestCase
         $metadata = new ClassMetadata(ExpressionSyntaxDummy::class);
         self::assertTrue((new AttributeLoader())->loadClassMetadata($metadata));
 
-        [$aConstraint] = $metadata->properties['a']->getConstraints();
+        [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertNull($aConstraint->service);
         self::assertNull($aConstraint->allowedVariables);
 
-        [$bConstraint] = $metadata->properties['b']->getConstraints();
+        [$bConstraint] = $metadata->getPropertyMetadata('b')[0]->getConstraints();
         self::assertSame('my_service', $bConstraint->service);
         self::assertSame('myMessage', $bConstraint->message);
         self::assertSame(['Default', 'ExpressionSyntaxDummy'], $bConstraint->groups);
 
-        [$cConstraint] = $metadata->properties['c']->getConstraints();
+        [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertSame(['foo', 'bar'], $cConstraint->allowedVariables);
         self::assertSame(['my_group'], $cConstraint->groups);
     }

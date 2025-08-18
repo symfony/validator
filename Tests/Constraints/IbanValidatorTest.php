@@ -456,7 +456,7 @@ class IbanValidatorTest extends ConstraintValidatorTestCase
         $classMetadata = new ClassMetadata(IbanDummy::class);
         (new AttributeLoader())->loadClassMetadata($classMetadata);
 
-        [$constraint] = $classMetadata->properties['iban']->constraints;
+        [$constraint] = $classMetadata->getPropertyMetadata('iban')[0]->getConstraints();
 
         $this->validator->validate('DE89 3704 0044 0532 0130 01', $constraint);
 
