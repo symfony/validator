@@ -56,7 +56,7 @@ class YamlFileLoader extends FileLoader
     /**
      * Return the names of the classes mapped in this file.
      *
-     * @return string[]
+     * @return class-string[]
      */
     public function getMappedClasses(): array
     {
