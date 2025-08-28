@@ -13,7 +13,9 @@ namespace Symfony\Component\Validator\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\DependencyInjection\AttributeMetadataPass;
+use Symfony\Component\Validator\Exception\MappingException;
 
 class AttributeMetadataPassTest extends TestCase
 {
@@ -67,7 +69,82 @@ class AttributeMetadataPassTest extends TestCase
         $this->assertEquals('addAttributeMappings', $methodCalls[1][0]);
 
         // Classes should be sorted alphabetically
-        $expectedClasses = ['App\Entity\Order', 'App\Entity\Product', 'App\Entity\User'];
+        $expectedClasses = [
+            'App\Entity\Order' => ['App\Entity\Order'],
+            'App\Entity\Product' => ['App\Entity\Product'],
+            'App\Entity\User' => ['App\Entity\User'],
+        ];
         $this->assertEquals([$expectedClasses], $methodCalls[1][1]);
     }
+
+    public function testThrowsWhenMissingExcludedTag()
+    {
+        $container = new ContainerBuilder();
+        $container->register('validator.builder');
+
+        $container->register('service_without_excluded', 'App\\Entity\\User')
+            ->addTag('validator.attribute_metadata');
+
+        $this->expectException(InvalidArgumentException::class);
+        (new AttributeMetadataPass())->process($container);
+    }
+
+    public function testProcessWithForOptionAndMatchingMembers()
+    {
+        $sourceClass = _AttrMeta_Source::class;
+        $targetClass = _AttrMeta_Target::class;
+
+        $container = new ContainerBuilder();
+        $container->register('validator.builder');
+
+        $container->register('service.source', $sourceClass)
+            ->addTag('validator.attribute_metadata', ['for' => $targetClass])
+            ->addTag('container.excluded');
+
+        (new AttributeMetadataPass())->process($container);
+
+        $methodCalls = $container->getDefinition('validator.builder')->getMethodCalls();
+        $this->assertNotEmpty($methodCalls);
+        $this->assertSame('addAttributeMappings', $methodCalls[0][0]);
+        $this->assertSame([$targetClass => [$sourceClass]], $methodCalls[0][1][0]);
+    }
+
+    public function testProcessWithForOptionAndMissingMemberThrows()
+    {
+        $sourceClass = _AttrMeta_BadSource::class;
+        $targetClass = _AttrMeta_Target::class;
+
+        $container = new ContainerBuilder();
+        $container->register('validator.builder');
+
+        $container->register('service.source', $sourceClass)
+            ->addTag('validator.attribute_metadata', ['for' => $targetClass])
+            ->addTag('container.excluded');
+
+        $this->expectException(MappingException::class);
+        (new AttributeMetadataPass())->process($container);
+    }
+}
+
+class _AttrMeta_Source
+{
+    public string $name;
+
+    public function getName()
+    {
+    }
+}
+
+class _AttrMeta_Target
+{
+    public string $name;
+
+    public function getName()
+    {
+    }
+}
+
+class _AttrMeta_BadSource
+{
+    public string $extra;
 }

@@ -12,6 +12,7 @@
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Attribute\ExtendsValidationFor;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -229,15 +230,19 @@ class AttributeLoaderTest extends TestCase
 
     public function testGetMappedClasses()
     {
-        $classes = ['App\Entity\User', 'App\Entity\Product', 'App\Entity\Order'];
+        $classes = [
+            'App\Entity\User' => ['App\Entity\User'],
+            'App\Entity\Product' => ['App\Entity\Product'],
+            'App\Entity\Order' => ['App\Entity\Order'],
+        ];
         $loader = new AttributeLoader(false, $classes);
 
-        $this->assertSame($classes, $loader->getMappedClasses());
+        $this->assertSame(array_keys($classes), $loader->getMappedClasses());
     }
 
     public function testLoadClassMetadataReturnsFalseForUnmappedClass()
     {
-        $loader = new AttributeLoader(false, ['App\Entity\User']);
+        $loader = new AttributeLoader(false, ['App\Entity\User' => ['App\Entity\User']]);
         $metadata = new ClassMetadata('App\Entity\Product');
 
         $this->assertFalse($loader->loadClassMetadata($metadata));
@@ -245,7 +250,7 @@ class AttributeLoaderTest extends TestCase
 
     public function testLoadClassMetadataReturnsFalseForClassWithoutAttributes()
     {
-        $loader = new AttributeLoader(false, ['stdClass']);
+        $loader = new AttributeLoader(false, ['stdClass' => ['stdClass']]);
         $metadata = new ClassMetadata('stdClass');
 
         $this->assertFalse($loader->loadClassMetadata($metadata));
@@ -253,11 +258,94 @@ class AttributeLoaderTest extends TestCase
 
     public function testLoadClassMetadataForMappedClassWithAttributes()
     {
-        $loader = new AttributeLoader(false, [Entity::class]);
+        $loader = new AttributeLoader(false, [Entity::class => [Entity::class]]);
         $metadata = new ClassMetadata(Entity::class);
 
         $this->assertTrue($loader->loadClassMetadata($metadata));
 
         $this->assertNotEmpty($metadata->getConstraints());
     }
+
+    public function testLoadClassMetadataFromExplicitAttributeMappings()
+    {
+        $targetClass = _AttrMap_Target::class;
+        $sourceClass = _AttrMap_Source::class;
+
+        $loader = new AttributeLoader(false, [$targetClass => [$sourceClass]]);
+        $metadata = new ClassMetadata($targetClass);
+
+        $this->assertTrue($loader->loadClassMetadata($metadata));
+        $this->assertInstanceOf(NotBlank::class, $metadata->getPropertyMetadata('name', $sourceClass)[0]->getConstraints()[0]);
+    }
+
+    public function testLoadClassMetadataWithClassLevelConstraints()
+    {
+        $targetClass = _AttrMap_Target::class;
+        $sourceClass = _AttrMap_ClassLevelSource::class;
+
+        $loader = new AttributeLoader(false, [$targetClass => [$sourceClass]]);
+        $metadata = new ClassMetadata($targetClass);
+
+        $this->assertTrue($loader->loadClassMetadata($metadata));
+
+        // Check that class-level constraints are added to the target
+        $constraints = $metadata->getConstraints();
+        $this->assertCount(2, $constraints);
+
+        // Check for Callback constraint
+        $callbackConstraint = null;
+        foreach ($constraints as $constraint) {
+            if ($constraint instanceof Callback) {
+                $callbackConstraint = $constraint;
+                break;
+            }
+        }
+        $this->assertInstanceOf(Callback::class, $callbackConstraint);
+        $this->assertEquals('validateClass', $callbackConstraint->callback);
+
+        // Check for Expression constraint
+        $expressionConstraint = null;
+        foreach ($constraints as $constraint) {
+            if ($constraint instanceof Expression) {
+                $expressionConstraint = $constraint;
+                break;
+            }
+        }
+        $this->assertInstanceOf(Expression::class, $expressionConstraint);
+        $this->assertEquals('this.name != null', $expressionConstraint->expression);
+
+        // Check that property constraints are also added
+        $this->assertInstanceOf(NotBlank::class, $metadata->getPropertyMetadata('name', $sourceClass)[0]->getConstraints()[0]);
+    }
+}
+
+class _AttrMap_Target
+{
+    public string $name;
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function validateClass()
+    {
+        // This method will be called by the Callback constraint
+        return true;
+    }
+}
+
+#[ExtendsValidationFor(_AttrMap_Target::class)]
+class _AttrMap_Source
+{
+    #[NotBlank] public string $name;
+}
+
+#[ExtendsValidationFor(_AttrMap_Target::class)]
+#[Callback('validateClass')]
+#[Expression('this.name != null')]
+class _AttrMap_ClassLevelSource
+{
+    #[NotBlank]
+    public string $name = '';
 }
