@@ -26,7 +26,7 @@ class XmlFileLoader extends FileLoader
     /**
      * The XML nodes of the mapping file.
      *
-     * @var \SimpleXMLElement[]
+     * @var array<class-string, \SimpleXMLElement>
      */
     protected array $classes;
 
@@ -55,7 +55,7 @@ class XmlFileLoader extends FileLoader
     /**
      * Return the names of the classes mapped in this file.
      *
-     * @return string[]
+     * @return class-string[]
      */
     public function getMappedClasses(): array
     {

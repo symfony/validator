@@ -30,21 +30,27 @@ use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
+use Symfony\Component\Validator\Tests\Dummy\DummyGroupProvider;
+use Symfony\Component\Validator\Tests\Fixtures\Attribute\GroupProviderDto;
+use Symfony\Component\Validator\Tests\Fixtures\CallbackClass;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintA;
+use Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity;
+use Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\EntityParent;
+use Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\GroupSequenceProviderEntity;
 
 class AttributeLoaderTest extends TestCase
 {
     public function testLoadClassMetadataReturnsTrueIfSuccessful()
     {
-        $loader = $this->createAttributeLoader();
-        $metadata = new ClassMetadata($this->getFixtureNamespace().'\Entity');
+        $loader = new AttributeLoader();
+        $metadata = new ClassMetadata(Entity::class);
 
         $this->assertTrue($loader->loadClassMetadata($metadata));
     }
 
     public function testLoadClassMetadataReturnsFalseIfNotSuccessful()
     {
-        $loader = $this->createAttributeLoader();
+        $loader = new AttributeLoader();
         $metadata = new ClassMetadata('\stdClass');
 
         $this->assertFalse($loader->loadClassMetadata($metadata));
@@ -52,17 +58,16 @@ class AttributeLoaderTest extends TestCase
 
     public function testLoadClassMetadata()
     {
-        $loader = $this->createAttributeLoader();
-        $namespace = $this->getFixtureNamespace();
+        $loader = new AttributeLoader();
 
-        $metadata = new ClassMetadata($namespace.'\Entity');
+        $metadata = new ClassMetadata(Entity::class);
 
         $loader->loadClassMetadata($metadata);
 
-        $expected = new ClassMetadata($namespace.'\Entity');
+        $expected = new ClassMetadata(Entity::class);
         $expected->setGroupSequence(['Foo', 'Entity']);
         $expected->addConstraint(new ConstraintA());
-        $expected->addConstraint(new Callback(['Symfony\Component\Validator\Tests\Fixtures\CallbackClass', 'callback']));
+        $expected->addConstraint(new Callback([CallbackClass::class, 'callback']));
         $expected->addConstraint(new Sequentially([
             new Expression('this.getFirstName() != null'),
         ]));
@@ -108,14 +113,13 @@ class AttributeLoaderTest extends TestCase
      */
     public function testLoadParentClassMetadata()
     {
-        $loader = $this->createAttributeLoader();
-        $namespace = $this->getFixtureNamespace();
+        $loader = new AttributeLoader();
 
         // Load Parent MetaData
-        $parent_metadata = new ClassMetadata($namespace.'\EntityParent');
+        $parent_metadata = new ClassMetadata(EntityParent::class);
         $loader->loadClassMetadata($parent_metadata);
 
-        $expected_parent = new ClassMetadata($namespace.'\EntityParent');
+        $expected_parent = new ClassMetadata(EntityParent::class);
         $expected_parent->addPropertyConstraint('other', new NotNull());
         $expected_parent->getReflectionClass();
 
@@ -127,28 +131,27 @@ class AttributeLoaderTest extends TestCase
      */
     public function testLoadClassMetadataAndMerge()
     {
-        $loader = $this->createAttributeLoader();
-        $namespace = $this->getFixtureNamespace();
+        $loader = new AttributeLoader();
 
         // Load Parent MetaData
-        $parent_metadata = new ClassMetadata($namespace.'\EntityParent');
+        $parent_metadata = new ClassMetadata(EntityParent::class);
         $loader->loadClassMetadata($parent_metadata);
 
-        $metadata = new ClassMetadata($namespace.'\Entity');
+        $metadata = new ClassMetadata(Entity::class);
         $loader->loadClassMetadata($metadata);
 
         // Merge parent metaData.
         $metadata->mergeConstraints($parent_metadata);
 
-        $expected_parent = new ClassMetadata($namespace.'\EntityParent');
+        $expected_parent = new ClassMetadata(EntityParent::class);
         $expected_parent->addPropertyConstraint('other', new NotNull());
         $expected_parent->getReflectionClass();
 
-        $expected = new ClassMetadata($namespace.'\Entity');
+        $expected = new ClassMetadata(Entity::class);
 
         $expected->setGroupSequence(['Foo', 'Entity']);
         $expected->addConstraint(new ConstraintA());
-        $expected->addConstraint(new Callback(['Symfony\Component\Validator\Tests\Fixtures\CallbackClass', 'callback']));
+        $expected->addConstraint(new Callback([CallbackClass::class, 'callback']));
         $expected->addConstraint(new Sequentially([
             new Expression('this.getFirstName() != null'),
         ]));
@@ -197,13 +200,12 @@ class AttributeLoaderTest extends TestCase
 
     public function testLoadGroupSequenceProviderAttribute()
     {
-        $loader = $this->createAttributeLoader();
-        $namespace = $this->getFixtureNamespace();
+        $loader = new AttributeLoader();
 
-        $metadata = new ClassMetadata($namespace.'\GroupSequenceProviderEntity');
+        $metadata = new ClassMetadata(GroupSequenceProviderEntity::class);
         $loader->loadClassMetadata($metadata);
 
-        $expected = new ClassMetadata($namespace.'\GroupSequenceProviderEntity');
+        $expected = new ClassMetadata(GroupSequenceProviderEntity::class);
         $expected->setGroupSequenceProvider(true);
         $expected->getReflectionClass();
 
@@ -212,32 +214,50 @@ class AttributeLoaderTest extends TestCase
 
     public function testLoadExternalGroupSequenceProvider()
     {
-        $loader = $this->createAttributeLoader();
-        $namespace = $this->getFixtureAttributeNamespace();
+        $loader = new AttributeLoader();
 
-        $metadata = new ClassMetadata($namespace.'\GroupProviderDto');
+        $metadata = new ClassMetadata(GroupProviderDto::class);
         $loader->loadClassMetadata($metadata);
 
-        $expected = new ClassMetadata($namespace.'\GroupProviderDto');
-        $expected->setGroupProvider('Symfony\Component\Validator\Tests\Dummy\DummyGroupProvider');
+        $expected = new ClassMetadata(GroupProviderDto::class);
+        $expected->setGroupProvider(DummyGroupProvider::class);
         $expected->setGroupSequenceProvider(true);
         $expected->getReflectionClass();
 
         $this->assertEquals($expected, $metadata);
     }
 
-    protected function createAttributeLoader(): AttributeLoader
+    public function testGetMappedClasses()
     {
-        return new AttributeLoader();
+        $classes = ['App\Entity\User', 'App\Entity\Product', 'App\Entity\Order'];
+        $loader = new AttributeLoader(false, $classes);
+
+        $this->assertSame($classes, $loader->getMappedClasses());
     }
 
-    protected function getFixtureNamespace(): string
+    public function testLoadClassMetadataReturnsFalseForUnmappedClass()
     {
-        return 'Symfony\Component\Validator\Tests\Fixtures\NestedAttribute';
+        $loader = new AttributeLoader(false, ['App\Entity\User']);
+        $metadata = new ClassMetadata('App\Entity\Product');
+
+        $this->assertFalse($loader->loadClassMetadata($metadata));
     }
 
-    protected function getFixtureAttributeNamespace(): string
+    public function testLoadClassMetadataReturnsFalseForClassWithoutAttributes()
     {
-        return 'Symfony\Component\Validator\Tests\Fixtures\Attribute';
+        $loader = new AttributeLoader(false, ['stdClass']);
+        $metadata = new ClassMetadata('stdClass');
+
+        $this->assertFalse($loader->loadClassMetadata($metadata));
+    }
+
+    public function testLoadClassMetadataForMappedClassWithAttributes()
+    {
+        $loader = new AttributeLoader(false, [Entity::class]);
+        $metadata = new ClassMetadata(Entity::class);
+
+        $this->assertTrue($loader->loadClassMetadata($metadata));
+
+        $this->assertNotEmpty($metadata->getConstraints());
     }
 }
