@@ -34,6 +34,7 @@
         "symfony/http-kernel": "^7.4|^8.0",
         "symfony/intl": "^7.4|^8.0",
         "symfony/mime": "^7.4|^8.0",
+        "symfony/process": "^7.4|^8.0",
         "symfony/property-access": "^7.4|^8.0",
         "symfony/property-info": "^7.4|^8.0",
         "symfony/string": "^7.4|^8.0",

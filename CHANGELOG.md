@@ -123,6 +123,7 @@ CHANGELOG
 7.4
 ---
 
+ * Add the `Video` constraint for validating video files
  * Deprecate implementing `__sleep/wakeup()` on `GenericMetadata` implementations; use `__(un)serialize()` instead
  * Deprecate passing a list of choices to the first argument of the `Choice` constraint. Use the `choices` option instead
  * Add the `min` and `max` parameter to the `Length` constraint violation
