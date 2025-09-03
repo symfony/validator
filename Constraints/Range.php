@@ -42,7 +42,7 @@ class Range extends Constraint
     public string $minMessage = 'This value should be {{ limit }} or more.';
     public string $maxMessage = 'This value should be {{ limit }} or less.';
     public string $invalidMessage = 'This value should be a valid number.';
-    public string $invalidDateTimeMessage = 'This value should be a valid datetime.';
+    public string $invalidDateTimeMessage = 'This value is not a valid datetime.';
     public mixed $min = null;
     public ?string $minPropertyPath = null;
     public mixed $max = null;

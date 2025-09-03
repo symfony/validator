@@ -470,6 +470,90 @@
                 <source>This value is not a valid Twig template.</source>
                 <target>Dieser Wert ist kein valides Twig-Template.</target>
             </trans-unit>
+            <trans-unit id="122">
+                <source>This file is not a valid video.</source>
+                <target state="needs-review-translation">Diese Datei ist kein gültiges Video.</target>
+            </trans-unit>
+            <trans-unit id="123">
+                <source>The size of the video could not be detected.</source>
+                <target state="needs-review-translation">Die Größe des Videos konnte nicht ermittelt werden.</target>
+            </trans-unit>
+            <trans-unit id="124">
+                <source>The video width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
+                <target state="needs-review-translation">Die Videobreite ist zu groß ({{ width }}px). Zulässige maximale Breite ist {{ max_width }}px.</target>
+            </trans-unit>
+            <trans-unit id="125">
+                <source>The video width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
+                <target state="needs-review-translation">Die Videobreite ist zu klein ({{ width }}px). Erwartete Mindestbreite ist {{ min_width }}px.</target>
+            </trans-unit>
+            <trans-unit id="126">
+                <source>The video height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
+                <target state="needs-review-translation">Die Videohöhe ist zu groß ({{ height }}px). Zulässige maximale Höhe ist {{ max_height }}px.</target>
+            </trans-unit>
+            <trans-unit id="127">
+                <source>The video height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
+                <target state="needs-review-translation">Die Videohöhe ist zu klein ({{ height }}px). Erwartete Mindesthöhe ist {{ min_height }}px.</target>
+            </trans-unit>
+            <trans-unit id="128">
+                <source>The video has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.</source>
+                <target state="needs-review-translation">Das Video hat zu wenige Pixel ({{ pixels }}). Erwartete Mindestmenge ist {{ min_pixels }}.</target>
+            </trans-unit>
+            <trans-unit id="129">
+                <source>The video has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
+                <target state="needs-review-translation">Das Video hat zu viele Pixel ({{ pixels }}). Die erwartete Höchstanzahl ist {{ max_pixels }}.</target>
+            </trans-unit>
+            <trans-unit id="130">
+                <source>The video ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
+                <target state="needs-review-translation">Das Videoverhältnis ist zu groß ({{ ratio }}). Zulässiges maximales Verhältnis ist {{ max_ratio }}.</target>
+            </trans-unit>
+            <trans-unit id="131">
+                <source>The video ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
+                <target state="needs-review-translation">Das Video-Seitenverhältnis ist zu klein ({{ ratio }}). Erwartetes Mindestverhältnis ist {{ min_ratio }}.</target>
+            </trans-unit>
+            <trans-unit id="132">
+                <source>The video is square ({{ width }}x{{ height }}px). Square videos are not allowed.</source>
+                <target state="needs-review-translation">Das Video ist quadratisch ({{ width }}x{{ height }}px). Quadratische Videos sind nicht erlaubt.</target>
+            </trans-unit>
+            <trans-unit id="133">
+                <source>The video is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented videos are not allowed.</source>
+                <target state="needs-review-translation">Das Video ist im Querformat ({{ width }}x{{ height }} px). Querformat-Videos sind nicht erlaubt.</target>
+            </trans-unit>
+            <trans-unit id="134">
+                <source>The video is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented videos are not allowed.</source>
+                <target state="needs-review-translation">Das Video ist hochkant ausgerichtet ({{ width }}x{{ height }}px). Hochkant-Videos sind nicht erlaubt.</target>
+            </trans-unit>
+            <trans-unit id="135">
+                <source>The video file is corrupted.</source>
+                <target state="needs-review-translation">Die Videodatei ist beschädigt.</target>
+            </trans-unit>
+            <trans-unit id="136">
+                <source>The video contains multiple streams. Only one stream is allowed.</source>
+                <target state="needs-review-translation">Das Video enthält mehrere Streams. Es ist nur ein Stream erlaubt.</target>
+            </trans-unit>
+            <trans-unit id="137">
+                <source>Unsupported video codec "{{ codec }}".</source>
+                <target state="needs-review-translation">Nicht unterstützter Videocodec „{{ codec }}“.</target>
+            </trans-unit>
+            <trans-unit id="138">
+                <source>Unsupported video container "{{ container }}".</source>
+                <target state="needs-review-translation">Nicht unterstützter Videocontainer "{{ container }}".</target>
+            </trans-unit>
+            <trans-unit id="139">
+                <source>The image file is corrupted.</source>
+                <target state="needs-review-translation">Die Bilddatei ist beschädigt.</target>
+            </trans-unit>
+            <trans-unit id="140">
+                <source>The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.</source>
+                <target state="needs-review-translation">Das Bild hat zu wenige Pixel ({{ pixels }}). Erwartete Mindestmenge ist {{ min_pixels }}.</target>
+            </trans-unit>
+            <trans-unit id="141">
+                <source>The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
+                <target state="needs-review-translation">Das Bild hat zu viele Pixel ({{ pixels }}). Erwartete Höchstmenge ist {{ max_pixels }}.</target>
+            </trans-unit>
+            <trans-unit id="142">
+                <source>This filename does not match the expected charset.</source>
+                <target state="needs-review-translation">Dieser Dateiname entspricht nicht dem erwarteten Zeichensatz.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
