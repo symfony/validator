@@ -101,7 +101,15 @@ abstract class AbstractLoader implements LoaderInterface
                 return new $className($options);
             }
 
-            return new $className(...$options);
+            try {
+                return new $className(...$options);
+            } catch (\Error $e) {
+                if (str_starts_with($e->getMessage(), 'Unknown named parameter ')) {
+                    return new $className($options);
+                }
+
+                throw $e;
+            }
         }
 
         if ($options) {
