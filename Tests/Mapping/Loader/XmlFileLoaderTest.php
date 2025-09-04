@@ -203,9 +203,8 @@ class XmlFileLoaderTest extends TestCase
         $loader->loadClassMetadata($metadata);
     }
 
-    /**
-     * @group legacy
-     */
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
     public function testLengthConstraintValueOptionTriggersDeprecation()
     {
         $loader = new XmlFileLoader(__DIR__.'/constraint-mapping-exactly-value.xml');
@@ -214,7 +213,7 @@ class XmlFileLoaderTest extends TestCase
         $this->expectUserDeprecationMessage(\sprintf('Since symfony/validator 7.3: Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', Length::class));
 
         $loader->loadClassMetadata($metadata);
-        $constraints = $metadata->getPropertyMetadata('title')[0]->constraints;
+        $constraints = $metadata->getPropertyMetadata('title')[0]->getConstraints();
 
         self::assertCount(1, $constraints);
         self::assertInstanceOf(Length::class, $constraints[0]);
