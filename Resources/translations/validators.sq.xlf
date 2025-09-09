@@ -552,11 +552,11 @@
                 <target>Fajli i imazhit është korruptuar.</target>
             </trans-unit>
             <trans-unit id="140">
-                <source>The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }}px.</source>
+                <source>The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.</source>
                 <target>Imazhi ka shumë pak pikselë ({{ pixels }}). Sasia minimale e pritur është {{ min_pixels }}px.</target>
             </trans-unit>
             <trans-unit id="141">
-                <source>The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }}px.</source>
+                <source>The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
                 <target>Imazhi ka shumë pikselë ({{ pixels }}). Shuma maksimale e pritur është {{ max_pixels }}px.</target>
             </trans-unit>
             <trans-unit id="142">
