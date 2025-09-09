@@ -472,87 +472,87 @@
             </trans-unit>
             <trans-unit id="122">
                 <source>This file is not a valid video.</source>
-                <target state="needs-review-translation">Acest fișier nu este un videoclip valid.</target>
+                <target>Acest fișier nu este un videoclip valid.</target>
             </trans-unit>
             <trans-unit id="123">
                 <source>The size of the video could not be detected.</source>
-                <target state="needs-review-translation">Dimensiunea videoclipului nu a putut fi detectată.</target>
+                <target>Dimensiunea videoclipului nu a putut fi detectată.</target>
             </trans-unit>
             <trans-unit id="124">
                 <source>The video width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-                <target state="needs-review-translation">Lățimea videoclipului este prea mare ({{ width }}px). Lățimea maximă permisă este {{ max_width }}px.</target>
+                <target>Lățimea videoclipului este prea mare ({{ width }}px). Lățimea maximă permisă este {{ max_width }}px.</target>
             </trans-unit>
             <trans-unit id="125">
                 <source>The video width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-                <target state="needs-review-translation">Lățimea videoclipului este prea mică ({{ width }}px). Lățimea minimă așteptată este {{ min_width }}px.</target>
+                <target>Lățimea videoclipului este prea mică ({{ width }}px). Lățimea minimă așteptată este {{ min_width }}px.</target>
             </trans-unit>
             <trans-unit id="126">
                 <source>The video height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-                <target state="needs-review-translation">Înălțimea videoclipului este prea mare ({{ height }}px). Înălțimea maximă permisă este {{ max_height }}px.</target>
+                <target>Înălțimea videoclipului este prea mare ({{ height }}px). Înălțimea maximă permisă este {{ max_height }}px.</target>
             </trans-unit>
             <trans-unit id="127">
                 <source>The video height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-                <target state="needs-review-translation">Înălțimea videoclipului este prea mică ({{ height }}px). Înălțimea minimă așteptată este {{ min_height }}px.</target>
+                <target>Înălțimea videoclipului este prea mică ({{ height }}px). Înălțimea minimă așteptată este {{ min_height }}px.</target>
             </trans-unit>
             <trans-unit id="128">
                 <source>The video has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.</source>
-                <target state="needs-review-translation">Videoclipul are prea puțini pixeli ({{ pixels }}). Cantitatea minimă așteptată este {{ min_pixels }}.</target>
+                <target>Videoclipul are prea puțini pixeli ({{ pixels }}). Cantitatea minimă așteptată este {{ min_pixels }}.</target>
             </trans-unit>
             <trans-unit id="129">
                 <source>The video has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
-                <target state="needs-review-translation">Videoclipul are prea mulți pixeli ({{ pixels }}). Cantitatea maximă așteptată este {{ max_pixels }}.</target>
+                <target>Videoclipul are prea mulți pixeli ({{ pixels }}). Cantitatea maximă așteptată este {{ max_pixels }}.</target>
             </trans-unit>
             <trans-unit id="130">
                 <source>The video ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-                <target state="needs-review-translation">Raportul video este prea mare ({{ ratio }}). Raportul maxim permis este {{ max_ratio }}.</target>
+                <target>Raportul video este prea mare ({{ ratio }}). Raportul maxim permis este {{ max_ratio }}.</target>
             </trans-unit>
             <trans-unit id="131">
                 <source>The video ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-                <target state="needs-review-translation">Raportul video este prea mic ({{ ratio }}). Raportul minim așteptat este {{ min_ratio }}.</target>
+                <target>Raportul video este prea mic ({{ ratio }}). Raportul minim așteptat este {{ min_ratio }}.</target>
             </trans-unit>
             <trans-unit id="132">
                 <source>The video is square ({{ width }}x{{ height }}px). Square videos are not allowed.</source>
-                <target state="needs-review-translation">Videoclipul este pătrat ({{ width }}x{{ height }}px). Videoclipurile pătrate nu sunt permise.</target>
+                <target>Videoclipul este pătrat ({{ width }}x{{ height }}px). Videoclipurile pătrate nu sunt permise.</target>
             </trans-unit>
             <trans-unit id="133">
                 <source>The video is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented videos are not allowed.</source>
-                <target state="needs-review-translation">Videoclipul are orientare peisaj ({{ width }}x{{ height }} px). Videoclipurile în orientare peisaj nu sunt permise.</target>
+                <target>Videoclipul are orientare peisaj ({{ width }}x{{ height }} px). Videoclipurile în orientare peisaj nu sunt permise.</target>
             </trans-unit>
             <trans-unit id="134">
                 <source>The video is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented videos are not allowed.</source>
-                <target state="needs-review-translation">Videoclipul este în orientare portret ({{ width }}x{{ height }}px). Videoclipurile cu orientare portret nu sunt permise.</target>
+                <target>Videoclipul este în orientare portret ({{ width }}x{{ height }}px). Videoclipurile cu orientare portret nu sunt permise.</target>
             </trans-unit>
             <trans-unit id="135">
                 <source>The video file is corrupted.</source>
-                <target state="needs-review-translation">Fișierul video este corupt.</target>
+                <target>Fișierul video este corupt.</target>
             </trans-unit>
             <trans-unit id="136">
                 <source>The video contains multiple streams. Only one stream is allowed.</source>
-                <target state="needs-review-translation">Videoclipul conține mai multe fluxuri. Doar un singur flux este permis.</target>
+                <target>Videoclipul conține mai multe fluxuri. Doar un singur flux este permis.</target>
             </trans-unit>
             <trans-unit id="137">
                 <source>Unsupported video codec "{{ codec }}".</source>
-                <target state="needs-review-translation">Codec video neacceptat „{{ codec }}”.</target>
+                <target>Codec video nesuportat „{{ codec }}”.</target>
             </trans-unit>
             <trans-unit id="138">
                 <source>Unsupported video container "{{ container }}".</source>
-                <target state="needs-review-translation">Container video nesuportat "{{ container }}".</target>
+                <target>Container video nesuportat "{{ container }}".</target>
             </trans-unit>
             <trans-unit id="139">
                 <source>The image file is corrupted.</source>
-                <target state="needs-review-translation">Fișierul imagine este deteriorat.</target>
+                <target>Fișierul imagine este corupt.</target>
             </trans-unit>
             <trans-unit id="140">
                 <source>The image has too few pixels ({{ pixels }} pixels). Minimum amount expected is {{ min_pixels }} pixels.</source>
-                <target state="needs-review-translation">Imaginea are prea puțini pixeli ({{ pixels }}). Cantitatea minimă așteptată este {{ min_pixels }}.</target>
+                <target>Imaginea are prea puțini pixeli ({{ pixels }}). Cantitatea minimă așteptată este {{ min_pixels }}.</target>
             </trans-unit>
             <trans-unit id="141">
                 <source>The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
-                <target state="needs-review-translation">Imaginea are prea mulți pixeli ({{ pixels }}). Cantitatea maximă așteptată este {{ max_pixels }}.</target>
+                <target>Imaginea are prea mulți pixeli ({{ pixels }}). Cantitatea maximă așteptată este {{ max_pixels }}.</target>
             </trans-unit>
             <trans-unit id="142">
                 <source>This filename does not match the expected charset.</source>
-                <target state="needs-review-translation">Acest nume de fișier nu corespunde setului de caractere așteptat.</target>
+                <target>Acest nume de fișier nu corespunde setului de caractere așteptat.</target>
             </trans-unit>
         </body>
     </file>
