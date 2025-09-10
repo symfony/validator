@@ -123,6 +123,7 @@ CHANGELOG
 7.4
 ---
 
+ * Add `#[ExtendsValidationFor]` to declare new constraints for a class
  * Add `ValidatorBuilder::addAttributeMappings()` and `AttributeMetadataPass` to declare compile-time constraint metadata using attributes
  * Add the `Video` constraint for validating video files
  * Deprecate implementing `__sleep/wakeup()` on `GenericMetadata` implementations; use `__(un)serialize()` instead

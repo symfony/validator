@@ -14,6 +14,7 @@ namespace Symfony\Component\Validator\DependencyInjection;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Exception\MappingException;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -35,7 +36,14 @@ final class AttributeMetadataPass implements CompilerPassInterface
             if (!$definition->hasTag('container.excluded')) {
                 throw new InvalidArgumentException(\sprintf('The resource "%s" tagged "validator.attribute_metadata" is missing the "container.excluded" tag.', $id));
             }
-            $mappedClasses[$resolve($definition->getClass())] = true;
+            $class = $resolve($definition->getClass());
+            foreach ($definition->getTag('validator.attribute_metadata') as $attributes) {
+                if ($class !== $for = $attributes['for'] ?? $class) {
+                    $this->checkSourceMapsToTarget($container, $class, $for);
+                }
+
+                $mappedClasses[$for][$class] = true;
+            }
         }
 
         if (!$mappedClasses) {
@@ -45,6 +53,24 @@ final class AttributeMetadataPass implements CompilerPassInterface
         ksort($mappedClasses);
 
         $container->getDefinition('validator.builder')
-            ->addMethodCall('addAttributeMappings', [array_keys($mappedClasses)]);
+            ->addMethodCall('addAttributeMappings', [array_map('array_keys', $mappedClasses)]);
+    }
+
+    private function checkSourceMapsToTarget(ContainerBuilder $container, string $source, string $target): void
+    {
+        $source = $container->getReflectionClass($source);
+        $target = $container->getReflectionClass($target);
+
+        foreach ($source->getProperties() as $p) {
+            if ($p->class === $source->name && !($target->hasProperty($p->name) && $target->getProperty($p->name)->class === $target->name)) {
+                throw new MappingException(\sprintf('The property "%s" on "%s" is not present on "%s".', $p->name, $source->name, $target->name));
+            }
+        }
+
+        foreach ($source->getMethods() as $m) {
+            if ($m->class === $source->name && !($target->hasMethod($m->name) && $target->getMethod($m->name)->class === $target->name)) {
+                throw new MappingException(\sprintf('The method "%s" on "%s" is not present on "%s".', $m->name, $source->name, $target->name));
+            }
+        }
     }
 }
