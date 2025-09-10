@@ -150,9 +150,12 @@ class ValidatorBuilder
     }
 
     /**
-     * Adds a list of classes with mapping constraints as attributes.
+     * Adds classes with mapping constraints as attributes.
      *
-     * @param class-string[] $classes The paths to the mapping classes
+     * The keys are the classes on which the constraints should be added.
+     * The values are the classes that contain the constraints to add as attributes.
+     *
+     * @param array<class-string, list<class-string>> $classes
      *
      * @return $this
      */
@@ -162,7 +165,7 @@ class ValidatorBuilder
             throw new ValidatorException('You cannot add custom mappings after setting a custom metadata factory. Configure your metadata factory instead.');
         }
 
-        $this->attributeMappings = array_merge($this->attributeMappings, $classes);
+        $this->attributeMappings = array_merge_recursive($this->attributeMappings, $classes);
 
         return $this;
     }
