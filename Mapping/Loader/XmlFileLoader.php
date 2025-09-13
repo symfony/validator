@@ -80,6 +80,8 @@ class XmlFileLoader extends FileLoader
         foreach ($nodes as $node) {
             if (\count($node) > 0) {
                 if (\count($node->value) > 0) {
+                    trigger_deprecation('symfony/validator', '7.4', 'Using the "value" XML element to configure an option for the "%s" is deprecated. Use the "option" element instead.', (string) $node['name']);
+
                     $options = [
                         'value' => $this->parseValues($node->value),
                     ];
@@ -100,7 +102,7 @@ class XmlFileLoader extends FileLoader
                 $options['groups'] = (array) $options['groups'];
             }
 
-            $constraints[] = $this->newConstraint((string) $node['name'], $options);
+            $constraints[] = $this->newConstraint((string) $node['name'], $options, true);
         }
 
         return $constraints;
