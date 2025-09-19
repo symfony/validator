@@ -44,7 +44,7 @@ class Expression extends Constraint
      * @param array<string,mixed>|null                         $values     The values of the custom variables used in the expression (defaults to an empty array)
      * @param string[]|null                                    $groups
      * @param array<string,mixed>|null                         $options
-     * @param bool|null                                        $negate     Whether to fail if the expression evaluates to true (defaults to false)
+     * @param bool|null                                        $negate     When set to true, if the expression returns true, the validation will pass (defaults to true)
      */
     #[HasNamedArguments]
     public function __construct(
