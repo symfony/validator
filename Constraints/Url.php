@@ -39,7 +39,7 @@ class Url extends Constraint
     public $normalizer;
 
     /**
-     * @param string[]|null $protocols        The protocols considered to be valid for the URL (e.g. http, https, ftp, etc.) (defaults to ['http', 'https']
+     * @param string[]|null $protocols        The protocols considered to be valid for the URL (e.g. http, https, ftp, etc.) (defaults to ['http', 'https']; use ['*'] to allow any protocol or regex patterns like ['.*'] for custom matching)
      * @param bool|null     $relativeProtocol Whether to accept URL without the protocol (i.e. //example.com) (defaults to false)
      * @param string[]|null $groups
      * @param bool|null     $requireTld       Whether to require the URL to include a top-level domain (defaults to false)

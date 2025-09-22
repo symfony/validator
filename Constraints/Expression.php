@@ -41,10 +41,10 @@ class Expression extends Constraint
     public bool $negate = true;
 
     /**
-     * @param string|ExpressionObject|null $expression The expression to evaluate
-     * @param array<string,mixed>|null     $values     The values of the custom variables used in the expression (defaults to an empty array)
-     * @param string[]|null                $groups
-     * @param bool|null                    $negate     Whether to fail if the expression evaluates to true (defaults to false)
+     * @param string|ExpressionObject|array<string,mixed>|null $expression The expression to evaluate
+     * @param array<string,mixed>|null                         $values     The values of the custom variables used in the expression (defaults to an empty array)
+     * @param string[]|null                                    $groups
+     * @param bool|null                                        $negate     Whether to fail if the expression evaluates to true (defaults to false)
      */
     public function __construct(
         string|ExpressionObject|null $expression,
