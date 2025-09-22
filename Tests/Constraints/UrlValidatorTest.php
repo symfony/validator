@@ -109,9 +109,6 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * Test that protocols: ['*'] allows any protocol
-     */
     public function testProtocolsWildcardAllowsAnyProtocol()
     {
         $constraint = new Url(protocols: ['*'], requireTld: false);
@@ -134,9 +131,6 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
         }
     }
 
-    /**
-     * Test that protocols: ['*'] still validates scheme format according to RFC 3986
-     */
     public function testProtocolsWildcardRejectsInvalidSchemes()
     {
         $constraint = new Url(protocols: ['*'], requireTld: true);
@@ -161,9 +155,6 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
         }
     }
 
-    /**
-     * Test that protocols: ['*'] works with relativeProtocol
-     */
     public function testProtocolsWildcardWithRelativeProtocol()
     {
         $constraint = new Url(protocols: ['*'], relativeProtocol: true, requireTld: true);
@@ -175,9 +166,6 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * Test that protocols: ['*'] works with requireTld
-     */
     public function testProtocolsWildcardWithRequireTld()
     {
         $constraint = new Url(protocols: ['*'], requireTld: true);
@@ -192,9 +180,6 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * Test that protocols accepts regex patterns
-     */
     public function testProtocolsSupportsRegexPatterns()
     {
         $constraint = new Url(protocols: ['https?', 'custom.*'], requireTld: true);
