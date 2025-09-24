@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
@@ -87,6 +88,15 @@ class UrlTest extends TestCase
         $constraint = new Url();
 
         $this->assertFalse($constraint->requireTld);
+    }
+
+    #[TestWith(['*'])]
+    #[TestWith(['http'])]
+    public function testProtocolsAsString(string $protocol)
+    {
+        $constraint = new Url(protocols: $protocol, requireTld: true);
+
+        $this->assertSame([$protocol], $constraint->protocols);
     }
 }
 
