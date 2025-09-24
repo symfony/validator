@@ -7,6 +7,10 @@
   <namespace prefix="custom">Symfony\Component\Validator\Tests\Fixtures\</namespace>
 
   <class name="Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity">
+    <constraint name="Callback">
+      <value>Symfony\Component\Validator\Tests\Fixtures\CallbackClass</value>
+      <value>callback</value>
+    </constraint>
 
     <!-- PROPERTY CONSTRAINTS -->
 

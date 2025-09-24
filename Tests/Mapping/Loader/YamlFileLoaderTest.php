@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
 use Symfony\Component\Validator\Tests\Dummy\DummyGroupProvider;
 use Symfony\Component\Validator\Tests\Fixtures\Attribute\GroupProviderDto;
+use Symfony\Component\Validator\Tests\Fixtures\CallbackClass;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintA;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintB;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithRequiredArgument;
@@ -146,6 +147,8 @@ class YamlFileLoaderTest extends TestCase
         $loader->loadClassMetadata($metadata);
 
         $expected = new ClassMetadata(Entity::class);
+        $expected->addConstraint(new Callback('validateMeStatic'));
+        $expected->addConstraint(new Callback([CallbackClass::class, 'callback']));
         $expected->addPropertyConstraint('firstName', new Type(type: 'string'));
         $expected->addPropertyConstraint('firstName', new Choice(choices: ['A', 'B']));
 
