@@ -127,6 +127,10 @@ abstract class ConstraintValidator implements ConstraintValidatorInterface
             return 'true';
         }
 
+        if (is_nan($value)) {
+            return 'NAN';
+        }
+
         return (string) $value;
     }
 
