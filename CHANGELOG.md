@@ -123,6 +123,65 @@ CHANGELOG
 7.4
 ---
 
+ * Deprecate handling associative arrays in `GroupSequence`
+
+   Before:
+
+   ```php
+   $groupSequence = GroupSequence(['value' => ['group 1', 'group 2']]);
+   ```
+
+   After:
+
+   ```php
+   $groupSequence = GroupSequence(['group 1', 'group 2']);
+   ```
+ * Deprecate configuring constraint options implicitly with the XML format
+
+   Before:
+
+   ```xml
+   <class name="Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity">
+    <constraint name="Callback">
+      <value>Symfony\Component\Validator\Tests\Fixtures\CallbackClass</value>
+      <value>callback</value>
+    </constraint>
+   </class>
+   ```
+
+   After:
+
+   ```xml
+   <class name="Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity">
+     <constraint name="Callback">
+       <option name="callback">
+         <value>Symfony\Component\Validator\Tests\Fixtures\CallbackClass</value>
+         <value>callback</value>
+       </option>
+     </constraint>
+   </class>
+   ```
+ * Deprecate configuring constraint options implicitly with the YAML format
+
+   Before:
+
+   ```yaml
+   Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
+     constraints:
+       - Callback: validateMeStatic
+       - Callback: [Symfony\Component\Validator\Tests\Fixtures\CallbackClass, callback]
+   ```
+
+   After:
+
+   ```yaml
+   Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
+     constraints:
+       - Callback:
+           callback: validateMeStatic
+       - Callback:
+           callback: [Symfony\Component\Validator\Tests\Fixtures\CallbackClass, callback]
+   ```
  * Add `#[ExtendsValidationFor]` to declare new constraints for a class
  * Add `ValidatorBuilder::addAttributeMappings()` and `AttributeMetadataPass` to declare compile-time constraint metadata using attributes
  * Add the `Video` constraint for validating video files
@@ -167,7 +226,6 @@ CHANGELOG
        }
    }
    ```
-
  * Deprecate the `getRequiredOptions()` method of the base `Constraint` class. Use mandatory constructor arguments instead.
 
    Before:

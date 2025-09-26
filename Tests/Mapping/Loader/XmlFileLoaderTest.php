@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -21,11 +23,13 @@ use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Traverse;
+use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Exception\MappingException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\XmlFileLoader;
 use Symfony\Component\Validator\Tests\Dummy\DummyGroupProvider;
 use Symfony\Component\Validator\Tests\Fixtures\Attribute\GroupProviderDto;
+use Symfony\Component\Validator\Tests\Fixtures\CallbackClass;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintA;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintB;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithRequiredArgument;
@@ -85,6 +89,23 @@ class XmlFileLoaderTest extends TestCase
         $expected->addGetterConstraint('lastName', new NotNull());
         $expected->addGetterConstraint('valid', new IsTrue());
         $expected->addGetterConstraint('permissions', new IsTrue());
+
+        $this->assertEquals($expected, $metadata);
+    }
+
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    public function testLoadClassMetadataValueOption()
+    {
+        $loader = new XmlFileLoader(__DIR__.'/constraint-mapping-value-option.xml');
+        $metadata = new ClassMetadata(Entity::class);
+
+        $loader->loadClassMetadata($metadata);
+
+        $expected = new ClassMetadata(Entity::class);
+        $expected->addConstraint(new Callback([CallbackClass::class, 'callback']));
+        $expected->addPropertyConstraint('firstName', new Type(type: 'string'));
+        $expected->addPropertyConstraint('firstName', new Choice(choices: ['A', 'B']));
 
         $this->assertEquals($expected, $metadata);
     }

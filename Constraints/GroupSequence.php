@@ -77,6 +77,10 @@ class GroupSequence
      */
     public function __construct(array $groups)
     {
+        if (!array_is_list($groups)) {
+            trigger_deprecation('symfony/validator', '7.4', 'Support for passing an array of options to "%s()" is deprecated.', __METHOD__);
+        }
+
         $this->groups = $groups['value'] ?? $groups;
     }
 }

@@ -39,15 +39,15 @@ class Url extends Constraint
     public $normalizer;
 
     /**
-     * @param string[]|null $protocols        The protocols considered to be valid for the URL (e.g. http, https, ftp, etc.) (defaults to ['http', 'https']; use ['*'] to allow any protocol or regex patterns like ['.*'] for custom matching)
-     * @param bool|null     $relativeProtocol Whether to accept URL without the protocol (i.e. //example.com) (defaults to false)
-     * @param string[]|null $groups
-     * @param bool|null     $requireTld       Whether to require the URL to include a top-level domain (defaults to false)
+     * @param string[]|string|null $protocols        The protocols considered to be valid for the URL (e.g. http, https, ftp, etc.) (defaults to ['http', 'https']; use '*' to allow any protocol)
+     * @param bool|null            $relativeProtocol Whether to accept URL without the protocol (i.e. //example.com) (defaults to false)
+     * @param string[]|null        $groups
+     * @param bool|null            $requireTld       Whether to require the URL to include a top-level domain (defaults to false)
      */
     public function __construct(
         ?array $options = null,
         ?string $message = null,
-        ?array $protocols = null,
+        array|string|null $protocols = null,
         ?bool $relativeProtocol = null,
         ?callable $normalizer = null,
         ?array $groups = null,
@@ -60,6 +60,10 @@ class Url extends Constraint
         }
 
         parent::__construct(null, $groups, $payload);
+
+        if (\is_string($protocols)) {
+            $protocols = (array) $protocols;
+        }
 
         $this->message = $message ?? $this->message;
         $this->protocols = $protocols ?? $this->protocols;

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -57,6 +58,15 @@ class UrlTest extends TestCase
         self::assertFalse($dConstraint->relativeProtocol);
         self::assertNull($dConstraint->normalizer);
         self::assertTrue($dConstraint->requireTld);
+    }
+
+    #[TestWith(['*'])]
+    #[TestWith(['http'])]
+    public function testProtocolsAsString(string $protocol)
+    {
+        $constraint = new Url(protocols: $protocol, requireTld: true);
+
+        $this->assertSame([$protocol], $constraint->protocols);
     }
 }
 

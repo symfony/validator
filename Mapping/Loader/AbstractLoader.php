@@ -87,10 +87,16 @@ abstract class AbstractLoader implements LoaderInterface
         }
 
         if (1 === \count($options) && isset($options['value'])) {
+            if (\func_num_args() < 3 || !func_get_arg(2)) {
+                trigger_deprecation('symfony/validator', '7.4', 'Using the "value" option to configure the "%s" constraint is deprecated.', $className);
+            }
+
             return new $className($options['value']);
         }
 
         if (array_is_list($options)) {
+            trigger_deprecation('symfony/validator', '7.4', 'Configuring the "%s" without passing its option names is deprecated.', $className);
+
             return new $className($options);
         }
 
