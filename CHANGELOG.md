@@ -4,6 +4,19 @@ CHANGELOG
 8.0
 ---
 
+ * Remove support for passing associative arrays to `GroupSequence`
+
+   Before:
+
+   ```php
+   $groupSequence = GroupSequence(['value' => ['group 1', 'group 2']]);
+   ```
+
+   After:
+
+   ```php
+   $groupSequence = GroupSequence(['group 1', 'group 2']);
+   ```
  * Change the default value of the `$requireTld` option of the `Url` constraint to `true`
  * Add method `getGroupProvider()` to `ClassMetadataInterface`
  * Replace `__sleep/wakeup()` by `__(un)serialize()`  on `GenericMetadata` implementations
