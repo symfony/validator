@@ -4,6 +4,52 @@ CHANGELOG
 8.0
 ---
 
+ * Remove support for configuring constraint options implicitly with the XML format
+
+   Before:
+
+   ```xml
+   <class name="Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity">
+     <constraint name="Callback">
+       <value>Symfony\Component\Validator\Tests\Fixtures\CallbackClass</value>
+       <value>callback</value>
+     </constraint>
+   </class>
+   ```
+
+   After:
+
+   ```xml
+   <class name="Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity">
+     <constraint name="Callback">
+       <option name="callback">
+         <value>Symfony\Component\Validator\Tests\Fixtures\CallbackClass</value>
+         <value>callback</value>
+       </option>
+     </constraint>
+   </class>
+   ```
+ * Remove support for configuring constraint options implicitly with the YAML format
+
+   Before:
+
+   ```yaml
+   Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
+     constraints:
+       - Callback: validateMeStatic
+       - Callback: [Symfony\Component\Validator\Tests\Fixtures\CallbackClass, callback]
+   ```
+
+   After:
+
+   ```yaml
+   Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
+     constraints:
+       - Callback:
+           callback: validateMeStatic
+       - Callback:
+           callback: [Symfony\Component\Validator\Tests\Fixtures\CallbackClass, callback]
+   ```
  * Remove support for passing associative arrays to `GroupSequence`
 
    Before:
