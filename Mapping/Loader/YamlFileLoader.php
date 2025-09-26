@@ -86,7 +86,7 @@ class YamlFileLoader extends FileLoader
                     $options = $this->parseNodes($options);
                 }
 
-                $values[] = $this->newConstraint(key($childNodes), $options, true);
+                $values[] = $this->newConstraint(key($childNodes), $options);
             } else {
                 if (\is_array($childNodes)) {
                     $childNodes = $this->parseNodes($childNodes);
