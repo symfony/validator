@@ -12,6 +12,8 @@
 namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Timezone;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -82,6 +84,15 @@ class TimezoneTest extends TestCase
         [$cConstraint] = $metadata->getPropertyMetadata('c')[0]->getConstraints();
         self::assertSame(['my_group'], $cConstraint->groups);
         self::assertSame('some attached data', $cConstraint->payload);
+    }
+
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    public function testDoctrineStyle()
+    {
+        $constraint = new Timezone(['zone' => \DateTimeZone::ALL]);
+
+        $this->assertSame(\DateTimeZone::ALL, $constraint->zone);
     }
 }
 
