@@ -209,6 +209,8 @@ class UrlValidatorTest extends ConstraintValidatorTestCase
             ['http://বিডিআইএ.বাংলা'],
             ['http://www.example.com/คนแซ่ลี้/'],
             ['http://www.example.com/か/'],
+            ['https://l.o_g~i!n$u\'s(e)r*n+a,m;e=:p.a_s~s!w$o\'r(d)*+,;=secret@ftp.example.com/path/file.tar.gz'],
+            ['https://l(o)g%40in:pa$$+word%20secret@ftp.example.com/path/file.tar.gz'],
         ];
     }
 
