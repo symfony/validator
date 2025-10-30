@@ -68,9 +68,7 @@ class YamlValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    /**
-     * @dataProvider getDeprecationOnLinesData
-     */
+    #[DataProvider('getDeprecationOnLinesData')]
     public function testDeprecationTriggersParseException(int $yamlLine, string $yamlValue)
     {
         $lines = explode("\n", $yamlValue);
