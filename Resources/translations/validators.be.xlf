@@ -548,11 +548,11 @@
             </trans-unit>
             <trans-unit id="141">
                 <source>The image has too many pixels ({{ pixels }} pixels). Maximum amount expected is {{ max_pixels }} pixels.</source>
-                <target state="needs-review-translation">Малюнак мае занадта шмат пікселяў ({{ pixels }}). Максімальная дапушчальная колькасць {{ max_pixels }}.</target>
+                <target>Малюнак мае занадта шмат пікселяў ({{ pixels }}). Максімальная дапушчальная колькасць {{ max_pixels }}.</target>
             </trans-unit>
             <trans-unit id="142">
                 <source>This filename does not match the expected charset.</source>
-                <target state="needs-review-translation">Гэта назва файла не адпавядае чаканаму набору знакаў.</target>
+                <target>Гэта назва файла не адпавядае чаканаму набору знакаў.</target>
             </trans-unit>
         </body>
     </file>
