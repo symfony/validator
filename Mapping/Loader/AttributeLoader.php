@@ -59,7 +59,7 @@ class AttributeLoader implements LoaderInterface
         return $success;
     }
 
-    public function doLoadClassMetadata(\ReflectionClass $reflClass, ClassMetadata $metadata): bool
+    private function doLoadClassMetadata(\ReflectionClass $reflClass, ClassMetadata $metadata): bool
     {
         $className = $reflClass->name;
         $success = false;
