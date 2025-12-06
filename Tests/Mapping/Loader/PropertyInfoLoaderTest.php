@@ -111,7 +111,7 @@ class PropertyInfoLoaderTest extends TestCase
             }
         };
 
-        $propertyAccessExtractor = $this->createMock(PropertyAccessExtractorInterface::class);
+        $propertyAccessExtractor = $this->createStub(PropertyAccessExtractorInterface::class);
         $propertyAccessExtractor
             ->method('isWritable')
             ->willReturn(
@@ -247,7 +247,7 @@ class PropertyInfoLoaderTest extends TestCase
             }
         };
 
-        $propertyAccessExtractor = $this->createMock(PropertyAccessExtractorInterface::class);
+        $propertyAccessExtractor = $this->createStub(PropertyAccessExtractorInterface::class);
 
         $propertyInfoLoader = new PropertyInfoLoader($propertyListExtractor, $propertyTypeExtractor, $propertyAccessExtractor, $classValidatorRegexp);
 
@@ -287,7 +287,7 @@ class PropertyInfoLoaderTest extends TestCase
             };
         }
 
-        $propertyAccessExtractor = $this->createMock(PropertyAccessExtractorInterface::class);
+        $propertyAccessExtractor = $this->createStub(PropertyAccessExtractorInterface::class);
 
         $propertyInfoLoader = new PropertyInfoLoader($propertyListExtractor, $propertyTypeExtractor, $propertyAccessExtractor, '{.*}');
         $validator = Validation::createValidatorBuilder()
