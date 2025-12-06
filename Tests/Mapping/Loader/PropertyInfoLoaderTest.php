@@ -35,7 +35,7 @@ class PropertyInfoLoaderTest extends TestCase
 {
     public function testLoadClassMetadata()
     {
-        $propertyInfoStub = $this->createMock(PropertyInfoExtractorInterface::class);
+        $propertyInfoStub = $this->createStub(PropertyInfoExtractorInterface::class);
         $propertyInfoStub
             ->method('getProperties')
             ->willReturn([
@@ -190,7 +190,7 @@ class PropertyInfoLoaderTest extends TestCase
      */
     public function testClassValidator(bool $expected, ?string $classValidatorRegexp = null)
     {
-        $propertyInfoStub = $this->createMock(PropertyInfoExtractorInterface::class);
+        $propertyInfoStub = $this->createStub(PropertyInfoExtractorInterface::class);
         $propertyInfoStub
             ->method('getProperties')
             ->willReturn(['string'])
@@ -218,7 +218,7 @@ class PropertyInfoLoaderTest extends TestCase
 
     public function testClassNoAutoMapping()
     {
-        $propertyInfoStub = $this->createMock(PropertyInfoExtractorInterface::class);
+        $propertyInfoStub = $this->createStub(PropertyInfoExtractorInterface::class);
         $propertyInfoStub
             ->method('getProperties')
             ->willReturn(['string', 'autoMappingExplicitlyEnabled'])

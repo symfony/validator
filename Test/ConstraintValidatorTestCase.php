@@ -123,10 +123,10 @@ abstract class ConstraintValidatorTestCase extends TestCase
 
     protected function createContext()
     {
-        $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->any())->method('trans')->willReturnArgument(0);
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator->expects($this->any())
+        $translator = $this->createStub(TranslatorInterface::class);
+        $translator->method('trans')->willReturnArgument(0);
+        $validator = $this->createStub(ValidatorInterface::class);
+        $validator
             ->method('validate')
             ->willReturnCallback(fn () => $this->expectedViolations[$this->call++] ?? new ConstraintViolationList());
 
@@ -135,36 +135,47 @@ abstract class ConstraintValidatorTestCase extends TestCase
         $context->setNode($this->value, $this->object, $this->metadata, $this->propertyPath);
         $context->setConstraint($this->constraint);
 
-        $contextualValidatorMockBuilder = $this->getMockBuilder(AssertingContextualValidator::class)
-            ->setConstructorArgs([$context]);
-        $contextualValidatorMethods = [
-            'atPath',
-            'validate',
-            'validateProperty',
-            'validatePropertyValue',
-            'getViolations',
-        ];
+        if (method_exists($this, 'getStubBuilder')) {
+            $contextualValidator = self::getStubBuilder(AssertingContextualValidator::class)
+                ->setConstructorArgs([$context])
+                ->onlyMethods([
+                    'atPath',
+                    'validate',
+                    'validateProperty',
+                    'validatePropertyValue',
+                    'getViolations',
+                ])
+                ->getStub();
+        } else {
+            $contextualValidator = $this->getMockBuilder(AssertingContextualValidator::class)
+                ->setConstructorArgs([$context])
+                ->onlyMethods([
+                    'atPath',
+                    'validate',
+                    'validateProperty',
+                    'validatePropertyValue',
+                    'getViolations',
+                ])
+                ->getMock();
+        }
 
-        $contextualValidatorMockBuilder->onlyMethods($contextualValidatorMethods);
-        $contextualValidator = $contextualValidatorMockBuilder->getMock();
-        $contextualValidator->expects($this->any())
+        $contextualValidator
             ->method('atPath')
             ->willReturnCallback(fn ($path) => $contextualValidator->doAtPath($path));
-        $contextualValidator->expects($this->any())
+        $contextualValidator
             ->method('validate')
             ->willReturnCallback(fn ($value, $constraints = null, $groups = null) => $contextualValidator->doValidate($value, $constraints, $groups));
-        $contextualValidator->expects($this->any())
+        $contextualValidator
             ->method('validateProperty')
             ->willReturnCallback(fn ($object, $propertyName, $groups = null) => $contextualValidator->validateProperty($object, $propertyName, $groups));
-        $contextualValidator->expects($this->any())
+        $contextualValidator
             ->method('validatePropertyValue')
             ->willReturnCallback(fn ($objectOrClass, $propertyName, $value, $groups = null) => $contextualValidator->doValidatePropertyValue($objectOrClass, $propertyName, $value, $groups));
-        $contextualValidator->expects($this->any())
+        $contextualValidator
             ->method('getViolations')
             ->willReturnCallback(fn () => $contextualValidator->doGetViolations());
-        $validator->expects($this->any())
+        $validator
             ->method('inContext')
-            ->with($context)
             ->willReturn($contextualValidator);
 
         return $context;
