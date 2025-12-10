@@ -19,9 +19,13 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Optional;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Required;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
@@ -125,6 +129,8 @@ class YamlFileLoaderTest extends TestCase
         $expected->addPropertyConstraint('firstName', new Collection(fields: [
             'foo' => [new NotNull(), new Range(min: 3)],
             'bar' => [new Range(min: 5)],
+            'baz' => new Required([new Email()]),
+            'qux' => new Optional([new NotBlank()]),
         ]));
         $expected->addPropertyConstraint('firstName', new Choice(
             message: 'Must be one of %choices%',

@@ -53,6 +53,14 @@ Symfony\Component\Validator\Tests\Fixtures\NestedAttribute\Entity:
             bar:
               - Range:
                   min: 5
+            baz:
+              - Required:
+                  constraints:
+                    - Email: ~
+            qux:
+              - Optional:
+                  constraints:
+                    - NotBlank: ~
       # Constraint with options
       - Choice: { choices: [A, B], message: Must be one of %choices% }
     dummy:

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -20,6 +21,7 @@ abstract class Existence extends Composite
 {
     public array|Constraint $constraints = [];
 
+    #[HasNamedArguments]
     public function __construct(mixed $constraints = null, ?array $groups = null, mixed $payload = null)
     {
         if (!$constraints instanceof Constraint && !\is_array($constraints) || \is_array($constraints) && !array_is_list($constraints)) {

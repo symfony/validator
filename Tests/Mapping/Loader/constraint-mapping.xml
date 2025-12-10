@@ -97,6 +97,20 @@
                <option name="min">5</option>
             </constraint>
           </value>
+          <value key="baz">
+            <constraint name="Required">
+               <option name="constraints">
+                   <constraint name="Email" />
+               </option>
+            </constraint>
+          </value>
+          <value key="qux">
+            <constraint name="Optional">
+               <option name="constraints">
+                   <constraint name="NotBlank" />
+               </option>
+            </constraint>
+          </value>
         </option>
       </constraint>
 
