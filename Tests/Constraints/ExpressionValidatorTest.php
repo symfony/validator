@@ -256,7 +256,7 @@ class ExpressionValidatorTest extends ConstraintValidatorTestCase
     {
         $constraint = new Expression(expression: 'false');
 
-        $expressionLanguage = $this->createMock(ExpressionLanguage::class);
+        $expressionLanguage = $this->createStub(ExpressionLanguage::class);
 
         $used = false;
 
