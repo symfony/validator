@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Validator\Constraints\Luhn;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator;
@@ -18,9 +20,7 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
@@ -195,7 +195,6 @@ class NotCompromisedPasswordValidatorTest extends ConstraintValidatorTestCase
     public function testApiError()
     {
         $this->expectException(ExceptionInterface::class);
-        $this->expectExceptionMessage('Problem contacting the Have I been Pwned API.');
         $this->validator->validate(self::PASSWORD_TRIGGERING_AN_ERROR, new NotCompromisedPassword());
     }
 
@@ -208,44 +207,20 @@ class NotCompromisedPasswordValidatorTest extends ConstraintValidatorTestCase
 
     private function createHttpClientStub(?string $returnValue = null): HttpClientInterface
     {
-        $httpClientStub = $this->createMock(HttpClientInterface::class);
-        $httpClientStub->method('request')->willReturnCallback(
-            function (string $method, string $url) use ($returnValue): ResponseInterface {
-                if (self::PASSWORD_TRIGGERING_AN_ERROR_RANGE_URL === $url) {
-                    throw new class('Problem contacting the Have I been Pwned API.') extends \Exception implements ServerExceptionInterface {
-                        public function getResponse(): ResponseInterface
-                        {
-                            throw new \RuntimeException('Not implemented');
-                        }
-                    };
-                }
-
-                $responseStub = $this->createMock(ResponseInterface::class);
-                $responseStub
-                    ->method('getContent')
-                    ->willReturn($returnValue ?? implode("\r\n", self::RETURN));
-
-                return $responseStub;
+        return new MockHttpClient(function ($method, $url) use ($returnValue) {
+            if (self::PASSWORD_TRIGGERING_AN_ERROR_RANGE_URL !== $url) {
+                return new MockResponse($returnValue ?? implode("\r\n", self::RETURN));
             }
-        );
-
-        return $httpClientStub;
+        });
     }
 
     private function createHttpClientStubCustomEndpoint($expectedEndpoint): HttpClientInterface
     {
-        $httpClientStub = $this->createMock(HttpClientInterface::class);
-        $httpClientStub->method('request')->with('GET', $expectedEndpoint)->willReturnCallback(
-            function (string $method, string $url): ResponseInterface {
-                $responseStub = $this->createMock(ResponseInterface::class);
-                $responseStub
-                    ->method('getContent')
-                    ->willReturn(implode("\r\n", self::RETURN));
+        return new MockHttpClient(function ($method, $url) use ($expectedEndpoint) {
+            $this->assertSame('GET', $method);
+            $this->assertSame($expectedEndpoint, $url);
 
-                return $responseStub;
-            }
-        );
-
-        return $httpClientStub;
+            return new MockResponse(implode("\r\n", self::RETURN));
+        });
     }
 }

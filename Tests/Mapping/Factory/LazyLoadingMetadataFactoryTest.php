@@ -111,13 +111,12 @@ class LazyLoadingMetadataFactoryTest extends TestCase
     public function testNonClassNameStringValues()
     {
         $testedValue = 'error@example.com';
-        $loader = $this->createMock(LoaderInterface::class);
         $cache = $this->createMock(CacheItemPoolInterface::class);
         $cache
             ->expects($this->never())
             ->method('getItem');
 
-        $factory = new LazyLoadingMetadataFactory($loader, $cache);
+        $factory = new LazyLoadingMetadataFactory(new StaticMethodLoader(), $cache);
 
         $this->expectException(NoSuchMetadataException::class);
 
