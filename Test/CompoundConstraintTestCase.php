@@ -89,7 +89,7 @@ abstract class CompoundConstraintTestCase extends TestCase
         $expectedViolations = iterator_to_array($context->getViolations());
 
         if (!$expectedViolations) {
-            throw new ExpectationFailedException(\sprintf('Expected at least one violation for constraint(s) "%s", got none raised.', implode(', ', array_map(fn ($constraint) => $constraint::class, $constraints))));
+            throw new ExpectationFailedException(\sprintf('Expected at least one violation for constraint(s) "%s", got none raised.', implode(', ', array_map(static fn ($constraint) => $constraint::class, $constraints))));
         }
 
         $failedToAssertViolations = [];
@@ -106,7 +106,7 @@ abstract class CompoundConstraintTestCase extends TestCase
             [],
             $failedToAssertViolations,
             \sprintf('Expected violation(s) for constraint(s) %s to be raised by compound.',
-                implode(', ', array_map(fn ($violation) => ($violation->getConstraint())::class, $failedToAssertViolations))
+                implode(', ', array_map(static fn ($violation) => ($violation->getConstraint())::class, $failedToAssertViolations))
             )
         );
     }
