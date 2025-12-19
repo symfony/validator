@@ -93,7 +93,7 @@ class ChoiceValidatorTest extends ConstraintValidatorTestCase
     public static function provideConstraintsWithCallbackFunction(): iterable
     {
         yield 'named arguments, namespaced function' => [new Choice(callback: __NAMESPACE__.'\choice_callback')];
-        yield 'named arguments, closure' => [new Choice(callback: fn () => ['foo', 'bar'])];
+        yield 'named arguments, closure' => [new Choice(callback: static fn () => ['foo', 'bar'])];
         yield 'named arguments, static method' => [new Choice(callback: [__CLASS__, 'staticCallback'])];
     }
 
