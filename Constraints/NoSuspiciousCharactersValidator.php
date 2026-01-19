@@ -51,8 +51,9 @@ class NoSuspiciousCharactersValidator extends ConstraintValidator
     /**
      * @param string[] $defaultLocales
      */
-    public function __construct(private readonly array $defaultLocales = [])
+    public function __construct(private array $defaultLocales = [])
     {
+        $this->defaultLocales = array_filter($defaultLocales);
     }
 
     public function validate(mixed $value, Constraint $constraint): void
