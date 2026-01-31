@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Exception\LogicException;
 
 /**
  * Validates that a value is a valid XML string.
@@ -36,6 +37,12 @@ class Xml extends Constraint
         ?array $groups = null,
         mixed $payload = null,
     ) {
+        if (!\extension_loaded('simplexml')) {
+            throw new LogicException('The "simplexml" extension is required to use the Xml constraint.');
+        }
+        if ($this->schemaPath && !\extension_loaded('dom')) {
+            throw new LogicException('The "dom" extension is required to use the Xml constraint with schema validation.');
+        }
         parent::__construct(null, $groups, $payload);
 
         if (null !== $this->schemaPath && !is_readable($this->schemaPath)) {

@@ -12,12 +12,15 @@
 namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\Validator\Constraints\Xml;
 use Symfony\Component\Validator\Constraints\XmlValidator;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Component\Validator\Tests\Constraints\Fixtures\StringableValue;
 
+#[RequiresPhpExtension('simplexml')]
+#[RequiresPhpExtension('dom')]
 class XmlValidatorTest extends ConstraintValidatorTestCase
 {
     protected function createValidator(): XmlValidator
@@ -117,7 +120,7 @@ class XmlValidatorTest extends ConstraintValidatorTestCase
         $constraint = new Xml(schemaPath: __DIR__.'/Fixtures/invalid.xsd');
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(\sprintf('The XSD schema file "%s" is not valid.', __DIR__.'/Fixtures/invalid.xsd'));
+        $this->expectExceptionMessage(\sprintf('The XSD schema file "%s" is not valid.', realpath(__DIR__.'/Fixtures/invalid.xsd')));
 
         $this->validator->validate($xml, $constraint);
     }

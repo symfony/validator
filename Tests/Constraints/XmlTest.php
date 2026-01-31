@@ -11,15 +11,15 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Xml;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AttributeLoader;
 
-/**
- * @author Mokhtar Tlili <tlili.mokhtar@gmail.com>
- */
+#[RequiresPhpExtension('simplexml')]
+#[RequiresPhpExtension('dom')]
 class XmlTest extends TestCase
 {
     public function testAttributes()

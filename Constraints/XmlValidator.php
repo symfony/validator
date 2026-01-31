@@ -63,12 +63,13 @@ class XmlValidator extends ConstraintValidator
                 }
                 $errors = libxml_get_errors();
                 libxml_clear_errors();
+                $schemaPathNormalized = str_replace(\DIRECTORY_SEPARATOR, '/', $schemaPath);
 
                 foreach ($errors as $error) {
-                    if ($schemaPath && (realpath($error->file) ?: $error->file) === $schemaPath) {
+                    if ($schemaPathNormalized && str_ends_with($error->file, $schemaPathNormalized)) {
                         throw new InvalidArgumentException(\sprintf('The XSD schema file "%s" is not valid.', $schemaPath));
                     }
-                    $schemaPath = false;
+                    $schemaPathNormalized = false;
                     $this->context->buildViolation($constraint->schemaMessage)
                         ->setParameter('{{ error }}', $error->message)
                         ->setParameter('{{ line }}', $error->line)
