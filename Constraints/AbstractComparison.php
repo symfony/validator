@@ -32,7 +32,7 @@ abstract class AbstractComparison extends Constraint
     #[HasNamedArguments]
     public function __construct(mixed $value = null, ?string $propertyPath = null, ?string $message = null, ?array $groups = null, mixed $payload = null, ?array $options = null)
     {
-        if (\is_array($value)) {
+        if (\is_array($value) && !array_is_list($value)) {
             trigger_deprecation('symfony/validator', '7.3', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
 
             $options = array_merge($value, $options ?? []);
