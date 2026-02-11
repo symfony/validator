@@ -12,6 +12,7 @@
 namespace Symfony\Component\Validator\Tests\Constraints;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\Clock\MockClock;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\RangeValidator;
@@ -834,6 +835,82 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
             ->setParameters(['{{ min }}' => '1', '{{ max }}' => '10', '{{ value }}' => (string) $value])
             ->setCode($expectedCode)
             ->assertRaised();
+    }
+
+    public function testValidRelativeRangeWithMockClock()
+    {
+        $clock = new MockClock('2025-01-15 00:00:00 UTC');
+        $this->validator = new RangeValidator(null, $clock);
+        $this->validator->initialize($this->context);
+
+        // Value is Jan 10, within range [-10 days (Jan 5) .. +10 days (Jan 25)]
+        $value = new \DateTimeImmutable('2025-01-10 00:00:00 UTC');
+        $constraint = new Range(min: '-10 days', max: '+10 days');
+
+        $this->validator->validate($value, $constraint);
+
+        $this->assertNoViolation();
+    }
+
+    public function testInvalidRelativeRangeWithMockClock()
+    {
+        $clock = new MockClock('2025-01-15 00:00:00 UTC');
+        $this->validator = new RangeValidator(null, $clock);
+        $this->validator->initialize($this->context);
+
+        // Value is Feb 1, outside range [-10 days (Jan 5) .. +10 days (Jan 25)]
+        $value = new \DateTimeImmutable('2025-02-01 00:00:00 UTC');
+        $constraint = new Range(min: '-10 days', max: '+10 days', notInRangeMessage: 'myMessage');
+
+        $this->validator->validate($value, $constraint);
+
+        $now = $clock->now();
+        $this->buildViolation('myMessage')
+            ->setParameter('{{ value }}', self::formatDateTime($value))
+            ->setParameter('{{ min }}', self::formatDateTime($now->modify('-10 days')))
+            ->setParameter('{{ max }}', self::formatDateTime($now->modify('+10 days')))
+            ->setCode(Range::NOT_IN_RANGE_ERROR)
+            ->assertRaised();
+    }
+
+    public function testAbsoluteRangeWithMockClock()
+    {
+        $clock = new MockClock('2025-01-15 00:00:00 UTC');
+        $this->validator = new RangeValidator(null, $clock);
+        $this->validator->initialize($this->context);
+
+        // Absolute dates should still work with a mock clock
+        $value = new \DateTimeImmutable('2025-03-15 00:00:00 UTC');
+        $constraint = new Range(min: '2025-01-01', max: '2025-12-31');
+
+        $this->validator->validate($value, $constraint);
+
+        $this->assertNoViolation();
+    }
+
+    public function testBackwardCompatWithoutClock()
+    {
+        // Without setClock(), the validator should still work (falls back to system clock)
+        $value = new \DateTimeImmutable('2025-03-15 00:00:00 UTC');
+        $constraint = new Range(min: '2025-01-01', max: '2025-12-31');
+
+        $this->validator->validate($value, $constraint);
+
+        $this->assertNoViolation();
+    }
+
+    private static function formatDateTime(\DateTimeInterface $value): string
+    {
+        if (class_exists(\IntlDateFormatter::class)) {
+            $formatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::MEDIUM, \IntlDateFormatter::SHORT, 'UTC');
+
+            return $formatter->format(new \DateTimeImmutable(
+                $value->format('Y-m-d H:i:s.u'),
+                new \DateTimeZone('UTC')
+            ));
+        }
+
+        return $value->format('Y-m-d H:i:s');
     }
 }
 
