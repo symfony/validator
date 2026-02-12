@@ -41,6 +41,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\NoSuchMetadataException;
 use Symfony\Component\Validator\Exception\RuntimeException;
+use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
 use Symfony\Component\Validator\ObjectInitializerInterface;
@@ -2374,5 +2375,47 @@ final class TestConstraintHashesDoNotCollideValidator extends ConstraintValidato
             ->inContext($this->context)
             ->validate($value, null, new GroupSequence(['should_pass']))
             ->validate($value, null, new GroupSequence(['should_fail']));
+    }
+
+    public function testValidatePropertyWithExistenceCheckThrowsOnNonExistentProperty()
+    {
+        $this->expectException(ValidatorException::class);
+        $this->expectExceptionMessage('The property "nonExistent" has not metadata associated and may not exist.');
+
+        $translator = new IdentityTranslator();
+        $translator->setLocale('en');
+
+        $contextFactory = new ExecutionContextFactory($translator);
+        $validatorFactory = new ConstraintValidatorFactory();
+
+        $validator = new RecursiveValidator($contextFactory, $this->metadataFactory, $validatorFactory, [], null, true);
+
+        $entity = new Entity();
+        $validator->validateProperty($entity, 'nonExistent');
+    }
+
+    public function testValidatePropertyValueWithExistenceCheckThrowsOnNonExistentProperty()
+    {
+        $this->expectException(ValidatorException::class);
+        $this->expectExceptionMessage('The property "nonExistent" does not exist');
+
+        $translator = new IdentityTranslator();
+        $translator->setLocale('en');
+
+        $contextFactory = new ExecutionContextFactory($translator);
+        $validatorFactory = new ConstraintValidatorFactory();
+
+        $validator = new RecursiveValidator($contextFactory, $this->metadataFactory, $validatorFactory, [], null, true);
+
+        $entity = new Entity();
+        $validator->validatePropertyValue($entity, 'nonExistent', 'foo');
+    }
+
+    public function testValidatePropertyWithoutExistenceCheckDoesNotThrowOnNonExistentProperty()
+    {
+        $entity = new Entity();
+        $violations = $this->validator->validateProperty($entity, 'nonExistent');
+
+        $this->assertCount(0, $violations);
     }
 }
