@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Tests\Fixtures\ClassConstraint;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintA;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintB;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintC;
+use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithRequiredOptionAndConstructor;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithStaticProperty;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithTypedProperty;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithValue;
@@ -348,5 +349,14 @@ class ConstraintTest extends TestCase
         ]);
 
         $this->assertSame('bar', $constraint->foo);
+    }
+
+    #[IgnoreDeprecations]
+    #[Group('legacy')]
+    public function testRequiredOptionsValidatedWhenConstructorCallsParentWithNull()
+    {
+        $this->expectException(MissingOptionsException::class);
+
+        new ConstraintWithRequiredOptionAndConstructor();
     }
 }
