@@ -110,7 +110,7 @@ abstract class Constraint
     {
         unset($this->groups); // enable lazy initialization
 
-        if (null === $options && (\func_num_args() > 0 || self::class === (new \ReflectionMethod($this, 'getRequiredOptions'))->getDeclaringClass()->getName())) {
+        if (null === $options && $this->areRequiredOptionsHandledByChildConstructor()) {
             if (null !== $groups) {
                 $this->groups = $groups;
             }
@@ -328,5 +328,37 @@ abstract class Constraint
         }
 
         return $data;
+    }
+
+    private function areRequiredOptionsHandledByChildConstructor(): bool
+    {
+        $requiredOptionsMethod = new \ReflectionMethod($this, 'getRequiredOptions');
+
+        if (self::class === $requiredOptionsMethod->class) {
+            return true;
+        }
+
+        $constructor = new \ReflectionMethod($this, '__construct');
+
+        if (self::class === $constructor->class) {
+            return false;
+        }
+
+        if (!$requiredOptions = $this->getRequiredOptions(false)) {
+            return true;
+        }
+
+        $paramNames = [];
+        foreach ($constructor->getParameters() as $param) {
+            $paramNames[$param->name] = true;
+        }
+
+        foreach ($requiredOptions as $option) {
+            if (!isset($paramNames[$option])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
