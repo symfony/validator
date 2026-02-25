@@ -226,6 +226,28 @@ class UniqueValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
+    #[DataProvider('getValidCollectionValues')]
+    public function testValidCollectionValues(array $value, array $fields)
+    {
+        $this->validator->validate($value, new Unique(fields: $fields));
+
+        $this->assertNoViolation();
+    }
+
+    public static function getValidCollectionValues(): array
+    {
+        return [
+            'unique empty item' => [
+                [['field' => 1], ['field' => 2], []],
+                ['field'],
+            ],
+            'unique non-array item' => [
+                [['field' => 1], ['field' => 2], '', 1, null],
+                ['field'],
+            ],
+        ];
+    }
+
     #[DataProvider('getInvalidCollectionValues')]
     public function testInvalidCollectionValues(array $value, array $fields, string $expectedMessageParam)
     {
