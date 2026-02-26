@@ -46,7 +46,7 @@ class ExpressionSyntaxValidator extends ConstraintValidator
         $this->expressionLanguage ??= new ExpressionLanguage();
 
         try {
-            if (null === $constraint->allowedVariables && \defined(Parser::class.'::IGNORE_UNKNOWN_VARIABLES')) {
+            if (null === $constraint->allowedVariables) {
                 $this->expressionLanguage->lint($expression, [], Parser::IGNORE_UNKNOWN_VARIABLES);
             } else {
                 $this->expressionLanguage->lint($expression, $constraint->allowedVariables);
