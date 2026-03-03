@@ -117,4 +117,19 @@ class RegexValidatorTest extends ConstraintValidatorTestCase
             }],
         ];
     }
+
+    public function testMatchFalseWithTooManyBacktrackingShouldNotPass()
+    {
+        $value = '<'.str_repeat('a', 1000000).'<a href="javascript:alert(1)">test</a>';
+        $pattern = '/<script|([^>]*?)(on\w+\s*=\s*(["\']).*?\3|href\s*=\s*(["\'])javascript:.*?\4)[^>]*?>/is';
+        $constraint = new Regex(pattern: $pattern, message: 'myMessage', match: false);
+
+        $this->validator->validate($value, $constraint);
+
+        $this->buildViolation('myMessage')
+            ->setParameter('{{ value }}', '"'.$value.'"')
+            ->setParameter('{{ pattern }}', $pattern)
+            ->setCode(Regex::REGEX_FAILED_ERROR)
+            ->assertRaised();
+    }
 }

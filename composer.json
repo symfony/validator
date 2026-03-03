@@ -45,7 +45,8 @@
     },
     "conflict": {
         "doctrine/lexer": "<1.1",
-        "symfony/doctrine-bridge": "<7.4"
+        "symfony/doctrine-bridge": "<7.4",
+        "symfony/expression-language": "<7.4"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Validator\\": "" },
