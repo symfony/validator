@@ -338,7 +338,7 @@ abstract class Constraint
             return true;
         }
 
-        $constructor = new \ReflectionMethod($this, '__construct');
+        $constructor = new \ReflectionMethod($requiredOptionsMethod->class, '__construct');
 
         if (self::class === $constructor->class) {
             return false;

@@ -28,6 +28,7 @@ use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithStaticProperty;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithTypedProperty;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithValue;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintWithValueAsDefault;
+use Symfony\Component\Validator\Tests\Fixtures\CustomRegex;
 use Symfony\Component\Validator\Tests\Fixtures\LegacyConstraintA;
 
 class ConstraintTest extends TestCase
@@ -358,5 +359,12 @@ class ConstraintTest extends TestCase
         $this->expectException(MissingOptionsException::class);
 
         new ConstraintWithRequiredOptionAndConstructor();
+    }
+
+    public function testChildConstraintCanSatisfyRequiredOptionsOfParent()
+    {
+        $constraint = new CustomRegex();
+
+        $this->assertSame('/^xxxxx$/', $constraint->pattern);
     }
 }
