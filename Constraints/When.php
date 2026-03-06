@@ -40,7 +40,7 @@ class When extends Composite
      */
     public function __construct(string|Expression|\Closure $expression, array|Constraint|null $constraints = null, ?array $values = null, ?array $groups = null, $payload = null, ?array $options = null, array|Constraint $otherwise = [])
     {
-        if (!class_exists(ExpressionLanguage::class)) {
+        if (!$expression instanceof \Closure && !class_exists(ExpressionLanguage::class)) {
             throw new LogicException(\sprintf('The "symfony/expression-language" component is required to use the "%s" constraint. Try running "composer require symfony/expression-language".', __CLASS__));
         }
 
