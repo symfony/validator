@@ -29,6 +29,9 @@ class ExpressionSyntaxValidator extends ConstraintValidator
     ) {
     }
 
+    /**
+     * @psalm-suppress ParamNameMismatch
+     */
     public function validate(mixed $expression, Constraint $constraint): void
     {
         if (!$constraint instanceof ExpressionSyntax) {
