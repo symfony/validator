@@ -207,7 +207,7 @@ class NotCompromisedPasswordValidatorTest extends ConstraintValidatorTestCase
 
     private function createHttpClientStub(?string $returnValue = null): HttpClientInterface
     {
-        return new MockHttpClient(function ($method, $url) use ($returnValue) {
+        return new MockHttpClient(static function ($method, $url) use ($returnValue) {
             if (self::PASSWORD_TRIGGERING_AN_ERROR_RANGE_URL !== $url) {
                 return new MockResponse($returnValue ?? implode("\r\n", self::RETURN));
             }
