@@ -262,7 +262,7 @@ class ExpressionValidatorTest extends ConstraintValidatorTestCase
         $used = false;
 
         $expressionLanguage->method('evaluate')
-            ->willReturnCallback(function () use (&$used) {
+            ->willReturnCallback(static function () use (&$used) {
                 $used = true;
 
                 return true;

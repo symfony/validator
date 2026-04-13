@@ -129,7 +129,7 @@ class LazyLoadingMetadataFactoryTest extends TestCase
         $factory = new LazyLoadingMetadataFactory(new TestLoader(), $cache);
 
         $metadata = $factory->getMetadataFor(self::PARENT_CLASS);
-        $metadata->addConstraint(new Callback(function () {}));
+        $metadata->addConstraint(new Callback(static function () {}));
 
         $this->assertCount(3, $metadata->getConstraints());
 
