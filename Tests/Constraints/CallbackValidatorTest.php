@@ -98,7 +98,7 @@ class CallbackValidatorTest extends ConstraintValidatorTestCase
     public function testClosure()
     {
         $object = new CallbackValidatorTest_Object();
-        $constraint = new Callback(function ($object, ExecutionContextInterface $context) {
+        $constraint = new Callback(static function ($object, ExecutionContextInterface $context) {
             $context->addViolation('My message', ['{{ value }}' => 'foobar']);
 
             return false;
@@ -113,7 +113,7 @@ class CallbackValidatorTest extends ConstraintValidatorTestCase
 
     public function testClosureNullObject()
     {
-        $constraint = new Callback(function ($object, ExecutionContextInterface $context) {
+        $constraint = new Callback(static function ($object, ExecutionContextInterface $context) {
             $context->addViolation('My message', ['{{ value }}' => 'foobar']);
 
             return false;
@@ -130,7 +130,7 @@ class CallbackValidatorTest extends ConstraintValidatorTestCase
     {
         $object = new CallbackValidatorTest_Object();
         $constraint = new Callback([
-            'callback' => function ($object, ExecutionContextInterface $context) {
+            'callback' => static function ($object, ExecutionContextInterface $context) {
                 $context->addViolation('My message', ['{{ value }}' => 'foobar']);
 
                 return false;
@@ -231,7 +231,7 @@ class CallbackValidatorTest extends ConstraintValidatorTestCase
     {
         $object = new \stdClass();
         $payloadCopy = 'Replace me!';
-        $callback = function ($object, ExecutionContextInterface $constraint, $payload) use (&$payloadCopy) {
+        $callback = static function ($object, ExecutionContextInterface $constraint, $payload) use (&$payloadCopy) {
             $payloadCopy = $payload;
         };
 

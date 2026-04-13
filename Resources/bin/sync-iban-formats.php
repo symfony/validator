@@ -34,7 +34,7 @@ $formats = array_merge(
     (new SwiftRegistryIbanProvider())->getIbanFormats()
 );
 
-printf("Collected %d IBAN formats\n", count($formats));
+printf("Collected %d IBAN formats\n", \count($formats));
 
 echo "Updating validator...\n";
 

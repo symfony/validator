@@ -627,12 +627,12 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = ['key' => new Reference()];
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
         $this->metadata->addPropertyConstraint('reference', new Callback([
-            'callback' => function () {},
+            'callback' => static function () {},
             'groups' => 'Group',
         ]));
         $this->referenceMetadata->addConstraint(new Callback([
@@ -654,7 +654,7 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = ['key' => new Reference()];
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
@@ -677,7 +677,7 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = [2 => ['key' => new Reference()]];
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
@@ -768,7 +768,7 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = new \ArrayIterator(['key' => new Reference()]);
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
@@ -860,7 +860,7 @@ class RecursiveValidatorTest extends TestCase
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Other violation');
         };
 
@@ -918,7 +918,7 @@ class RecursiveValidatorTest extends TestCase
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Other violation');
         };
 
@@ -967,7 +967,7 @@ class RecursiveValidatorTest extends TestCase
             $context->addViolation('Message %param%', ['%param%' => 'value']);
         };
 
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Other violation');
         };
 
@@ -1016,7 +1016,7 @@ class RecursiveValidatorTest extends TestCase
         $entity->reference = new Reference();
         $entity->reference2 = $entity->reference;
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1036,7 +1036,7 @@ class RecursiveValidatorTest extends TestCase
         $entity->reference = new Reference();
         $entity->reference2 = new Reference();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1054,7 +1054,7 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1077,7 +1077,7 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1100,15 +1100,15 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 2');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 3');
         };
 
         $this->metadata->addConstraint(new Callback([
-            'callback' => function () {},
+            'callback' => static function () {},
             'groups' => 'Group 1',
         ]));
         $this->metadata->addConstraint(new Callback([
@@ -1134,15 +1134,15 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 2');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 3');
         };
 
         $this->metadata->addConstraint(new Callback([
-            'callback' => function () {},
+            'callback' => static function () {},
             'groups' => 'Group 1',
         ]));
         $this->metadata->addConstraint(new Callback([
@@ -1169,10 +1169,10 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = new Reference();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Default group');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in group sequence');
         };
 
@@ -1200,10 +1200,10 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in other group');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in group sequence');
         };
 
@@ -1233,16 +1233,16 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new GroupSequenceProviderEntity($sequence);
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 2');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Violation in Group 3');
         };
 
         $metadata = new ClassMetadata($entity::class);
         $metadata->addConstraint(new Callback([
-            'callback' => function () {},
+            'callback' => static function () {},
             'groups' => 'Group 1',
         ]));
         $metadata->addConstraint(new Callback([
@@ -1339,15 +1339,15 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message 1');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message 2');
         };
 
         $this->metadata->addConstraint(new Callback([
-            'callback' => function () {},
+            'callback' => static function () {},
             'groups' => 'Group 1',
         ]));
         $this->metadata->addConstraint(new Callback([
@@ -1372,10 +1372,10 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $entity->reference = new Reference();
 
-        $callback1 = function ($value, ExecutionContextInterface $context) {
+        $callback1 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Reference violation 1');
         };
-        $callback2 = function ($value, ExecutionContextInterface $context) {
+        $callback2 = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Reference violation 2');
         };
 
@@ -1625,7 +1625,7 @@ class RecursiveValidatorTest extends TestCase
         $entity = new Entity();
         $traversable = new \ArrayIterator(['key' => $entity]);
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1804,7 +1804,7 @@ class RecursiveValidatorTest extends TestCase
         $entity = new CascadingEntity();
         $entity->requiredChild = new CascadedChild();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->buildViolation('Invalid child')
                 ->atPath('name')
                 ->addViolation()
@@ -1834,7 +1834,7 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->buildViolation('Message %param%')
                 ->setParameter('%param%', 'value')
                 ->setInvalidValue('Invalid value')
@@ -1863,7 +1863,7 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1882,7 +1882,7 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $callback = function ($value, ExecutionContextInterface $context) {
+        $callback = static function ($value, ExecutionContextInterface $context) {
             $context->addViolation('Message');
         };
 
@@ -1936,7 +1936,7 @@ class RecursiveValidatorTest extends TestCase
         $initializer1->expects($this->once())
             ->method('initialize')
             ->with($entity)
-            ->willReturnCallback(function ($object) {
+            ->willReturnCallback(static function ($object) {
                 $object->initialized = true;
             });
 

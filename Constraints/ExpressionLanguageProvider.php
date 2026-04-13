@@ -19,12 +19,12 @@ class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
     public function getFunctions(): array
     {
         return [
-            new ExpressionFunction('is_valid', function (...$arguments) {
+            new ExpressionFunction('is_valid', static function (...$arguments) {
                 return \sprintf(
                     '0 === $context->getValidator()->inContext($context)->validate(%s)->getViolations()->count()',
                     implode(', ', $arguments)
                 );
-            }, function (array $variables, ...$arguments): bool {
+            }, static function (array $variables, ...$arguments): bool {
                 return 0 === $variables['context']->getValidator()->inContext($variables['context'])->validate(...$arguments)->getViolations()->count();
             }),
         ];
