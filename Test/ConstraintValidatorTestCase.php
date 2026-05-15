@@ -305,7 +305,7 @@ abstract class ConstraintValidatorTestCase extends TestCase
         $validator = new $validatorClassname();
 
         // TODO remove this in Symfony 9.0
-        if ($validator instanceof ConstraintValidator || method_exists($this->validator, 'validateInContext')) {
+        if ($validator instanceof ConstraintValidator || method_exists($validator, 'validateInContext')) {
             $validator->validateInContext($value, $constraint, $context);
         } else {
             $validator->initialize($context);

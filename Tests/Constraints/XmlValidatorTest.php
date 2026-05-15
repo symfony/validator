@@ -15,6 +15,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\Validator\Constraints\Xml;
 use Symfony\Component\Validator\Constraints\XmlValidator;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Component\Validator\Tests\Constraints\Fixtures\StringableValue;
@@ -99,7 +100,7 @@ class XmlValidatorTest extends ConstraintValidatorTestCase
         // with the correct error code
         $violations = $this->context->getViolations();
         $this->assertCount(1, $violations);
-        $this->assertEquals(Xml::INVALID_XML_ERROR, $violations[0]->getCode());
+        $this->assertEquals(Xml::INVALID_SCHEMA_ERROR, $violations[0]->getCode());
     }
 
     public function testXmlSchemaWithFlags()
@@ -123,5 +124,43 @@ class XmlValidatorTest extends ConstraintValidatorTestCase
         $this->expectExceptionMessage(\sprintf('The XSD schema file "%s" is not valid.', realpath(__DIR__.'/Fixtures/invalid.xsd')));
 
         $this->validate($xml, $constraint);
+    }
+
+    public function testTooLargePayloadRaisesViolation()
+    {
+        $constraint = new Xml(tooLargeMessage: 'myTooLargeMessage', maxSize: 64);
+
+        $value = '<root>'.str_repeat('a', 80).'</root>';
+
+        $this->validate($value, $constraint);
+
+        $this->buildViolation('myTooLargeMessage')
+            ->setParameter('{{ size }}', (string) \strlen($value))
+            ->setParameter('{{ limit }}', '64')
+            ->setCode(Xml::TOO_LARGE_ERROR)
+            ->assertRaised();
+    }
+
+    public function testPayloadAtLimitIsValidated()
+    {
+        $value = '<root/>';
+        $constraint = new Xml(maxSize: \strlen($value));
+
+        $this->validate($value, $constraint);
+        $this->assertNoViolation();
+    }
+
+    #[DataProvider('nonPositiveMaxSizes')]
+    public function testNonPositiveMaxSizeIsRejected(int $maxSize)
+    {
+        $this->expectException(ConstraintDefinitionException::class);
+
+        new Xml(maxSize: $maxSize);
+    }
+
+    public static function nonPositiveMaxSizes(): iterable
+    {
+        yield 'zero' => [0];
+        yield 'negative' => [-1];
     }
 }

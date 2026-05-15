@@ -32,7 +32,7 @@ abstract class ConstraintValidator implements ConstraintValidatorInterface
     public const OBJECT_TO_STRING = 2;
 
     /**
-     * @var array<class-string<self, bool>
+     * @var array<class-string<self>, bool>
      */
     private static array $initializeOverrideCache = [];
 

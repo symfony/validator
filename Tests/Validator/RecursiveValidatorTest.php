@@ -2350,37 +2350,11 @@ class RecursiveValidatorTest extends TestCase
 
         $this->assertCount(2, $validator->getViolations());
     }
-}
-
-final class TestConstraintHashesDoNotCollide extends Constraint
-{
-}
-
-final class TestConstraintHashesDoNotCollideValidator extends ConstraintValidator
-{
-    public function validate($value, Constraint $constraint): void
-    {
-        if (!$value instanceof Entity) {
-            throw new \LogicException();
-        }
-
-        $this->context->getValidator()
-            ->inContext($this->context)
-            ->atPath('data')
-            ->validate($value, new NotNull())
-            ->validate($value, new NotNull())
-            ->validate($value, new IsFalse());
-
-        $this->context->getValidator()
-            ->inContext($this->context)
-            ->validate($value, null, new GroupSequence(['should_pass']))
-            ->validate($value, null, new GroupSequence(['should_fail']));
-    }
 
     public function testValidatePropertyWithExistenceCheckThrowsOnNonExistentProperty()
     {
         $this->expectException(ValidatorException::class);
-        $this->expectExceptionMessage('The property "nonExistent" has not metadata associated and may not exist.');
+        $this->expectExceptionMessage(\sprintf('The property "nonExistent" does not exist in class "%s".', Entity::class));
 
         $translator = new IdentityTranslator();
         $translator->setLocale('en');
@@ -2417,5 +2391,31 @@ final class TestConstraintHashesDoNotCollideValidator extends ConstraintValidato
         $violations = $this->validator->validateProperty($entity, 'nonExistent');
 
         $this->assertCount(0, $violations);
+    }
+}
+
+final class TestConstraintHashesDoNotCollide extends Constraint
+{
+}
+
+final class TestConstraintHashesDoNotCollideValidator extends ConstraintValidator
+{
+    public function validate($value, Constraint $constraint): void
+    {
+        if (!$value instanceof Entity) {
+            throw new \LogicException();
+        }
+
+        $this->context->getValidator()
+            ->inContext($this->context)
+            ->atPath('data')
+            ->validate($value, new NotNull())
+            ->validate($value, new NotNull())
+            ->validate($value, new IsFalse());
+
+        $this->context->getValidator()
+            ->inContext($this->context)
+            ->validate($value, null, new GroupSequence(['should_pass']))
+            ->validate($value, null, new GroupSequence(['should_fail']));
     }
 }
