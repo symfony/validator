@@ -4,6 +4,7 @@ CHANGELOG
 8.1
 ---
 
+ * Add `ValidatorBuilder::enablePropertyMetadataExistenceCheck()` to make `validateProperty()` and `validatePropertyValue()` throw when the given property has no metadata
  * Add `findByCodes()` to `ConstraintViolationListInterface`
  * Add clock-awareness to comparison and range validators for testable date comparisons
  * Add the `Xml` constraint for validating XML content
