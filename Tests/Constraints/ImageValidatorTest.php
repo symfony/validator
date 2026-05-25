@@ -624,6 +624,36 @@ class ImageValidatorTest extends ConstraintValidatorTestCase
             ],
         ];
 
+        yield 'Landscape with float width and height attribute SVG not allowed' => [
+            __DIR__.'/Fixtures/test_landscape_float.svg',
+            new Image(allowLandscape: false, allowLandscapeMessage: 'myMessage'),
+            Image::LANDSCAPE_NOT_ALLOWED_ERROR,
+            [
+                '{{ width }}' => 600.5,
+                '{{ height }}' => 300.25,
+            ],
+        ];
+
+        yield 'Landscape with millimeter width and height attribute SVG not allowed' => [
+            __DIR__.'/Fixtures/test_landscape_mm.svg',
+            new Image(allowLandscape: false, allowLandscapeMessage: 'myMessage'),
+            Image::LANDSCAPE_NOT_ALLOWED_ERROR,
+            [
+                '{{ width }}' => 96,
+                '{{ height }}' => 48,
+            ],
+        ];
+
+        yield 'Landscape with uppercase unit width and height attribute SVG not allowed' => [
+            __DIR__.'/Fixtures/test_landscape_uppercase_unit.svg',
+            new Image(allowLandscape: false, allowLandscapeMessage: 'myMessage'),
+            Image::LANDSCAPE_NOT_ALLOWED_ERROR,
+            [
+                '{{ width }}' => 96,
+                '{{ height }}' => 48,
+            ],
+        ];
+
         yield 'SVG Min ratio 2' => [
             __DIR__.'/Fixtures/test_square.svg',
             new Image(minRatio: 2, minRatioMessage: 'myMessage'),
