@@ -556,15 +556,15 @@
             </trans-unit>
             <trans-unit id="143">
                 <source>This value is not valid XML.</source>
-                <target state="needs-review-translation">Ova vrednost nije važeći XML.</target>
+                <target>Ova vrednost nije važeći XML.</target>
             </trans-unit>
             <trans-unit id="144">
                 <source>This value does not conform to the expected XSD schema.</source>
-                <target state="needs-review-translation">Ova vrednost ne odgovara očekivanoj XSD šemi.</target>
+                <target>Ova vrednost ne odgovara očekivanoj XSD šemi.</target>
             </trans-unit>
             <trans-unit id="145">
                 <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
-                <target state="needs-review-translation">Ovaj XML sadržaj je prevelik ({{ size }} bajtova): premašuje ograničenje od {{ limit }} bajtova.</target>
+                <target>Ovaj XML sadržaj je prevelik ({{ size }} bajtova): premašuje ograničenje od {{ limit }} bajtova.</target>
             </trans-unit>
         </body>
     </file>
