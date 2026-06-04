@@ -554,6 +554,18 @@
                 <source>This filename does not match the expected charset.</source>
                 <target state="needs-review-translation">Энэ файлын нэр хүлээгдэж буй тэмдэгтийн багцтай нийцэхгүй байна.</target>
             </trans-unit>
+            <trans-unit id="143">
+                <source>This value is not valid XML.</source>
+                <target state="needs-review-translation">Энэ утга хүчинтэй XML биш байна.</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>This value does not conform to the expected XSD schema.</source>
+                <target state="needs-review-translation">Энэ утга нь хүлээгдэж буй XSD схемд нийцэхгүй байна.</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
+                <target state="needs-review-translation">Энэ XML ачаалал хэт том байна ({{ size }} байт): энэ нь {{ limit }} байтын хязгаараас хэтэрсэн.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -554,6 +554,18 @@
                 <source>This filename does not match the expected charset.</source>
                 <target>Šis faila nosaukums neatbilst paredzētajam rakstzīmju kopumam.</target>
             </trans-unit>
+            <trans-unit id="143">
+                <source>This value is not valid XML.</source>
+                <target state="needs-review-translation">Šī vērtība nav derīgs XML.</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>This value does not conform to the expected XSD schema.</source>
+                <target state="needs-review-translation">Šī vērtība neatbilst gaidītajai XSD shēmai.</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
+                <target state="needs-review-translation">Šī XML slodze ir pārāk liela ({{ size }} baiti): tā pārsniedz {{ limit }} baitu ierobežojumu.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
