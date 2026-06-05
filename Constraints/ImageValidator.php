@@ -27,6 +27,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ImageValidator extends FileValidator
 {
+    private const SVG_NUMBER = '-?[0-9]*\.?[0-9]+(?:e[+-]?[0-9]+)?';
+    private const SVG_LENGTH = self::SVG_NUMBER.'(?i:px|in|cm|mm|pt|pc|q)?';
+
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof Image) {
@@ -254,7 +257,7 @@ class ImageValidator extends FileValidator
     }
 
     /**
-     * @return array{int, int}|null index 0 and 1 contains respectively the width and the height of the image, null if size can't be found
+     * @return array{int|float, int|float}|null Index 0 and 1 contains respectively the width and the height of the image, null if size can't be found
      */
     private function getSvgSize(mixed $value): ?array
     {
@@ -266,17 +269,17 @@ class ImageValidator extends FileValidator
             $content = (new File($value))->getContent();
         }
 
-        if (1 === preg_match('/<svg[^<>]+width="(?<width>[0-9]+)"[^<>]*>/', $content, $widthMatches)) {
-            $width = (int) $widthMatches['width'];
+        if (preg_match('/<svg[^<>]+width="(?<width>'.self::SVG_LENGTH.')"[^<>]*>/', $content, $widthMatches)) {
+            $width = self::convertSvgLengthToPixels($widthMatches['width']);
         }
 
-        if (1 === preg_match('/<svg[^<>]+height="(?<height>[0-9]+)"[^<>]*>/', $content, $heightMatches)) {
-            $height = (int) $heightMatches['height'];
+        if (preg_match('/<svg[^<>]+height="(?<height>'.self::SVG_LENGTH.')"[^<>]*>/', $content, $heightMatches)) {
+            $height = self::convertSvgLengthToPixels($heightMatches['height']);
         }
 
-        if (1 === preg_match('/<svg[^<>]+viewBox="-?[0-9]+ -?[0-9]+ (?<width>-?[0-9]+) (?<height>-?[0-9]+)"[^<>]*>/', $content, $viewBoxMatches)) {
-            $width ??= (int) $viewBoxMatches['width'];
-            $height ??= (int) $viewBoxMatches['height'];
+        if (preg_match('/<svg[^<>]+viewBox="'.self::SVG_NUMBER.' '.self::SVG_NUMBER.' (?<width>'.self::SVG_NUMBER.') (?<height>'.self::SVG_NUMBER.')"[^<>]*>/', $content, $viewBoxMatches)) {
+            $width ??= self::convertSvgLengthToPixels($viewBoxMatches['width']);
+            $height ??= self::convertSvgLengthToPixels($viewBoxMatches['height']);
         }
 
         if (isset($width) && isset($height)) {
@@ -284,5 +287,29 @@ class ImageValidator extends FileValidator
         }
 
         return null;
+    }
+
+    private static function convertSvgLengthToPixels(string $length): int|float
+    {
+        $value = (float) $length;
+
+        if (is_numeric($length)) {
+            return (int) $length == $value ? (int) $length : $value;
+        }
+
+        $unit = strtolower(substr($length, -2));
+
+        $value = match ($unit) {
+            'in' => $value * 96,
+            'cm' => $value * 96 / 2.54,
+            'mm' => $value * 96 / 25.4,
+            'pt' => $value * 96 / 72,
+            'pc' => $value * 16,
+            default => 'q' === strtolower(substr($length, -1)) ? $value * 96 / 101.6 : $value,
+        };
+
+        $roundedValue = round($value);
+
+        return abs($value - $roundedValue) < 1e-10 ? (int) $roundedValue : $value;
     }
 }

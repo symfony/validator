@@ -554,6 +554,18 @@
                 <source>This filename does not match the expected charset.</source>
                 <target>Ang pangalan ng file na ito ay hindi tumutugma sa inaasahang charset.</target>
             </trans-unit>
+            <trans-unit id="143">
+                <source>This value is not valid XML.</source>
+                <target state="needs-review-translation">Ang halagang ito ay hindi wastong XML.</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>This value does not conform to the expected XSD schema.</source>
+                <target state="needs-review-translation">Ang halagang ito ay hindi tumutugma sa inaasahang XSD schema.</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
+                <target state="needs-review-translation">Masyadong malaki ang XML payload na ito ({{ size }} bytes): lumampas ito sa limitasyong {{ limit }} bytes.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
