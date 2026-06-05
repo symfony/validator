@@ -554,6 +554,18 @@
                 <source>This filename does not match the expected charset.</source>
                 <target>このファイル名は期待される文字セットと一致しません。</target>
             </trans-unit>
+            <trans-unit id="143">
+                <source>This value is not valid XML.</source>
+                <target state="needs-review-translation">この値は有効なXMLではありません。</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>This value does not conform to the expected XSD schema.</source>
+                <target state="needs-review-translation">この値は期待されるXSDスキーマに準拠していません。</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
+                <target state="needs-review-translation">このXMLペイロードは大きすぎます（{{ size }}バイト）。{{ limit }}バイトの制限を超えています。</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
