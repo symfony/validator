@@ -554,6 +554,18 @@
                 <source>This filename does not match the expected charset.</source>
                 <target>Dësen Dateinumm entsprécht net dem erwaarten Zeechesaz.</target>
             </trans-unit>
+            <trans-unit id="143">
+                <source>This value is not valid XML.</source>
+                <target state="needs-review-translation">Dëse Wert ass keen valabelt XML.</target>
+            </trans-unit>
+            <trans-unit id="144">
+                <source>This value does not conform to the expected XSD schema.</source>
+                <target state="needs-review-translation">Dëse Wert entsprécht net dem erwaarte XSD-Schema.</target>
+            </trans-unit>
+            <trans-unit id="145">
+                <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
+                <target state="needs-review-translation">Dës XML-Nutzlaascht ass ze grouss ({{ size }} Bytes): si iwwerschreift d'Limitt vu {{ limit }} Bytes.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
