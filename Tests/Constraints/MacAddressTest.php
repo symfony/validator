@@ -25,7 +25,7 @@ class MacAddressTest extends TestCase
     {
         $mac = new MacAddress(normalizer: 'trim');
 
-        $this->assertEquals(trim(...), $mac->normalizer);
+        $this->assertSame('trim', (new \ReflectionFunction($mac->normalizer))->name);
     }
 
     public function testAttributes()
@@ -36,7 +36,7 @@ class MacAddressTest extends TestCase
 
         [$aConstraint] = $metadata->getPropertyMetadata('a')[0]->getConstraints();
         self::assertSame('myMessage', $aConstraint->message);
-        self::assertEquals(trim(...), $aConstraint->normalizer);
+        self::assertSame('trim', (new \ReflectionFunction($aConstraint->normalizer))->name);
         self::assertSame(MacAddress::ALL, $aConstraint->type);
         self::assertSame(['Default', 'MacAddressDummy'], $aConstraint->groups);
 
