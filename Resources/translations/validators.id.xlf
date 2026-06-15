@@ -556,15 +556,15 @@
             </trans-unit>
             <trans-unit id="143">
                 <source>This value is not valid XML.</source>
-                <target state="needs-review-translation">Nilai ini bukan XML yang valid.</target>
+                <target>Nilai ini bukan XML yang valid.</target>
             </trans-unit>
             <trans-unit id="144">
                 <source>This value does not conform to the expected XSD schema.</source>
-                <target state="needs-review-translation">Nilai ini tidak sesuai dengan skema XSD yang diharapkan.</target>
+                <target>Nilai ini tidak sesuai dengan skema XSD yang diharapkan.</target>
             </trans-unit>
             <trans-unit id="145">
                 <source>This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.</source>
-                <target state="needs-review-translation">Muatan XML ini terlalu besar ({{ size }} byte): melebihi batas {{ limit }} byte.</target>
+                <target>Muatan XML ini terlalu besar ({{ size }} byte): melebihi batas {{ limit }} byte.</target>
             </trans-unit>
         </body>
     </file>
