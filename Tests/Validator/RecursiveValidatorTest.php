@@ -1088,9 +1088,7 @@ class RecursiveValidatorTest extends TestCase
         $this->assertCount(2, $violations);
     }
 
-    /**
-     * @dataProvider getInvalidGroups
-     */
+    #[DataProvider('getInvalidGroups')]
     public function testValidateInvalidGroup($invalidGroup, string $type)
     {
         $entity = new Entity();
@@ -1112,12 +1110,12 @@ class RecursiveValidatorTest extends TestCase
     {
         $entity = new Entity();
 
-        $this->metadata->addConstraint(new Callback([
-            'callback' => static function ($value, ExecutionContextInterface $context) {
+        $this->metadata->addConstraint(new Callback(
+            callback: static function ($value, ExecutionContextInterface $context) {
                 $context->addViolation('Message');
             },
-            'groups' => 'Group 1',
-        ]));
+            groups: ['Group 1'],
+        ));
 
         $stringableGroup = new class() implements \Stringable {
             public function __toString(): string
