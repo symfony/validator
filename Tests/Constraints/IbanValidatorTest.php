@@ -443,6 +443,22 @@ class IbanValidatorTest extends ConstraintValidatorTestCase
             ['AQ'],
             ['AS'],
             ['AW'],
+            ['AX'],
+            ['BL'],
+            ['GF'],
+            ['GG'],
+            ['GP'],
+            ['IM'],
+            ['JE'],
+            ['MF'],
+            ['MQ'],
+            ['NC'],
+            ['PF'],
+            ['PM'],
+            ['RE'],
+            ['TF'],
+            ['WF'],
+            ['YT'],
         ];
     }
 
