@@ -43,7 +43,6 @@ class IbanValidator extends ConstraintValidator
         'AL' => 'AL\d{2}\d{8}[\dA-Z]{16}', // Albania
         'AO' => 'AO\d{2}\d{21}', // Angola
         'AT' => 'AT\d{2}\d{5}\d{11}', // Austria
-        'AX' => 'FI\d{2}\d{3}\d{11}', // Finland
         'AZ' => 'AZ\d{2}[A-Z]{4}[\dA-Z]{20}', // Azerbaijan
         'BA' => 'BA\d{2}\d{3}\d{3}\d{8}\d{2}', // Bosnia and Herzegovina
         'BE' => 'BE\d{2}\d{3}\d{7}\d{2}', // Belgium
@@ -52,7 +51,6 @@ class IbanValidator extends ConstraintValidator
         'BH' => 'BH\d{2}[A-Z]{4}[\dA-Z]{14}', // Bahrain
         'BI' => 'BI\d{2}\d{5}\d{5}\d{11}\d{2}', // Burundi
         'BJ' => 'BJ\d{2}[\dA-Z]{2}\d{22}', // Benin
-        'BL' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'BR' => 'BR\d{2}\d{8}\d{5}\d{10}[A-Z]{1}[\dA-Z]{1}', // Brazil
         'BY' => 'BY\d{2}[\dA-Z]{4}\d{4}[\dA-Z]{16}', // Republic of Belarus
         'CF' => 'CF\d{2}\d{23}', // Central African Republic
@@ -79,11 +77,8 @@ class IbanValidator extends ConstraintValidator
         'GA' => 'GA\d{2}\d{23}', // Gabon
         'GB' => 'GB\d{2}[A-Z]{4}\d{6}\d{8}', // United Kingdom
         'GE' => 'GE\d{2}[A-Z]{2}\d{16}', // Georgia
-        'GF' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
-        'GG' => 'GB\d{2}[A-Z]{4}\d{6}\d{8}', // United Kingdom
         'GI' => 'GI\d{2}[A-Z]{4}[\dA-Z]{15}', // Gibraltar
         'GL' => 'GL\d{2}\d{4}\d{9}\d{1}', // Greenland
-        'GP' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'GQ' => 'GQ\d{2}\d{23}', // Equatorial Guinea
         'GR' => 'GR\d{2}\d{3}\d{4}[\dA-Z]{16}', // Greece
         'GT' => 'GT\d{2}[\dA-Z]{4}[\dA-Z]{20}', // Guatemala
@@ -93,12 +88,10 @@ class IbanValidator extends ConstraintValidator
         'HU' => 'HU\d{2}\d{3}\d{4}\d{1}\d{15}\d{1}', // Hungary
         'IE' => 'IE\d{2}[A-Z]{4}\d{6}\d{8}', // Ireland
         'IL' => 'IL\d{2}\d{3}\d{3}\d{13}', // Israel
-        'IM' => 'GB\d{2}[A-Z]{4}\d{6}\d{8}', // United Kingdom
         'IQ' => 'IQ\d{2}[A-Z]{4}\d{3}\d{12}', // Iraq
         'IR' => 'IR\d{2}\d{22}', // Iran
         'IS' => 'IS\d{2}\d{4}\d{2}\d{6}\d{10}', // Iceland
         'IT' => 'IT\d{2}[A-Z]{1}\d{5}\d{5}[\dA-Z]{12}', // Italy
-        'JE' => 'GB\d{2}[A-Z]{4}\d{6}\d{8}', // United Kingdom
         'JO' => 'JO\d{2}[A-Z]{4}\d{4}[\dA-Z]{18}', // Jordan
         'KM' => 'KM\d{2}\d{23}', // Comoros
         'KW' => 'KW\d{2}[A-Z]{4}[\dA-Z]{22}', // Kuwait
@@ -114,30 +107,24 @@ class IbanValidator extends ConstraintValidator
         'MC' => 'MC\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // Monaco
         'MD' => 'MD\d{2}[\dA-Z]{2}[\dA-Z]{18}', // Moldova
         'ME' => 'ME\d{2}\d{3}\d{13}\d{2}', // Montenegro
-        'MF' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'MG' => 'MG\d{2}\d{23}', // Madagascar
         'MK' => 'MK\d{2}\d{3}[\dA-Z]{10}\d{2}', // Macedonia
         'ML' => 'ML\d{2}[\dA-Z]{2}\d{22}', // Mali
         'MN' => 'MN\d{2}\d{4}\d{12}', // Mongolia
-        'MQ' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'MR' => 'MR\d{2}\d{5}\d{5}\d{11}\d{2}', // Mauritania
         'MT' => 'MT\d{2}[A-Z]{4}\d{5}[\dA-Z]{18}', // Malta
         'MU' => 'MU\d{2}[A-Z]{4}\d{2}\d{2}\d{12}\d{3}[A-Z]{3}', // Mauritius
         'MZ' => 'MZ\d{2}\d{21}', // Mozambique
-        'NC' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'NE' => 'NE\d{2}[A-Z]{2}\d{22}', // Niger
         'NI' => 'NI\d{2}[A-Z]{4}\d{20}', // Nicaragua
         'NL' => 'NL\d{2}[A-Z]{4}\d{10}', // Netherlands (The)
         'NO' => 'NO\d{2}\d{4}\d{6}\d{1}', // Norway
         'OM' => 'OM\d{2}\d{3}[\dA-Z]{16}', // Oman
-        'PF' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'PK' => 'PK\d{2}[A-Z]{4}[\dA-Z]{16}', // Pakistan
         'PL' => 'PL\d{2}\d{8}\d{16}', // Poland
-        'PM' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'PS' => 'PS\d{2}[A-Z]{4}[\dA-Z]{21}', // Palestine, State of
         'PT' => 'PT\d{2}\d{4}\d{4}\d{11}\d{2}', // Portugal
         'QA' => 'QA\d{2}[A-Z]{4}[\dA-Z]{21}', // Qatar
-        'RE' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'RO' => 'RO\d{2}[A-Z]{4}[\dA-Z]{16}', // Romania
         'RS' => 'RS\d{2}\d{3}\d{13}\d{2}', // Serbia
         'RU' => 'RU\d{2}\d{9}\d{5}[\dA-Z]{15}', // Russia
@@ -153,7 +140,6 @@ class IbanValidator extends ConstraintValidator
         'ST' => 'ST\d{2}\d{8}\d{11}\d{2}', // Sao Tome and Principe
         'SV' => 'SV\d{2}[A-Z]{4}\d{20}', // El Salvador
         'TD' => 'TD\d{2}\d{23}', // Chad
-        'TF' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'TG' => 'TG\d{2}[A-Z]{2}\d{22}', // Togo
         'TL' => 'TL\d{2}\d{3}\d{14}\d{2}', // Timor-Leste
         'TN' => 'TN\d{2}\d{2}\d{3}\d{13}\d{2}', // Tunisia
@@ -161,10 +147,8 @@ class IbanValidator extends ConstraintValidator
         'UA' => 'UA\d{2}\d{6}[\dA-Z]{19}', // Ukraine
         'VA' => 'VA\d{2}\d{3}\d{15}', // Vatican City State
         'VG' => 'VG\d{2}[A-Z]{4}\d{16}', // Virgin Islands
-        'WF' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
         'XK' => 'XK\d{2}\d{4}\d{10}\d{2}', // Kosovo
         'YE' => 'YE\d{2}[A-Z]{4}\d{4}[\dA-Z]{18}', // Yemen
-        'YT' => 'FR\d{2}\d{5}\d{5}[\dA-Z]{11}\d{2}', // France
     ];
 
     public function validate(mixed $value, Constraint $constraint): void

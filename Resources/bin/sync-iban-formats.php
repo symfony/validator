@@ -79,38 +79,15 @@ final class SwiftRegistryIbanProvider
             'Name of country' => 'country',
             'IBAN prefix country code (ISO 3166)' => 'country_code',
             'IBAN structure' => 'iban_structure',
-            'Country code includes other countries/territories' => 'included_country_codes',
         ]);
 
         $formats = [];
 
         foreach ($items as $item) {
             $formats[$item['country_code']] = [$this->buildIbanRegexp($item['iban_structure']), $item['country']];
-
-            foreach ($this->parseCountryCodesList($item['included_country_codes']) as $includedCountryCode) {
-                $formats[$includedCountryCode] = $formats[$item['country_code']];
-            }
         }
 
         return $formats;
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function parseCountryCodesList(string $countryCodesList): array
-    {
-        if ('N/A' === $countryCodesList) {
-            return [];
-        }
-
-        $countryCodes = [];
-
-        foreach (explode(',', $countryCodesList) as $countryCode) {
-            $countryCodes[] = preg_replace('/^([A-Z]{2})(\s+\(.+?\))?$/', '$1', trim($countryCode));
-        }
-
-        return $countryCodes;
     }
 
     /**
