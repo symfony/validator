@@ -1,0 +1,53 @@
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Symfony\Component\Validator\Tests\DependencyInjection;
+
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Validator\DependencyInjection\AddValidatorSecurityExpressionLanguageProviderPass;
+
+class AddValidatorSecurityExpressionLanguageProviderPassTest extends TestCase
+{
+    public function testProviderIsRegisteredWhenBothServicesExist()
+    {
+        $container = new ContainerBuilder();
+        $container->setDefinition('validator.expression_language', new Definition(\stdClass::class));
+        $container->setDefinition('security.expression_language_provider', new Definition(\stdClass::class));
+
+        (new AddValidatorSecurityExpressionLanguageProviderPass())->process($container);
+
+        $calls = $container->getDefinition('validator.expression_language')->getMethodCalls();
+        $this->assertEquals([['registerProvider', [new Reference('security.expression_language_provider')]]], $calls);
+    }
+
+    public function testNothingIsRegisteredWithoutSecurity()
+    {
+        $container = new ContainerBuilder();
+        $container->setDefinition('validator.expression_language', new Definition(\stdClass::class));
+
+        (new AddValidatorSecurityExpressionLanguageProviderPass())->process($container);
+
+        $this->assertSame([], $container->getDefinition('validator.expression_language')->getMethodCalls());
+    }
+
+    public function testNothingIsRegisteredWithoutValidator()
+    {
+        $container = new ContainerBuilder();
+        $container->setDefinition('security.expression_language_provider', new Definition(\stdClass::class));
+
+        (new AddValidatorSecurityExpressionLanguageProviderPass())->process($container);
+
+        $this->assertFalse($container->hasDefinition('validator.expression_language'));
+    }
+}
