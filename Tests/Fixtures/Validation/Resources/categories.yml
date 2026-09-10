@@ -1,0 +1,11 @@
+Symfony\Component\Validator\Tests\Fixtures\Validation\Category:
+    properties:
+        id:
+            - Type:
+                type: int
+
+Symfony\Component\Validator\Tests\Fixtures\Validation\SubCategory:
+    properties:
+        id:
+            - Type:
+                type: int

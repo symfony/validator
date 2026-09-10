@@ -1,0 +1,4 @@
+Symfony\Component\Validator\Tests\Fixtures\Validation\Author:
+    properties:
+        eyeColor:
+            - Choice: { choices: [brown, green, blue], message: Choose a valid eye color. }
