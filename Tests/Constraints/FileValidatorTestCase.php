@@ -35,7 +35,7 @@ abstract class FileValidatorTestCase extends ConstraintValidatorTestCase
     {
         parent::setUp();
 
-        $this->path = sys_get_temp_dir().\DIRECTORY_SEPARATOR.'FileValidatorTest';
+        $this->path = sys_get_temp_dir().\DIRECTORY_SEPARATOR.'sf_validator_'.hash('xxh32', __FILE__);
         $this->file = fopen($this->path, 'w');
         fwrite($this->file, ' ', 1);
     }

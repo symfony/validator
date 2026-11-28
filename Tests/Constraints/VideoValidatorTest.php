@@ -55,6 +55,8 @@ class VideoValidatorTest extends ConstraintValidatorTestCase
 
     public function testValidVideoWithFilenameStartingWithHyphen()
     {
+        $cwd = getcwd();
+        chdir(sys_get_temp_dir());
         $filename = basename(tempnam(getcwd(), '-video-'));
         copy(__DIR__.'/Fixtures/test.mp4', $filename);
 
@@ -64,6 +66,7 @@ class VideoValidatorTest extends ConstraintValidatorTestCase
             $this->assertNoViolation();
         } finally {
             unlink($filename);
+            chdir($cwd);
         }
     }
 
