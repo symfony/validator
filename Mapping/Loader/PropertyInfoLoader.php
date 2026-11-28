@@ -141,14 +141,21 @@ final class PropertyInfoLoader implements LoaderInterface
     private function getTypeConstraint(TypeInfoType $type): ?Type
     {
         if ($type instanceof CompositeTypeInterface) {
-            return $type->isIdentifiedBy(
-                TypeIdentifier::INT,
-                TypeIdentifier::FLOAT,
-                TypeIdentifier::STRING,
-                TypeIdentifier::BOOL,
-                TypeIdentifier::TRUE,
-                TypeIdentifier::FALSE,
-            ) ? new Type(type: 'scalar') : null;
+            foreach ($type->getTypes() as $composedType) {
+                if (!$composedType->isIdentifiedBy(
+                    TypeIdentifier::INT,
+                    TypeIdentifier::FLOAT,
+                    TypeIdentifier::STRING,
+                    TypeIdentifier::BOOL,
+                    TypeIdentifier::TRUE,
+                    TypeIdentifier::FALSE,
+                    TypeIdentifier::NULL,
+                )) {
+                    return null;
+                }
+            }
+
+            return new Type(type: 'scalar');
         }
 
         while ($type instanceof WrappingTypeInterface) {
